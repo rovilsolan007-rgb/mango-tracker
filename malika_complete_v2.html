@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥭 Malika Mango — Complete Tracker 2026-28</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1a0e;--bg2:#141e12;--bg3:#1c2a19;
+  --card:#182416;--card2:#1e2e1c;
+  --g1:#27723f;--g2:#33904f;--g3:#3eaa5e;--g4:#55cc78;
+  --mn:#c07010;--mn2:#d88820;--mn3:#f0a830;
+  --txt:#cce8c0;--txt2:#98c088;--txt3:#5a8848;
+  --dim:#2e4a28;--dim2:#243820;
+  --bdr:#254020;--bdr2:#336030;
+  --rd:#c83030;--rd2:#2a100a;--rdb:#5a1010;
+  --or:#c06810;--or2:#281808;
+  --bl:#2860c8;--bl2:#0a1828;--blb:#103050;
+  --pu:#7848c8;--cy:#189898;
+  --wh:#e8f8e0;--sh:0 2px 12px rgba(0,0,0,.5);
+  --sid-w:230px;
+}
+html{height:100%}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column}
+
+/* ═══ TOP NAV ═══ */
+.tnav{
+  background:#0c160b;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;
+  position:sticky;top:0;z-index:200;flex-shrink:0;
+}
+.tlogo{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;color:var(--mn3);white-space:nowrap}
+.tlogo em{color:var(--g4);font-style:italic}
+.tbadge{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);border:1px solid var(--bdr);padding:2px 8px;border-radius:4px;white-space:nowrap}
+.tsep{flex:1}
+.tlbl{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--txt3);white-space:nowrap}
+.tinp{background:var(--bg3);border:1px solid var(--bdr);color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:5px 10px;border-radius:5px;width:140px;outline:none;transition:border .2s}
+.tinp:focus{border-color:var(--g2)}
+.tinp::placeholder{color:var(--dim)}
+.tbtn{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid var(--bdr);background:transparent;color:var(--txt3);transition:all .18s;white-space:nowrap}
+.tbtn:hover{background:var(--bg3);color:var(--txt2)}
+.tbtn.on{background:var(--g1);border-color:var(--g2);color:#fff;font-weight:600}
+.tbtn.on2{background:var(--mn);border-color:var(--mn2);color:#fff;font-weight:600}
+#mbtn{display:none;background:var(--bg3);border:1px solid var(--bdr);color:var(--txt2);padding:5px 9px;border-radius:5px;cursor:pointer;font-size:1.1rem;line-height:1}
+
+/* ═══ APP BODY ═══ */
+.app{display:flex;flex:1;overflow:hidden;position:relative;height:calc(100vh - 52px)}
+
+/* ═══ SIDEBAR ═══ */
+.sid{
+  width:var(--sid-w);flex-shrink:0;background:#0c160b;
+  border-right:1px solid var(--bdr);display:flex;flex-direction:column;
+  overflow-y:auto;transition:transform .25s;
+}
+.sid::-webkit-scrollbar{width:3px}
+.sid::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+
+.sid-hdr{padding:12px 14px 8px;border-bottom:1px solid var(--bdr)}
+/* Mini progress */
+.sid-prog{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.mini-ring{position:relative;width:44px;height:44px;flex-shrink:0}
+.msvg{transform:rotate(-90deg)}
+.mring-bg{fill:none;stroke:var(--dim);stroke-width:4}
+.mring-fill{fill:none;stroke:var(--g3);stroke-width:4;stroke-linecap:round;stroke-dasharray:110;stroke-dashoffset:110;transition:stroke-dashoffset 1s ease}
+.mini-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--g4);font-weight:600}
+.sid-stats{flex:1}
+.sid-stat{display:flex;justify-content:space-between;font-size:.65rem;color:var(--txt3);margin-bottom:3px}
+.sid-stat span{color:var(--mn3);font-family:'JetBrains Mono',monospace;font-weight:600}
+
+.sid-sec-label{padding:8px 14px 4px;font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;opacity:.7}
+
+/* Month nav buttons */
+.month-nav-item{
+  display:flex;align-items:center;gap:8px;padding:7px 14px;
+  cursor:pointer;border-left:3px solid transparent;transition:all .15s;
+  font-size:.7rem;color:var(--txt3);
+}
+.month-nav-item:hover{background:var(--bg3);color:var(--txt2);border-left-color:var(--bdr2)}
+.month-nav-item.active{background:var(--bg3);color:var(--g4);border-left-color:var(--g3);font-weight:600}
+.month-nav-item.done-item{color:var(--txt3);opacity:.65}
+.mni-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mni-info{flex:1;min-width:0}
+.mni-name{line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mni-sub{font-family:'JetBrains Mono',monospace;font-size:.5rem;opacity:.6;margin-top:1px}
+.mni-chk{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--g3);flex-shrink:0}
+
+.y-divider{margin:6px 14px;border:none;border-top:1px solid var(--bdr);opacity:.5}
+.y-label{padding:6px 14px 3px;font-family:'Playfair Display',serif;font-size:.72rem;color:var(--mn2);font-style:italic}
+
+/* ═══ MAIN CONTENT ═══ */
+.main{flex:1;overflow-y:auto;padding:0;background:var(--bg)}
+.main::-webkit-scrollbar{width:4px}
+.main::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+
+/* Month page */
+.month-page{display:none;padding:20px;max-width:900px;margin:0 auto}
+.month-page.visible{display:block}
+
+/* Month header */
+.mhdr{background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--bdr);border-radius:14px;padding:20px 24px;margin-bottom:16px}
+.mhdr-top{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.mhdr-date{text-align:center;min-width:70px}
+.mhdr-mon{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;color:var(--mn3)}
+.mhdr-yr{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--txt3);letter-spacing:1px}
+.mhdr-info{flex:1;min-width:200px}
+.mhdr-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--wh);line-height:1.2;margin-bottom:6px}
+.mhdr-szn{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;padding:3px 10px;border-radius:5px;margin-bottom:8px}
+.mhdr-climate{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.climate-pill{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--txt3);display:flex;align-items:center;gap:4px}
+/* progress in header */
+.mhdr-prog{display:flex;gap:6px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.task-pill{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:9px;cursor:pointer;border:1px solid var(--bdr);color:var(--txt2);background:var(--bg3);transition:all .2s;margin-bottom:7px;text-align:left;width:100%}
+.task-pill:hover{border-color:var(--g2);background:rgba(51,144,79,.1)}
+.task-pill.done-pill{background:rgba(39,114,63,.18);border-color:var(--g2)}
+.tp-cb{width:22px;height:22px;border:2px solid var(--dim);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg2);transition:all .2s;margin-top:1px}
+.task-pill.done-pill .tp-cb{background:var(--g2);border-color:var(--g3)}
+.tp-info{flex:1;min-width:0}
+.tp-label{font-size:.78rem;font-weight:600;line-height:1.35}
+.task-pill.done-pill .tp-label{text-decoration:line-through;opacity:.6}
+.tp-sub{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--txt3);margin-top:3px;line-height:1.4}
+.tp-done-info{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--g4);margin-top:3px}
+
+/* ═══ DETAIL BLOCKS ═══ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}}
+
+.block{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:14px 16px}
+.block-title{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.block-title::before{content:'';display:inline-block;width:3px;height:12px;border-radius:2px}
+.bt-green::before{background:var(--g3)}
+.bt-orange::before{background:var(--mn2)}
+.bt-red::before{background:var(--rd)}
+.bt-blue::before{background:var(--bl)}
+.bt-purple::before{background:var(--pu)}
+.bt-cyan::before{background:var(--cy)}
+
+/* Fertilizer rows */
+.fert-row{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.fert-row:last-child{margin-bottom:0}
+.fr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.fr-name{font-weight:600;font-size:.8rem;color:var(--wh);line-height:1.3}
+.fr-chg{font-family:'JetBrains Mono',monospace;font-size:.5rem;padding:1px 6px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.chg-up{background:rgba(51,144,79,.2);color:var(--g4);border:1px solid var(--g1)}
+.chg-new{background:rgba(40,96,200,.2);color:#80b0f8;border:1px solid var(--blb)}
+.fr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:5px}
+.fr-cell{background:var(--dim2);border-radius:5px;padding:5px 8px}
+.frc-label{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.frc-val{font-size:.68rem;color:var(--txt2);line-height:1.3}
+.frc-val strong{color:var(--mn3);font-family:'JetBrains Mono',monospace}
+.btl-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(51,144,79,.15);border:1px solid var(--g1);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--g4);padding:2px 6px;margin-top:4px}
+
+/* Why/Profit/Check rows */
+.reason-row{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.reason-row:last-child{margin-bottom:0}
+.rr-icon{font-size:1rem;flex-shrink:0;line-height:1.4;width:22px;text-align:center}
+.rr-body{flex:1;min-width:0}
+.rr-label{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.rr-text{font-size:.74rem;color:var(--txt2);line-height:1.55}
+.rr-text strong{color:var(--mn3)}
+
+/* Check items (health check list) */
+.check-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr);align-items:flex-start}
+.check-item:last-child{border-bottom:none}
+.ci-icon{font-size:.9rem;flex-shrink:0;width:20px;text-align:center;line-height:1.5}
+.ci-body{flex:1}
+.ci-title{font-size:.74rem;font-weight:600;color:var(--txt2);margin-bottom:2px}
+.ci-ok{font-size:.66rem;color:var(--g4);margin-bottom:1px}
+.ci-bad{font-size:.66rem;color:var(--rd)}
+
+/* Bottle method steps */
+.btl-steps{display:flex;flex-direction:column;gap:7px}
+.btl-step{display:flex;gap:9px;align-items:flex-start}
+.bs-num{width:22px;height:22px;border-radius:50%;background:var(--g1);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.bs-txt{font-size:.74rem;color:var(--txt2);line-height:1.55;flex:1}
+.bs-txt strong{color:var(--mn3)}
+
+/* Do / Don't */
+.doblock{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.doblock{grid-template-columns:1fr}}
+.dolist{background:rgba(39,114,63,.08);border:1px solid rgba(51,144,79,.25);border-radius:8px;padding:10px 12px}
+.dontlist{background:rgba(200,48,48,.07);border:1px solid rgba(200,48,48,.25);border-radius:8px;padding:10px 12px}
+.dl-title{font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.dolist .dl-title{color:var(--g3)}
+.dontlist .dl-title{color:var(--rd)}
+.dli{display:flex;gap:6px;font-size:.7rem;color:var(--txt2);margin-bottom:5px;line-height:1.4;align-items:flex-start}
+.dli:last-child{margin-bottom:0}
+.dli-dot-ok{color:var(--g4);flex-shrink:0;font-size:.8rem;line-height:1.5}
+.dli-dot-no{color:var(--rd);flex-shrink:0;font-size:.8rem;line-height:1.5}
+
+/* Pest table */
+.pest-item{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.pest-item:last-child{margin-bottom:0}
+.pi-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.pi-name{font-weight:700;font-size:.78rem;color:var(--rd);flex:1}
+.pi-when{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);background:var(--dim2);padding:2px 7px;border-radius:4px;flex-shrink:0}
+.pi-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+@media(max-width:480px){.pi-grid{grid-template-columns:1fr}}
+.pi-cell{background:var(--dim2);border-radius:5px;padding:5px 8px}
+.pi-cl{font-family:'JetBrains Mono',monospace;font-size:.47rem;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.pi-cv{font-size:.68rem;color:var(--txt2);line-height:1.35}
+.pi-cv em{color:var(--bl);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.62rem}
+
+/* Warning banner */
+.warn-banner{background:rgba(200,48,48,.1);border:1px solid var(--rdb);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:.74rem;color:#f08080;line-height:1.6}
+.warn-banner strong{color:#ff9090}
+
+/* ═══ COMMENTS SECTION ═══ */
+.comments-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:14px 16px;margin-top:12px}
+.cmt-title{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.cmt-title::before{content:'💬'}
+.cmt-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;max-height:220px;overflow-y:auto}
+.cmt-list:empty::after{content:'Abhi koi comment nahi — pehla comment likho!';font-size:.68rem;color:var(--txt3);font-style:italic;padding:6px 0;display:block}
+.cmt-list::-webkit-scrollbar{width:3px}
+.cmt-list::-webkit-scrollbar-thumb{background:var(--bdr2)}
+.cmt-item{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:9px 11px}
+.ci-hdr{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.ci-name{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--g4);font-weight:600}
+.ci-time{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3)}
+.ci-del{margin-left:auto;background:none;border:none;color:var(--rd);cursor:pointer;font-size:.8rem;opacity:.6;transition:opacity .15s;padding:0 3px}
+.ci-del:hover{opacity:1}
+.ci-msg{font-size:.72rem;color:var(--txt2);line-height:1.5}
+.cmt-input-row{display:flex;gap:8px;align-items:flex-start}
+.cmt-textarea{flex:1;background:var(--bg3);border:1px solid var(--bdr);color:var(--txt);font-family:'Sora',sans-serif;font-size:.72rem;padding:8px 10px;border-radius:7px;resize:vertical;min-height:60px;outline:none;transition:border .18s;line-height:1.5}
+.cmt-textarea:focus{border-color:var(--g2)}
+.cmt-textarea::placeholder{color:var(--dim)}
+.cmt-submit{background:var(--g1);border:1px solid var(--g2);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:8px 14px;border-radius:7px;cursor:pointer;transition:all .18s;white-space:nowrap;align-self:flex-end}
+.cmt-submit:hover{background:var(--g2)}
+
+/* ═══ WATERING VISUAL ═══ */
+.water-bars{display:flex;gap:8px;align-items:flex-end;margin:8px 0}
+.wb-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.wb-bar-wrap{width:100%;height:60px;background:var(--dim2);border-radius:4px;overflow:hidden;display:flex;align-items:flex-end}
+.wb-bar{width:100%;background:linear-gradient(to top,var(--bl),#5090e8);border-radius:4px;transition:height .8s ease}
+.wb-lbl{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--txt3)}
+
+/* ═══ NPK VISUAL ═══ */
+.npk-vis{display:flex;gap:8px;margin:8px 0}
+.npk-item{flex:1;background:var(--dim2);border-radius:7px;padding:8px 6px;text-align:center}
+.npk-bar-wrap{height:50px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:5px}
+.npk-bar{width:28px;border-radius:4px 4px 0 0;transition:height .8s ease;min-height:3px}
+.npk-n{background:linear-gradient(to top,#e8a020,#f8c840)}
+.npk-p{background:linear-gradient(to top,#2060c8,#50a0f8)}
+.npk-k{background:linear-gradient(to top,#209840,#40c860)}
+.npk-val{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;color:var(--wh)}
+.npk-lbl{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--txt3);margin-top:2px}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--g1);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:10px 18px;border-radius:8px;box-shadow:var(--sh);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);z-index:999;pointer-events:none;max-width:260px;border:1px solid var(--g2)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.err{background:var(--rd);border-color:var(--rdb)}
+
+/* ═══ WARN FLOAT ═══ */
+.warn-f{position:fixed;top:62px;right:16px;background:#2a1e08;border:1px solid var(--mn2);color:var(--mn3);font-family:'JetBrains Mono',monospace;font-size:.64rem;padding:9px 14px;border-radius:8px;z-index:998;transform:translateX(200%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.warn-f.show{transform:translateX(0)}
+
+/* ═══ HISTORY VIEW ═══ */
+.hist-view{display:none;padding:20px;max-width:900px;margin:0 auto}
+.hist-view.visible{display:block}
+.htbl{width:100%;border-collapse:collapse;font-size:.75rem}
+.htbl th{background:var(--bg3);border:1px solid var(--bdr);padding:8px 12px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--txt3);letter-spacing:1.5px;text-transform:uppercase}
+.htbl td{border:1px solid var(--bdr);padding:8px 12px;vertical-align:top;color:var(--txt2)}
+.htbl tr:hover td{background:var(--bg3)}
+.hempty{padding:40px;text-align:center;color:var(--txt3);font-size:.76rem;font-family:'JetBrains Mono',monospace}
+
+/* ═══ MOBILE ═══ */
+.perm-btl-box{background:rgba(30,100,50,.15);border:1px solid rgba(51,144,79,.35);border-radius:10px;padding:13px 16px;margin-bottom:12px}
+.pbtl-title{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--g4);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.pbtl-diagram{display:flex;align-items:flex-end;gap:16px;margin:10px 0;flex-wrap:wrap}
+.pbtl-visual{position:relative;width:60px;flex-shrink:0}
+.pbtl-soil-line{width:60px;height:2px;background:var(--mn2);margin-bottom:0;position:relative}
+.pbtl-soil-line::after{content:'← Zameen';font-family:'JetBrains Mono',monospace;font-size:.44rem;color:var(--mn2);position:absolute;right:-62px;top:-7px;white-space:nowrap}
+.pbtl-above{display:flex;flex-direction:column;align-items:center;gap:0}
+.pbtl-cap{width:18px;height:8px;background:var(--txt3);border-radius:3px 3px 0 0;margin:0 auto}
+.pbtl-neck{width:14px;height:12px;background:rgba(150,220,180,.4);border:1px solid var(--g2);margin:0 auto}
+.pbtl-body{width:30px;height:40px;background:rgba(150,220,180,.25);border:1px solid var(--g3);border-radius:0 0 4px 4px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.4rem;color:var(--g4);text-align:center;line-height:1.2}
+.pbtl-below{width:30px;height:25px;background:repeating-linear-gradient(45deg,rgba(100,80,40,.3),rgba(100,80,40,.3) 2px,transparent 2px,transparent 8px);border:1px dashed var(--mn2);margin:0 auto;font-family:'JetBrains Mono',monospace;font-size:.38rem;color:var(--mn2);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.pbtl-rules{display:flex;flex-direction:column;gap:5px;flex:1}
+.pbtl-rule{display:flex;align-items:flex-start;gap:7px;font-size:.72rem;color:var(--txt2);line-height:1.5}
+.pbtl-ricon{font-size:.9rem;flex-shrink:0;width:18px;text-align:center;line-height:1.5}
+
+@media(max-width:680px){
+  #mbtn{display:block}
+  .tbadge{display:none}
+  .tlbl{display:none}
+  .tinp{width:120px}
+  .sid{position:absolute;top:0;left:0;height:100%;z-index:150;transform:translateX(-100%);transition:transform .25s}
+  .sid.open{transform:translateX(0)}
+  .app{display:block;overflow:auto;height:calc(100vh - 52px)}
+  .main{height:100%;overflow-y:auto}
+  .month-page{padding:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="tnav">
+  <button id="mbtn" onclick="toggleSidebar()">☰</button>
+  <div class="tlogo">🥭 Malika <em>Tracker</em></div>
+  <div class="tbadge">Parwanoo · 2026–28 · Wild Rootstock</div>
+  <div class="tsep"></div>
+  <span class="tlbl">Naam:</span>
+  <input type="text" id="uname" class="tinp" placeholder="Apna naam…" maxlength="20">
+  <button class="tbtn on" id="bT" onclick="sw('tracker')">📋 Tracker</button>
+  <button class="tbtn" id="bH" onclick="sw('history')">📜 History</button>
+</nav>
+
+<!-- APP -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sid" id="sidebar">
+    <div style="padding:12px 14px;border-bottom:1px solid var(--bdr)">
+      <!-- Progress ring -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="mini-ring">
+          <svg class="msvg" width="44" height="44" viewBox="0 0 44 44">
+            <circle class="mring-bg" cx="22" cy="22" r="17.5"/>
+            <circle class="mring-fill" id="mring" cx="22" cy="22" r="17.5"/>
+          </svg>
+          <div class="mini-pct" id="mpct">0%</div>
+        </div>
+        <div style="flex:1">
+          <div class="sid-stat">Done <span id="s-done">0</span></div>
+          <div class="sid-stat">Baaki <span id="s-left">48</span></div>
+          <div class="sid-stat">Months <span>24</span></div>
+        </div>
+      </div>
+      <div style="height:3px;background:var(--dim2);border-radius:2px;overflow:hidden">
+        <div id="prog-bar" style="height:100%;background:linear-gradient(90deg,var(--g3),var(--mn3));width:0%;transition:width 1s ease;border-radius:2px"></div>
+      </div>
+    </div>
+
+    <!-- Bottle reminder -->
+    <div style="margin:10px 14px;background:rgba(51,144,79,.1);border:1px solid rgba(51,144,79,.25);border-radius:7px;padding:8px 10px;font-size:.62rem;color:var(--g4);line-height:1.6">
+      🍶 <strong>Bottle Rule:</strong><br>
+      800ml warm pani + monthly dose<br>
+      25cm door · 45° angle · 8cm deep<br>
+      Agle din 20–25L watering ZAROOR<br>
+      Baarish mein bottle NIKALO ⚠️
+    </div>
+
+    <!-- Month list -->
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;padding:8px 14px 3px">Year 3 — 2026</div>
+    <div id="nav-y3"></div>
+    <hr class="y-divider">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--mn2);letter-spacing:2px;text-transform:uppercase;padding:8px 14px 3px">Year 4 — 2027–28 ⬆️</div>
+    <div id="nav-y4"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main-area">
+    <div id="tracker-view">
+      <div id="month-pages"></div>
+    </div>
+    <div class="hist-view" id="history-view">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--mn3);margin-bottom:16px">📜 Tick History</h2>
+      <div id="hist-content"></div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="warn-f" id="warnf">⚠️ Pehle naam daalo upar</div>
+
+<script>
+// ════════════════════════════════════════════
+// DATA — 24 months complete detail
+// ════════════════════════════════════════════
+const MONTHS = [
+{
+  id:'m01', yr:3, label:'March 2026', sh:'Mar\'26',
+  title:'Full Flowering — Pehla Proper Cycle',
+  temp:'15–24°C', rain:'30–60 mm', season:'🌸 Flowering Season',
+  sznBg:'rgba(200,100,150,.15)', sznC:'#e88ab8',
+  dot:'#e88ab8',
+  tasks:[
+    {id:'t01a', label:'1 Mar — Multiplex spray (2g/L foliar)', sub:'1–15 Mar: Zero chemical rule — sirf micronutrient ok'},
+    {id:'t01b', label:'16 Mar — NPK 12:32:16 (20g) bottle drip', sub:'High-P formula — fruit set ke liye zaroori hai'}
+  ],
+  ferts:[
+    {
+      name:'NPK 12:32:16 (High Phosphorus)', chg:'',
+      brand:'Multiplex Combo-M / Haifa NKP / SQM Multi-K / Coromandel Gromor',
+      price:'₹180–240 / kg', qty:'20g / tree',
+      bottle:'20g ko 800ml warm pani (40°C) mein gholo — 2 min stir karo. Bottle 16 Mar se.',
+      method:'1L Bottle Drip — 45° angle, 25cm trunk se door',
+      when:'16 March se daily bottle',
+      btl:true
+    },
+    {
+      name:'Multiplex Micronutrient Mix', chg:'',
+      brand:'Multiplex Combi-M / Aries Agromin / Barmicil Micro',
+      price:'₹800–1200 / kg', qty:'2g per liter — 5L spray',
+      bottle:'N/A — Hand spray only (10g in 5L spray pump)',
+      method:'Hand pump sprayer — patti ke neeche bhi spray karo',
+      when:'1 March subah 9–11am (flowers band hon tab)',
+      btl:false
+    }
+  ],
+  npk:{n:0, p:20, k:0},
+  why:[
+    {icon:'🌸', label:'Flowering Support', text:'Phosphorus (P) flower set ke liye <strong>sabse zaroori</strong> element hai. Is waqt P dene se har flower ke fruit banne ki probability <strong>40% zyada</strong> hoti hai.'},
+    {icon:'🐝', label:'Pollination Window', text:'March 1–15 mein <strong>bees aur insects free rheni chahiye</strong> — chemical spray se pollinators mar jaate hain aur fruit zero ho jaata hai. Isliye sirf micronutrient allowed.'},
+    {icon:'🌿', label:'Micronutrient Kyun', text:'Zinc + Boron + Iron ek saath milne se <strong>patti green rehti hai</strong>, photosynthesis better hoti hai, aur hormones sahi bante hain jo fruiting trigger karte hain.'}
+  ],
+  profit:[
+    {icon:'💰', label:'Direct Profit', text:'Sahi flowering = zyada fruit set. 20 trees mein agar 50% better set hoti hai to <strong>50–100 kg extra fruit</strong> mil sakta hai Year 4 mein. ₹40–60/kg market rate se <strong>₹2000–6000 extra</strong>.'},
+    {icon:'🌳', label:'Tree Development', text:'March ka High-P formula <strong>root development bhi badhata hai</strong> — roots deeper jaate hain, tree strong hoti hai, aage ke saalon mein kum maintenance.'},
+    {icon:'📈', label:'Year 4 Setup', text:'Is mahine sahi kaam karo to <strong>Year 4 mein pehla proper crop</strong> milega. Ek baar tree mature ho gayi to 20+ saal fruits deti rahegi.'}
+  ],
+  healthCheck:[
+    {icon:'✅', title:'Flower panicles kaise hone chahiye', ok:'Har branch pe 2–4 panicles hone chahiye. Panicle dense, green-yellow, 15–25cm long.', bad:'Sirf 1 ya zero panicles = phosphorus deficiency. Urea zyada diya tha pehle.'},
+    {icon:'🍃', title:'Patti ka rang', ok:'Deep green, shiny leaves. Koi yellow patches nahi.', bad:'Yellow-green = Nitrogen deficiency. Rust colored spots = fungal.'},
+    {icon:'🌡️', title:'Weather check', ok:'15–22°C = ideal flowering temp. Humidity 50–70%.', bad:'>28°C dopahar mein = flower drop. <10°C raat = frost damage on new growth.'},
+    {icon:'🐝', title:'Pollinator activity', ok:'Subah 8–11am mein bees aur butterflies dikh rahi hain to pollination ho raha hai.', bad:'No insects = pesticide se maar diye ya weather bahut cold.'}
+  ],
+  bottle:{
+    warning:'March 1–15 tak bottle bilkul NAHI — plain paani ya bottle nikaal lo. Pollinators protect karna hai.',
+    steps:[
+      {n:'1', t:'1L plastic bottle lao. Pin se neeche 4–5 chhote holes banao (1mm diameter).'},
+      {n:'2', t:'800ml pani garam karo (40°C — hath dalne pe thoda warm lage). 20g NPK 12:32:16 dalo, 2 min ache se hilaao jab tak puri tarah ghul jaaye.'},
+      {n:'3', t:'Upar se 200ml plain pani dalo. Cap lagao.'},
+      {n:'4', t:'Tree ke trunk se 25–30cm door, 45° angle pe bottle ko rakho. 8–10cm zameen mein gado taaki stable rahe.'},
+      {n:'5', t:'24–36 ghante mein bottle khali ho jaayegi. Agle din subah 20–25L plain watering ZAROOR dena — nutrients roots tak jaate hain.'},
+      {n:'6', t:'March 16–31 tak har 5–7 din mein ek bottle dena (total 2–3 bottles is month).'}
+    ]
+  },
+  dos:['Subah 7–9am mein hi kaam karo — dopahar nahi','Flower panicles count karo har hafta — record rakho','Mulch moist rakho (15cm thick) — consistent moisture = better fruit set','16 Mar se NPK bottle regular check karo khali hua ya nahi','Sticky grease band lagao trunk pe (mealybug rokne ke liye)'],
+  donts:['1–15 Mar mein koi NPK/Urea/DAP NAHI — pollinators marengi','Dopahar 10am–4pm mein koi spray ya kaam NAHI — leaf burn + bees die','Bees ko disturb mat karo — hive nearby hai to chemical avoid karo','Bottle ko direct strong sunlight mein mat rakho — slow release zyada hi achha'],
+  pests:[
+    {name:'Mango Hopper (Amrasca devastans)', when:'March peak risk!', symptom:'Chote peele-haare insects flowers pe kood rahe hain. Flowers sukh rahe hain.',
+     treat:'Confidor 200 SL (Imidacloprid 17.8% SL) — Bayer CropScience', brand:'Confidor 200 SL / Tatamida 17.8 SL / Gaucho 600 FS', mix:'0.3ml / 1 liter pani — 5L per tree', timing:'Subah 8am ke baad spray karo jab flowers band hon'},
+    {name:'Powdery Mildew (Oidium mangiferae)', when:'Humidity badhne pe', symptom:'Flowers aur nayi pattiyon pe safed powder jaisi coating.',
+     treat:'Sulfex 80 WG (Wettable Sulfur) ya Karathane EC', brand:'Sulfex 80 WG / Thiovit Jet / Karathane 48 EC', mix:'2g Sulfex / 1L pani — 5L spray per tree', timing:'Dry day subah — shaam mein spray nahi'}
+  ],
+  water:{l:'18–22L', f:'Har 4–5 din', t:'Subah 7–9am', note:'Flowering time mein consistent moisture zaroori. Dry = flower drop. Zyada = root rot.', btlNote:'1–15 Mar: Bottle mein plain paani ya bottle nikaal lo. 16 Mar se NPK bottle.'}
+},
+
+{
+  id:'m02', yr:3, label:'April 2026', sh:'Apr\'26',
+  title:'Fruit Set — Annual Dose 1/3',
+  temp:'20–30°C', rain:'15–40 mm', season:'🍈 Fruit Set',
+  sznBg:'rgba(200,130,20,.15)', sznC:'#e8a030',
+  dot:'#e8a030',
+  tasks:[
+    {id:'t02a', label:'1 Apr — VC 2kg ring + Urea 36g + DAP 50g bottle', sub:'Annual Dose 1/3 — fruit development ka base lagao'},
+    {id:'t02b', label:'15 Apr — CaNO3 2g/L foliar spray', sub:'Calcium = fruit firmness. Subah 7–9am strictly.'}
+  ],
+  ferts:[
+    {name:'Vermicompost (VC)', chg:'',
+     brand:'Biofit VC / Krishak VC / Anand Agro / Local vermicompost unit (sabse sasta local)',
+     price:'₹8–12 / kg', qty:'2 kg / tree',
+     bottle:'N/A — Ring mein solid dalte hain. Bottle use nahi hoti.',
+     method:'Trunk se 1.5–2ft door ring khodo, VC dalo, mitti se dhako.',
+     when:'1 April subah — ring khodo pahle', btl:false},
+    {name:'Urea (46% Nitrogen) — Dose 1/3', chg:'ICAR Y3: 109g annual ÷ 3',
+     brand:'IFFCO Urea / Kisan Urea / NFL Urea (subsidized — any DAP center se milega)',
+     price:'₹5–6 / kg (subsidized)', qty:'36g / tree',
+     bottle:'36g + 50g DAP = 86g total — garam pani (50°C) mein 3–4 min mix karo.',
+     method:'1L Bottle Drip — Urea + DAP SAME bottle mein mix karo',
+     when:'1 April subah — VC ke baad bottle lagao', btl:true},
+    {name:'DAP (Di-Ammonium Phosphate 18:46:0) — Dose 1/3', chg:'',
+     brand:'IFFCO DAP / NFL DAP / RCF Suphala (₹1350/50kg bag — any agriculture center)',
+     price:'₹27 / kg (subsidized)', qty:'50g / tree',
+     bottle:'Urea ke saath same bottle mein: Urea 36g + DAP 50g = 86g in 800ml warm pani.',
+     method:'Same bottle as Urea — ek hi baar mein',
+     when:'1 April — Urea ke saath', btl:true},
+    {name:'Calcium Nitrate (Foliar Spray)', chg:'',
+     brand:'IFFCO CaN / Haifa Calcinit / Coromandel Calcium Nitrate',
+     price:'₹80–120 / kg', qty:'10g (2g/L × 5L spray)',
+     bottle:'N/A — Hand spray only. 10g in 5L pani spray pump mein.',
+     method:'15 Apr — hand pump sprayer se poore tree pe spray',
+     when:'15 April subah 7–9am ONLY — dopahar nahi', btl:false}
+  ],
+  npk:{n:36, p:50, k:0},
+  why:[
+    {icon:'🍈', label:'Fruit Dev. kyun N+P', text:'April mein fruit marble size ka hota hai. <strong>Nitrogen (N) = cell division</strong> karta hai — fruit bada hota hai. <strong>Phosphorus (P) = energy transfer</strong> — flower se fruit banne ki process accelerate hoti hai.'},
+    {icon:'💧', label:'Calcium kyun (CaNO3)', text:'Calcium <strong>cell walls ko strong banata hai</strong>. Without Ca: Blossom End Rot (fruit tip ka sada hua kala patch) hota hai. Ca se fruit firm aur shelf life zyada.'},
+    {icon:'🌱', label:'VC kyun soil mein', text:'Vermicompost <strong>microbes ki army</strong> hai soil mein. Ye microbes NPK ko plant-available form mein convert karte hain. Bina VC ke chemical fertilizer waste hota hai.'}
+  ],
+  profit:[
+    {icon:'💰', label:'Fruit Size Impact', text:'Sahi N+P dose se fruit <strong>20–30% bada hota hai</strong>. Market mein 200g+ mango ₹60–80/kg milta hai vs 150g mango ₹30–40/kg. Size = directly zyada paisa.'},
+    {icon:'🍊', label:'Quality Impact', text:'Calcium dene se <strong>fruit firm aur shiny</strong> hoti hai. Transport damage kam hoti hai. Shelf life 3–5 din zyada. Export quality ke liye Ca zaroor.'},
+    {icon:'📊', label:'ROI Calculation', text:'86g Urea+DAP ka cost ≈ ₹5–6 per tree. Ek tree se 10–15 kg fruit milti hai. <strong>₹5–6 invest → ₹400–900 return</strong>.'}
+  ],
+  healthCheck:[
+    {icon:'🍈', title:'Fruit setting check', ok:'1 cluster mein 3–5 fruits set ho rahe hain. Green, firm, hazelnut to marble size.', bad:'Cluster mein sirf 1 ya 0 fruits = poor pollination ya phosphorus deficiency.'},
+    {icon:'🌿', title:'Leaf health', ok:'New leaves copper-red color se shuru hoke green hoti hain — normal growth sign.', bad:'Pale yellow leaves = N deficiency. Purple tinge = P deficiency.'},
+    {icon:'🌡️', title:'Temp monitoring', ok:'20–28°C daytime ideal. Root zone cool rakho mulch se.', bad:'>32°C = fruit drop risk. Mulch refresh karo ASAP.'}
+  ],
+  bottle:{
+    warning:'86g (Urea + DAP) ek saath ghulna mushkil hai agar pani thanda ho. 50°C garam pani ZAROOR. Metal container nahi — plastic bowl mein mix karo phir bottle mein bharo.',
+    steps:[
+      {n:'1', t:'Pani 50°C garam karo (microwave mein 2 min ya gas pe thoda garam karo).'},
+      {n:'2', t:'Plastic bowl mein 800ml warm pani lo. DAP 50g dalo pehle, 2 min stir karo.'},
+      {n:'3', t:'Phir Urea 36g dalo, aur 2 min stir karo. Total 86g dissolved hona chahiye.'},
+      {n:'4', t:'Ye solution bottle mein daalo. 200ml plain pani upar. Cap lagao.'},
+      {n:'5', t:'Trunk se 25–30cm door, 45° angle, 8cm zameen mein gado.'},
+      {n:'6', t:'48 ghante mein khali. Agle din 25–30L deep watering. April mein 2 baar fill karo.'}
+    ]
+  },
+  dos:['Fruit thinning zaroor — 1 cluster mein max 2–3 fruits rakho (baaki hatao)','86g ko 50°C garam pani mein gholo — thanda pani mein nahi ghulega','Mulch 20cm thick karo — garmi shuru ho rahi hai','Bottle April mein 2 baar fill karo (evaporation zyada)','Deep watering subah hi karo — 30 min slow'],
+  donts:['Dopahar 11am–4pm mein koi kaam NAHI','Bottle ko dhoop mein seedha mat rakho — mitti se cover karo','VC aur Urea/DAP ek saath ring mein mat dalo — alag alag karo','Fruit ko haath se mat pakdo zyada — fungal transfer hota hai'],
+  pests:[
+    {name:'Anthracnose (Colletotrichum gloeosporioides)', when:'April humid conditions', symptom:'Fruit pe kale-bhoore gol daag — tip se shuru hota hai.',
+     treat:'Mancozeb 75% WP (Indofil M-45)', brand:'Indofil M-45 / Dithane M-45 / Saaf (Carbendazim+Mancozeb)', mix:'2g / 1L pani — 5L spray per tree. Ya Saaf 2g/L.', timing:'15 Apr. 10 din mein repeat agar daag dikh rahe hain.'},
+    {name:'Fruit Fly (Bactrocera dorsalis)', when:'April se monitoring shuru', symptom:'Fruit mein chhota hole — andar se sada hua.',
+     treat:'Malathion bait trap laga do preventive', brand:'Malathion 50 EC + Jaggery bait trap', mix:'10ml Malathion + 10g gud / 1L pani — lure trap', timing:'April se hi traps lagao — baad mein kaam nahi karta'}
+  ],
+  water:{l:'25–30L', f:'Har 2–3 din', t:'Subah 6–8am', note:'Garmi badhne lagi — consistent moisture se fruit drop rokein. 30 min slow watering = deep root moisture.', btlNote:'April mein bottle 2 baar fill karo. Agle din 25–30L watering bottle ke baad zaroor.'}
+},
+
+{
+  id:'m03', yr:3, label:'May 2026', sh:'May\'26',
+  title:'Peak Heat 40°C — Double NPK + Harvest',
+  temp:'26–40°C', rain:'20–50 mm', season:'🥭 Peak Heat / Harvest',
+  sznBg:'rgba(180,80,20,.18)', sznC:'#f09040',
+  dot:'#f09040',
+  tasks:[
+    {id:'t03a', label:'1 May — NPK 19:19:19 (30g) + Humic Acid (8ml) bottle', sub:'Double dose month — 40°C heat mein 2–3 baar refill karo'},
+    {id:'t03b', label:'15 May — SOP 8g/L spray + Harvest check karo', sub:'Yellow color + meetha smell = subah harvest. SOP = sweetness boost.'}
+  ],
+  ferts:[
+    {name:'NPK 19:19:19 (Balanced Water Soluble)', chg:'Double dose this month',
+     brand:'Multiplex Pramukh 19:19:19 / Katyayani NPK / IFFCO WS NPK / Growmax NPK',
+     price:'₹120–180 / kg', qty:'30g / tree (double month)',
+     bottle:'30g + 8ml Humic = ek hi bottle mein. 800ml 45°C pani, 3 min stir.',
+     method:'1L Bottle Drip — May mein 3 baar fill karo: 1, 10, 20 May ko',
+     when:'1 May, 10 May, 20 May — teen refills', btl:true},
+    {name:'Humic Acid Liquid', chg:'',
+     brand:'Humirich Humic / BioFulvic Gold / Dr. Bactos Humic / Multiplex Humic Gold',
+     price:'₹300–500 / liter', qty:'8ml / tree per fill',
+     bottle:'NPK 30g ke saath same bottle mein — 8ml Humic + 30g NPK in 800ml warm pani.',
+     method:'Bottle ke saath hi — alag nahi dena', when:'Har NPK fill ke saath', btl:true},
+    {name:'SOP — Potassium Sulphate (0:0:50 + Sulfur 18)', chg:'',
+     brand:'SQM SOP / Haifa SOP / Jai Kisan SOP / Multifeed SOP',
+     price:'₹60–90 / kg', qty:'40g (8g/L × 5L spray)',
+     bottle:'N/A — Hand spray only. 40g in 5L spray pump mein gholo.',
+     method:'Hand pump spray — poore fruit aur patti pe (15 May)', when:'15 May subah 6–7am ONLY', btl:false}
+  ],
+  npk:{n:10, p:10, k:10},
+  why:[
+    {icon:'☀️', label:'Double dose kyun May mein', text:'May mein fruit ka <strong>final cell expansion</strong> hota hai — yahi waqt hai jab size permanently set hoti hai. Double NPK dene se cells zyada baar divide hote hain = <strong>bada fruit</strong>. Baad mein doge to fayda nahi.'},
+    {icon:'🍯', label:'SOP se sweetness kyun', text:'Potassium Sulphate (SOP) <strong>sugar content (Brix) 14 se 18+</strong> kar deta hai. Meetha aam = zyada demand, zyada price. SOP se color bhi better aata hai — yellow bright hota hai.'},
+    {icon:'💧', label:'Humic Acid kyun zaroori', text:'40°C heat mein soil quickly dry hoti hai. Humic Acid <strong>soil mein water retention 40% badhata hai</strong> — bottle se diya hua nutrient roots ke paas ruka rehta hai, wash out nahi hota.'}
+  ],
+  profit:[
+    {icon:'🍋', label:'Brix increase = price increase', text:'Brix 14 se 18 hone pe market value <strong>₹40/kg se ₹70/kg</strong> ho jaati hai. 20 trees × 8kg avg × ₹30 extra = <strong>₹4800 extra sirf SOP spray se</strong>.'},
+    {icon:'📦', label:'Shelf Life', text:'SOP dene se fruit <strong>5–7 din zyada</strong> fresh rehta hai. Transport ke baad bhi quality achhi. Export potential opens up.'},
+    {icon:'🌳', label:'Tree Longevity', text:'Humic Acid roots ko deep jaane mein help karta hai. Deep roots = <strong>drought tolerant tree</strong> jo aage ke dry summers mein bhi survive kare.'}
+  ],
+  healthCheck:[
+    {icon:'🥭', title:'Harvest readiness check', ok:'Fruit ka rang peel ke side se green se yellow hone laga. Gentle squeeze pe thoda soft feel. Meetha khushboo aa raha hai subah.', bad:'Totally green + rock hard = 2 more weeks. Kala patch on tip = Anthracnose, harvest karo jaldi.'},
+    {icon:'🌡️', title:'Heat stress check', ok:'Mulch se roots cool hain. Subah leaves turgid (tight). Fruit smooth hai.', bad:'Leaves wilting subah = severe stress. Fruit pe flat brown patches = sunburn.'},
+    {icon:'💧', title:'Watering adequacy', ok:'Ring area mein mitti 10cm deep tak moist. Leaves shiny. No wilting.', bad:'Dry cracked soil + wilting leaves + fruit drop = critical underwatering.'}
+  ],
+  bottle:{
+    warning:'May mein 40°C heat — bottle 24–36 hr mein khali hogi (faster evaporation). Teen refills zaroori: 1, 10, 20 May. Bottle ko mitti se cover karo ya chhayein mein — warna algae ban jaata hai.',
+    steps:[
+      {n:'1', t:'Bowl mein 800ml pani 45°C garam karo.'},
+      {n:'2', t:'NPK 19:19:19 (30g) dalo — 2 min stir. Phir Humic Acid (8ml) dalo — 30 sec mix.'},
+      {n:'3', t:'Bottle mein bharo. 200ml plain pani upar. Cap.'},
+      {n:'4', t:'25–30cm trunk se door, 45°, 8cm zameen mein. Bottle ka lower half mitti se cover karo.'},
+      {n:'5', t:'1 May, 10 May, 20 May — teen baar refill karo. Har refill ke agle din 30–35L watering.'},
+      {n:'6', t:'SOP spray 15 May: 40g SOP ko 5L pani mein gholo — subah 6–7am spray (dopahar NAHI).'}
+    ]
+  },
+  dos:['Subah 6–7am hi karo koi bhi kaam — May mein dopahar fatal hai','Paper bags se fruits cover karo — sunburn rokne ka sabse achha tarika','May mein 3 bottle refills karo: 1, 10, 20 May','35L deep watering har 2 din — roots tak pahunche','Harvest: subah subah karo — daytime heat mein fruit quality giregi'],
+  donts:['Dopahar 10am–5pm mein bahar NAHI — khud ke liye bhi dangerous','Bottle ko directly metal ke saath mat touch hone do (reaction)','Harvest ke 5 din pehle koi spray NAHI','Zyada pani ek baar mein mat do — root rot'],
+  pests:[
+    {name:'Fruit Fly (Bactrocera dorsalis) — PEAK', when:'May = highest risk', symptom:'Fruit mein chhota chhota hole + brown discharge. Fruit jaldi gir raha hai.',
+     treat:'Spinosad 45 SC (Dow Tracer) + Malathion bait traps', brand:'Tracer 45 SC / Success 2.5 SC (Spinosad) + Malathion 50 EC bait', mix:'Bait trap: 10ml Malathion + 10g jaggery/1L. Replace har 10 din. Spray: 0.3ml Spinosad/L.', timing:'Harvest se 7 din pehle band karo spray'},
+    {name:'Fruit Sunburn (Heat Damage)', when:'Dopahar 12–3pm highest risk', symptom:'Flat brown/black hard patch on fruit surface — sun side pe.',
+     treat:'Prevention only — paper bagging. Koi chemical kaam nahi karta.', brand:'Brown paper bags / newspaper bags', mix:'Har fruit ko bag se wrap karo — rubber band se bandh karo.', timing:'Marble size se hi bag laga do'}
+  ],
+  water:{l:'30–35L', f:'Har 2 din PAKKA', t:'Subah 6–7am ONLY', note:'May mein 40°C — ek din skip kiya to fruit drop ho sakta hai. Zyada critical month hai paani ke liye.', btlNote:'3 refills this month. Bottle ko mitti se cover karo ya chhayein mein rakh.'}
+},
+
+{
+  id:'m04', yr:3, label:'June 2026', sh:'Jun\'26',
+  title:'Post-Harvest + Monsoon — Dose 2/3',
+  temp:'26–34°C', rain:'100–180 mm', season:'🌿 Post-Harvest / Monsoon Start',
+  sznBg:'rgba(30,120,60,.18)', sznC:'#40b060',
+  dot:'#40b060',
+  tasks:[
+    {id:'t04a', label:'1 Jun — FYM 6kg + VC 3kg + Neem Cake 100g ring mein', sub:'Organic base dose — solid, ring mein dalo, mitti se dhako'},
+    {id:'t04b', label:'15 Jun — Urea 37g + MOP 42g bottle drip (DRY DAY SIRF!)', sub:'Baarish chal rahi hai? RUKO — 5+ din dry hone pe hi bottle use karo'}
+  ],
+  ferts:[
+    {name:'FYM — Farm Yard Manure (6 month purana)', chg:'',
+     brand:'Local gaushala / apna livestock / kisi bhi farmer se (fresh nahi — 6 month cured)',
+     price:'₹1–3 / kg (ya free locally)', qty:'6 kg / tree',
+     bottle:'N/A — Ring mein solid dalo. Fresh FYM nahi — roots jalti hain.',
+     method:'Ring mein dalo, mitti se dhako, phir mulch upar', when:'1 June subah', btl:false},
+    {name:'Vermicompost (VC)', chg:'',
+     brand:'Biofit / Krishak / Local unit', price:'₹8–12 / kg', qty:'3 kg / tree',
+     bottle:'N/A — FYM ke saath ring mein mix karo.',
+     method:'FYM + VC + NC sab ek ring mein mix karo', when:'1 June FYM ke saath', btl:false},
+    {name:'Neem Cake (Neem ki Khali)', chg:'',
+     brand:'GAIL Neem Cake / Bharat Agri NC / Local oil mill se',
+     price:'₹20–35 / kg', qty:'100g / tree',
+     bottle:'N/A — Ring mein FYM+VC ke saath mix karo.',
+     method:'FYM+VC+NC sab ek saath ring mein', when:'1 June', btl:false},
+    {name:'Urea (46% N) — Dose 2/3', chg:'Annual N Dose 2',
+     brand:'IFFCO Urea / Kisan Urea', price:'₹5–6 / kg', qty:'37g / tree',
+     bottle:'37g + 42g MOP = 79g total. 800ml warm pani mein gholo.',
+     method:'1L Bottle Drip — SIRF DRY DAY pe (5+ din baarish nahi aayi ho)', when:'15 June — dry day pe sirf', btl:true},
+    {name:'MOP — Muriate of Potash (0:0:60)', chg:'Annual K Dose 1',
+     brand:'IPL Potash / Kali Duniya MOP / SQM Potassium Chloride',
+     price:'₹30–40 / kg', qty:'42g / tree (Y3: 125g ÷ 3)',
+     bottle:'Urea ke saath same bottle: Urea 37g + MOP 42g = 79g in 800ml.',
+     method:'Same bottle as Urea', when:'15 June dry day pe Urea ke saath', btl:true}
+  ],
+  npk:{n:37, p:0, k:42},
+  why:[
+    {icon:'🌧️', label:'Post-harvest recovery kyun zaroori', text:'Fruit dene ke baad tree <strong>exhausted</strong> ho jaati hai — stored nutrients use ho gaye. Agar abhi feeding nahi ki to <strong>tree stunted ho jaayegi</strong> aur agle saal kum flowers aayenge.'},
+    {icon:'🌱', label:'New flush ke liye N+K', text:'June mein <strong>nayi growth flush</strong> nikalna chahiye — yahi flush ek saal baad ki flowering banegi. N = shoot growth. K = root depth aur disease resistance.'},
+    {icon:'🍄', label:'Neem Cake kyun', text:'Neem Cake mein <strong>Azadirachtin</strong> hota hai — soil mein fungus aur nematodes ko rokta hai. Monsoon mein soil borne disease ka risk sabse zyada — NC is ka natural solution.'}
+  ],
+  profit:[
+    {icon:'🌳', label:'Agle saal ki flowering setup', text:'June mein sahi nutrients = September mein strong flush = February 2027 mein <strong>pehla proper flowering</strong>. Skip kiya to 1 saal ka delay possible.'},
+    {icon:'💰', label:'Cost comparison', text:'FYM+VC+NC ka total cost ≈ <strong>₹40–50 per tree</strong>. Agar skip karo to tree weak = Year 4 mein 30–40% kum fruit. 20 trees × 5kg × ₹50 = <strong>₹5000 loss potential</strong>.'},
+    {icon:'🌿', label:'Soil health improvement', text:'FYM+VC se soil organic matter badhta hai = <strong>better water retention, microbe activity</strong>. Har saal improve hota hai — 5 saal mein soil bahut fertile ho jaayegi.'}
+  ],
+  healthCheck:[
+    {icon:'🌱', title:'New flush check', ok:'June 15–30 ke beech naye shoots nikalne chahiye. Copper-red colored tender leaves — normal healthy sign.', bad:'Koi new growth nahi = tree stressed. Extra irrigation + Urea bottle dry day pe.'},
+    {icon:'🔵', title:'Waterlogging check', ok:'Rain ke 48 hr baad ring area mein paani absorb ho gaya ho. Roots firm.', bad:'Khade paani ke nishan + leaves yellowing + trunk base mein mushroom = ROOT ROT. EMERGENCY drain karo.'},
+    {icon:'🐛', title:'Stem Borer early check', ok:'Trunk clean hai, koi sawdust powder nahi dikh raha.', bad:'Sawdust + small holes on trunk = Stem Borer shuru ho gaya. Abhi action lo.'}
+  ],
+  bottle:{
+    warning:'CRITICAL MONSOON RULE: Baarish chal rahi hai to bottle NAHI lagaao. Root zone pehle se saturated hai — aur liquid = root rot 72 ghante mein. Sirf 5+ din dry hone ke baad bottle lagao.',
+    steps:[
+      {n:'1', t:'Weather check karo — 5 consecutive dry days (no rain) ke baad hi bottle lagao.'},
+      {n:'2', t:'Bowl mein 800ml warm pani (45°C). Urea 37g dalo, 2 min mix. Phir MOP 42g dalo, 2 min mix. Total 79g in 800ml.'},
+      {n:'3', t:'Bottle mein daalo. 200ml plain pani upar. Cap. 25cm trunk se, 45°, 8cm deep.'},
+      {n:'4', t:'Agle din 25L watering — sirf agar baarish nahi hui ho.'},
+      {n:'5', t:'Agar 15 June ke baad bhi continuously baarish chal rahi hai to bottle July tak delay karo — koi problem nahi.'}
+    ]
+  },
+  dos:['Drainage nali PEHLE check karo aur saaf karo — monsoon se pehle','Stem Borer check karo weekly — trunk pe sawdust = emergency','FYM+VC+NC ring mein ek saath mix karo 1 June ko','Lime paste trunk pe lagao (chuna+pani) — Stem Borer aur fungal rokta hai'],
+  donts:['Baarish chal rahi hai to bottle BILKUL NAHI','Waterlogged soil mein kuch bhi mat dalo — pehle drain karo','Urea aur DAP June mein ek saath nahi (is month DAP nahi hai)','Baarish ke turant baad ring mein chemical mat dalo'],
+  pests:[
+    {name:'Stem Borer (Batocera rufomaculata) — Starts June', when:'June–September peak', symptom:'Trunk pe sawdust powder. Bark ke neeche tunnels. Branch wilting.',
+     treat:'Chlorpyrifos 20 EC (Durmet) syringe inject + Mud seal', brand:'Durmet 20 EC / Dursban 20 EC — Chlorpyrifos 20% EC', mix:'2ml Chlorpyrifos + 5ml water — syringe se hole mein inject karo. Mud se seal karo.', timing:'TURANT jab sawdust dikh jaaye. Delay = permanent damage.'},
+    {name:'Powdery Mildew (Monsoon start)', when:'Humidity > 80%', symptom:'New flush ki pattiyon pe safed dusty coating.',
+     treat:'Hexaconazole 5 SC (Contaf) ya Propiconazole 25 EC', brand:'Contaf 5 SC (Bayer) / Tilt 25 EC / Bumper 25 EC', mix:'1ml / 1L pani — 5L spray per tree', timing:'Dry day subah 9–11am mein spray'}
+  ],
+  water:{l:'Baarish natural (dry days pe 25L)', f:'Sirf 5+ din dry hone pe', t:'Dry day subah koi waqt', note:'Monsoon mein extra watering = root rot. Baarish ho to NAHI dena.', btlNote:'Baarish mein bottle khali rakho (solution mat daalo) ya khali raho. Root rot danger!'}
+},
+
+{
+  id:'m05', yr:3, label:'July 2026', sh:'Jul\'26',
+  title:'GOLDEN GROWTH MONTH — Wild Rootstock 6–8cm/Week!',
+  temp:'24–30°C', rain:'280–380 mm', season:'🌿 PEAK GROWTH!',
+  sznBg:'rgba(30,150,70,.18)', sznC:'#30c060',
+  dot:'#30c060',
+  tasks:[
+    {id:'t05a', label:'1 Jul — Drainage check + Stem Borer + Trichoderma 50g drench', sub:'Lime paste refresh. Trichoderma 50g ko 5L pani mein — root zone mein daalo.'},
+    {id:'t05b', label:'15 Jul — NPK 35g + Humic 8ml bottle drip (DRY DAY ONLY)', sub:'PEAK DOSE — 5+ din dry hone ke baad hi. Height weekly measure karo!'}
+  ],
+  ferts:[
+    {name:'NPK 19:19:19 — Peak Dose', chg:'Highest single month dose',
+     brand:'Multiplex Pramukh / IFFCO WS NPK / Katyayani 19:19:19',
+     price:'₹120–180 / kg', qty:'35g / tree per dry day',
+     bottle:'35g NPK + 8ml Humic = ek bottle. 800ml warm pani, 3 min mix.',
+     method:'1L Bottle Drip — SIRF DRY DAY (5+ consecutive dry days)', when:'15 July dry day', btl:true},
+    {name:'Humic Acid Liquid', chg:'',
+     brand:'Humirich / Multiplex Humic Gold / Dr. Bactos', price:'₹300–500/L', qty:'8ml / tree',
+     bottle:'NPK ke saath same bottle mein — 35g NPK + 8ml Humic in 800ml.',
+     method:'NPK bottle ke saath', when:'15 July NPK ke saath', btl:true},
+    {name:'Trichoderma harzianum', chg:'',
+     brand:'T-Vigil 1.15% WP / BioJodi Tricho / Ecostar / Multiplex Biocure F',
+     price:'₹200–300 / kg', qty:'50g / tree',
+     bottle:'N/A — Root zone drench (bottle nahi). 50g in 5L pani slowly pour karo.',
+     method:'Root zone drench — ring ke andar slowly daalo', when:'1 July subah', btl:false}
+  ],
+  npk:{n:12, p:12, k:12},
+  why:[
+    {icon:'🌿', label:'July kyun GOLDEN month hai', text:'July mein Parwanoo ka temp 24–30°C aur 330mm baarish milti hai — yeh <strong>mango ka IDEAL growth combination</strong> hai. Wild rootstock iss waqt 6–8cm per week grow kar sakta hai — kisi bhi dusre mahine se zyada.'},
+    {icon:'🦠', label:'Trichoderma kyun', text:'Monsoon mein soil borne fungi (Fusarium, Pythium) roots attack karte hain. Trichoderma <strong>"good fungus"</strong> hai jo in pathogens ko khata hai. Root health = tree health. Bina Trichoderma ke monsoon mein 30–40% root loss possible.'},
+    {icon:'💧', label:'Humic + NPK together kyun', text:'Monsoon ke dry days pe NPK dene se zyada risk hota hai. Humic Acid NPK ko soil mein <strong>bind karke rakhta hai</strong> — next rain mein wash out nahi hota. Efficiency 2× ho jaati hai.'}
+  ],
+  profit:[
+    {icon:'📏', label:'Height gain = direct value', text:'Har centimeter growth = permanent canopy. July mein agar 20–25cm growth hoti hai (4 weeks × 5–6cm) to tree 3–4 months ki growth ek mahine mein kar leti hai. Target height <strong>10 feet by September</strong>.'},
+    {icon:'🌳', label:'Canopy development', text:'Wider canopy = zyada photosynthesis = zyada energy stored = <strong>zyada fruit next year</strong>. July mein pruning/tip cutting se branching encourage karo.'},
+    {icon:'🦠', label:'Trichoderma long term value', text:'Ek baar Trichoderma establish ho jaaye to <strong>2–3 saal tak soil mein rehta hai</strong>. One-time cost ≈ ₹30–50 per tree. Long term soil health ka cheapest investment.'}
+  ],
+  healthCheck:[
+    {icon:'📏', title:'Weekly height measurement', ok:'4–6cm growth per week (July mein normal for wild rootstock). Target: July 1 pe 6ft → July 31 pe 8ft.', bad:'<2cm/week = nutrient deficiency ya root problem. Check drainage + Trichoderma dena zaroori.'},
+    {icon:'🔴', title:'Stem Borer check (WEEKLY)', ok:'Trunk completely clean. No sawdust. No small holes. Bark firm aur dark green/brown.', bad:'Sawdust = EMERGENCY. Same day Chlorpyrifos syringe injection. Delay = permanent damage.'},
+    {icon:'🔵', title:'Root health (drainage check)', ok:'Ring area mein paani 48 hr mein absorb ho jaaye. Soil loose aur friable.', bad:'Standing water 48+ hr = root rot starting. EMERGENCY drain karo — khodo, drain banao.'}
+  ],
+  bottle:{
+    warning:'July = 330mm rain. Yeh peak monsoon hai. Bottle sirf TAB lagao jab 5+ consecutive dry days ho. Baarish ke 24 hr baad bhi mat lagao — soil pehle se saturated hai. PATIENCE rakho.',
+    steps:[
+      {n:'1', t:'5+ din baarish bilkul nahi aayi — tab bottle lagaao. Weather app check karo.'},
+      {n:'2', t:'800ml warm pani, NPK 35g dalo (3 min stir), Humic 8ml dalo (30 sec mix).'},
+      {n:'3', t:'Bottle 25cm door, 45°, 8cm deep. Mitti se cover karo.'},
+      {n:'4', t:'Agle din 20–25L watering (sirf agar baarish nahi aayi ho next 24 hr).'},
+      {n:'5', t:'Alag se: Trichoderma 50g ko 5L normal pani mein gholo → ring ke andar slowly pour karo (1 Jul ko).'}
+    ]
+  },
+  dos:['HEIGHT WEEKLY MEASURE — July mein record banana ZAROORI hai','Dry day pe bottle dena — 5 din wait karo baarish ke baad','Tip pruning karo — 3–4 inch top shoots cut karo (branching ke liye)','Trichoderma 1 Jul ko zaroor dena','Drainage check har 3 din'],
+  donts:['DAILY bottle NAHI — monsoon mein overwatering = root rot','Baarish mein kuch bhi spray nahi — wash off aur waste','Wet soil mein ring nahi khodna — roots damage hoti hain','Sawdust dekha to delay mat karo — same day action'],
+  pests:[
+    {name:'Stem Borer — PEAK RISK July', when:'July–September worst months', symptom:'Sawdust powder near trunk. Small holes 5–8mm diameter. Branch wilting or dying.',
+     treat:'EMERGENCY: Chlorpyrifos 20 EC syringe + Mud seal + Monthly preventive: Imidacloprid trunk drench', brand:'Durmet/Dursban 20 EC + Confidor 200 SL (preventive monthly)', mix:'Emergency: 2ml Chlorpyrifos+3ml water inject. Monthly: 3ml Confidor/1L trunk basal drench.', timing:'Weekly trunk check. Sawdust = same day emergency action.'},
+    {name:'Mango Leaf Webber (Orthaga exvinacea)', when:'July–August on new flush', symptom:'Nayi pattiyan ek saath bind ho rahi hain jaise cobweb mein — andar green caterpillar.',
+     treat:'Chlorpyrifos 20 EC ya Lambda Cyhalothrin spray', brand:'Durmet 20 EC / Karate 5 EC (Lambda Cyhalothrin)', mix:'2ml / 1L pani — 5L spray per tree', timing:'Dry day subah spray — affected web hatao + spray karo'}
+  ],
+  water:{l:'Baarish natural only', f:'Sirf 7+ dry days pe 20–25L', t:'Dry day subah koi waqt', note:'Peak monsoon — extra watering = root rot. Baarish = free watering. Kuch mat karo.', btlNote:'5 dry days ke baad hi bottle. Monsoon mein patience = tree health.'}
+},
+
+{
+  id:'m06', yr:3, label:'August 2026', sh:'Aug\'26',
+  title:'Annual Dose 3/3 LAST + Boron for 2027 Flowering',
+  temp:'23–29°C', rain:'260–350 mm', season:'🌿 Bud Formation Month',
+  sznBg:'rgba(30,140,60,.15)', sznC:'#38b058',
+  dot:'#38b058',
+  tasks:[
+    {id:'t06a', label:'1 Aug — FYM 6kg ring + Urea 36g + DAP 50g bottle (dry day)', sub:'Year 3 Annual NPK completing! LAST N dose. FYM alag ring mein.'},
+    {id:'t06b', label:'15 Aug — Multiplex 2g/L + Borax 1g/L spray (NEW flush pe)', sub:'Boron = 2027 flowering buds isi mahine form ho rahe hain — miss mat karo!'}
+  ],
+  ferts:[
+    {name:'FYM (2nd half annual organic)', chg:'Completing annual 12kg',
+     brand:'Local gaushala / livestock', price:'₹1–3 / kg', qty:'6 kg / tree',
+     bottle:'N/A — Ring mein solid. Annual 12kg = Jun 6kg + Aug 6kg done.',
+     method:'Ring mein — mitti se dhako. Mulch upar.', when:'1 Aug dry day subah', btl:false},
+    {name:'Urea — Annual Dose 3/3 (LAST N!)', chg:'⚠️ LAST N DOSE Year 3',
+     brand:'IFFCO Urea', price:'₹5–6 / kg', qty:'36g / tree',
+     bottle:'36g + 50g DAP = 86g in 800ml warm pani (50°C, 4 min stir).',
+     method:'1L Bottle Drip — Dry day pe sirf', when:'1 Aug dry day', btl:true},
+    {name:'DAP (Annual P completing)', chg:'Annual P completing',
+     brand:'IFFCO DAP / NFL DAP', price:'₹27 / kg', qty:'50g / tree',
+     bottle:'Urea ke saath same bottle: 86g total.',
+     method:'Same bottle as Urea', when:'1 Aug dry day saath', btl:true},
+    {name:'Multiplex Micronutrient + Borax Spray', chg:'Boron = NEW critical addition',
+     brand:'Multiplex Combi-M + Fertibor / Solubor / GSFC Borax',
+     price:'₹800–1200/kg Multiplex + ₹80–120/kg Borax', qty:'10g Multiplex + 5g Borax in 5L spray',
+     bottle:'N/A — Hand spray only. 10g Multiplex + 5g Borax in 5L pani.',
+     method:'15 Aug — hand spray on NEW FLUSH leaves', when:'15 Aug dry day subah', btl:false}
+  ],
+  npk:{n:36, p:50, k:0},
+  why:[
+    {icon:'🌸', label:'Boron kyun CRITICAL August mein', text:'August mein nayi flush ki pattiyan jo nikli hain, unke axils mein <strong>2027 flowering buds silently form ho rahe hain</strong>. Boron in buds ke formation mein critical role karta hai. August mein Boron na dene se 2027 mein 30–50% kum flowers aayenge.'},
+    {icon:'🔚', label:'LAST N dose ka matlab', text:'October se koi Nitrogen nahi dena — agar October ke baad N doge to nayi soft shoots nikalengi jo November–December ki frost mein <strong>mar jaayengi</strong>. September ke baad sirf K allowed.'},
+    {icon:'🌿', label:'Annual cycle completion', text:'Saal ki sabse important kaam August mein complete hoti hai: Annual N (109g), P (150g) dono complete. Annual organic (12kg FYM) complete. Ab sirf hardening phase.'}
+  ],
+  profit:[
+    {icon:'🌸', label:'2027 Flowering direct invest', text:'₹50–80 ka Borax spray → 2027 mein 30–50% zyada flowers → 40–60% zyada fruit. <strong>₹80 invest → potential ₹3000–5000 extra return next year</strong>. Sabse high ROI spray of the year.'},
+    {icon:'📊', label:'Annual NPK complete karne ka fayda', text:'ICAR proven: Sahi NPK schedule follow karne se <strong>yield 2–3× zyada</strong> hoti hai vs unfertilized trees in 3–5 years. Year 3 complete kiya = solid foundation.'},
+    {icon:'💪', label:'Tree vigor', text:'Strong vegetative flush August mein = healthy stored carbohydrates. Ye carbohydrates <strong>winter dormancy mein bud initiation</strong> ke liye fuel ka kaam karte hain.'}
+  ],
+  healthCheck:[
+    {icon:'🌿', title:'New flush quality check', ok:'Nayi pattiyan copper-red se shiny green ho rahi hain. Multiple new shoots per branch. Dense foliage.', bad:'Pale yellow new leaves = severe N or Fe deficiency. Spotted = Anthracnose on new flush.'},
+    {icon:'🦟', title:'Stem Borer WEEKLY (peak month)', ok:'Zero sawdust on trunk. No holes. Bark tight and intact.', bad:'ANY sawdust = emergency. Same day Chlorpyrifos injection + mud seal.'},
+    {icon:'📏', title:'Height check (Aug target)', ok:'Target: August 1 pe 7–8ft, August 31 pe 8–9ft. Wild rootstock 4–5cm/week Aug mein.', bad:'<6ft August end pe = major growth lag. Trichoderma + extra NPK dry day pe dena.'}
+  ],
+  bottle:{
+    warning:'YEH LAST NITROGEN HAI Year 3 mein! October se N bilkul NAHI. Agar dobara N diya to soft growth = frost damage November mein. 86g ko 50°C pani mein 4+ min stir karo.',
+    steps:[
+      {n:'1', t:'5+ dry days ke baad: 800ml pani 50°C.'},
+      {n:'2', t:'DAP 50g dalo, 2 min mix. Phir Urea 36g dalo, 2 min mix. 86g total dissolved.'},
+      {n:'3', t:'Bottle 25cm door, 45°, 8cm deep. Agle din 20–25L watering.'},
+      {n:'4', t:'15 Aug spray: 5L pani mein Multiplex 10g + Borax 5g gholo. Subah 9–11am nayi pattiyon pe spray karo — neeche ki side bhi.'},
+      {n:'5', t:'Annual NPK Year 3 COMPLETE! Record karo.'}
+    ]
+  },
+  dos:['Boron spray 15 Aug ZAROOR — 2027 flowering ka base yahan se banता है','Annual NPK complete karo August mein hi','Stem Borer WEEKLY check — August peak hai','Height 1 Aug pe measure karke record karo'],
+  donts:['October se N BILKUL NAHI — ab se yaad rakhna','August mein bhi baarish chal rahi — sirf dry day pe bottle','86g ko thande pani mein mat gholo — puri tarah nahi ghulega'],
+  pests:[
+    {name:'Stem Borer — Absolute Peak', when:'August = worst month', symptom:'Sawdust, holes, wilting branches, frass (feces) near holes.',
+     treat:'Imidacloprid trunk drench monthly (preventive) + Chlorpyrifos emergency', brand:'Confidor 200 SL (Bayer) monthly preventive + Durmet 20 EC emergency', mix:'Preventive: 3ml Confidor/1L water → trunk base drench. Emergency: 2ml Chlorpyrifos inject.', timing:'Monthly Aug+Sep preventive drench. Weekly visual check.'}
+  ],
+  water:{l:'Baarish (dry pe 20–25L)', f:'Dry days pe hi', t:'Dry day subah', note:'August mein bhi heavy monsoon. Same rule as July — dry days pe hi supplement karo.', btlNote:'86g ke liye 50°C pani zaroori. Annual NPK Year 3 completing this month!'}
+},
+
+{
+  id:'m07', yr:3, label:'September 2026', sh:'Sep\'26',
+  title:'K-Hardening Phase — LAST Active Month',
+  temp:'22–28°C', rain:'150–220 mm', season:'🌱 Hardening Starts',
+  sznBg:'rgba(60,140,80,.15)', sznC:'#50b070',
+  dot:'#50b070',
+  tasks:[
+    {id:'t07a', label:'1 Sep — MOP 45g + Humic 8ml bottle drip', sub:'Annual K completing. Oct se N ZERO strictly. Baarish ab thodi kam hogi.'},
+    {id:'t07b', label:'15 Sep — HEIGHT FINAL MEASURE + Gypsum 100g ring', sub:'9–10 feet chahiye Year 3 mein! Gypsum = cell wall. Record karo.'}
+  ],
+  ferts:[
+    {name:'MOP — Muriate of Potash (completing 125g annual)', chg:'Annual K completing',
+     brand:'IPL MOP / Kali Duniya / SQM KCl', price:'₹30–40 / kg', qty:'45g / tree',
+     bottle:'45g MOP + 8ml Humic = ek bottle. 800ml warm pani, 3 min stir.',
+     method:'1L Bottle Drip', when:'1 September subah', btl:true},
+    {name:'Humic Acid', chg:'',
+     brand:'Humirich / Multiplex Humic Gold', price:'₹300–500 / L', qty:'8ml',
+     bottle:'MOP ke saath same bottle mein.', method:'MOP bottle ke saath', when:'1 Sep', btl:true},
+    {name:'Gypsum (Calcium Sulphate CaSO4)', chg:'',
+     brand:'Shaktiman Gypsum / Rajasthan Gypsum / Local stone gypsum (cheapest)',
+     price:'₹5–8 / kg', qty:'100g / tree',
+     bottle:'N/A — Solid, ring mein dalo.', method:'Ring mein dalo alag se', when:'15 Sep', btl:false}
+  ],
+  npk:{n:0, p:0, k:45},
+  why:[
+    {icon:'❄️', label:'K (Potassium) kyun September mein', text:'Potassium <strong>cell walls ko thick aur strong</strong> banata hai. Strong cell walls = frost tolerance badhti hai. Agar K nahi diya to November ki frost mein cells burst ho jaate hain = dead branches.'},
+    {icon:'🧱', label:'Gypsum kyun', text:'Gypsum mein Calcium + Sulfur dono hote hain. Ca = cell structure. S = chlorophyll formation. Gypsum <strong>soil structure improve</strong> karta hai — compacted soil loose hoti hai, roots zyada area explore kar paate hain.'},
+    {icon:'🚫', label:'October se N ZERO kyun', text:'October ke baad N doge to tree soft nayi shoots nikalegi. Ye shoots <strong>frost mein mar jaate hain</strong> — tree ko permanent damage. N = growth stimulant. Sardi mein growth = death.'}
+  ],
+  profit:[
+    {icon:'💪', label:'Frost survival = long term profit', text:'Agar tree frost mein mar gayi to total loss. K dene se <strong>frost survival guarantee</strong> hoti hai. ₹40–50 ka MOP invest karo aur ₹50,000+ ki tree bachao.'},
+    {icon:'🌸', label:'Hardening = better flowering', text:'Well-hardened tree February mein <strong>jaldi aur zyada flowers</strong> laati hai. Unhardened tree late aur kum flowers. K = flowering quality improvement.'},
+    {icon:'📊', label:'Annual K completing', text:'Sep mein Annual K Year 3 complete hoti hai (42+45=87g... remaining Mar mein dena tha — adjust karo). ICAR 125g annual target.'}
+  ],
+  healthCheck:[
+    {icon:'📏', title:'HEIGHT FINAL YEAR 3 CHECK', ok:'9–10 feet by September 30. Wild rootstock se yeh possible hai agar June–August sahi kiya gaya ho.', bad:'<7 feet = major problem. Nutrients ya water ya drainage issue.'},
+    {icon:'🍃', title:'Leaf maturity check', ok:'Leaves deep green, mature, not soft. New flush hardening ho raha hai.', bad:'Still soft new growth September end pe = N diya tha late ya zyada. High risk for frost.'},
+    {icon:'🌡️', title:'Temperature watch', ok:'Days 22–26°C, nights 14–18°C — ideal hardening range.', bad:'Nights <10°C before Oct = early frost risk. Mulch increase karo.'}
+  ],
+  bottle:{
+    warning:'October se ZERO Nitrogen — ab se yaad rakhna. MOP allowed. Organic allowed. Koi Urea ya DAP October se NAHI. Ye rule strictly follow karna hai — ek baar bhool gaye to tree damage.',
+    steps:[
+      {n:'1', t:'800ml warm pani. MOP 45g dalo, 2 min stir. Humic 8ml dalo, 30 sec mix.'},
+      {n:'2', t:'Bottle 25cm door, 45°, 8cm deep.'},
+      {n:'3', t:'Sep mein baarish thodi kam ho rahi — bottle 3–5 dry days pe dena.'},
+      {n:'4', t:'Agle din 20L watering.'},
+      {n:'5', t:'15 Sep: Gypsum 100g ring mein dalo. Height measure karo. Record karo.'}
+    ]
+  },
+  dos:['HEIGHT measure 15 Sep pe — Year 3 final check','Oct se N ZERO yaad rakhna — warna frost damage November mein','Stem Borer Sep final check + lime paste refresh','Baarish thodi kam — watering slowly increase karo'],
+  donts:['October se koi Urea ya DAP mat dena','Sep mein bhi baarish chal sakti hai — bottle dry day pe hi'],
+  pests:[
+    {name:'Powdery Mildew (Sep–Oct transition)', when:'Humidity changing season', symptom:'New hardening shoots pe safed dust.',
+     treat:'Hexaconazole 5 SC (Contaf)', brand:'Contaf 5 SC (Bayer) / Ergon 44.3 SC', mix:'1ml/L — 5L per tree', timing:'Dry day subah spray'}
+  ],
+  water:{l:'20–25L', f:'Har 3–4 din', t:'Subah 7–9am', note:'Baarish kam ho rahi — watering gradually increase karo. Sep mein consistent moisture important.', btlNote:'Sep mein MOP bottle regular lagao — baarish kam hai.'}
+},
+
+{
+  id:'m08', yr:3, label:'October 2026', sh:'Oct\'26',
+  title:'Season Closing — K Only + Bordeaux',
+  temp:'18–26°C', rain:'50–80 mm', season:'🍂 Winter Hardening',
+  sznBg:'rgba(150,100,20,.18)', sznC:'#c8a030',
+  dot:'#c8a030',
+  tasks:[
+    {id:'t08a', label:'1 Oct — MOP 20g bottle + VC 2kg ring (ZERO N!)', sub:'K only. No Urea, No DAP. Strict rule October se.'},
+    {id:'t08b', label:'15 Oct — Bordeaux 1% spray + Mulch 20cm refresh', sub:'CuSO4 50g + Chuna 50g in 5L = 1%. Winter fungal protection.'}
+  ],
+  ferts:[
+    {name:'MOP (K only — NO nitrogen)', chg:'K allowed, N strictly NO',
+     brand:'IPL Potash / Kali Duniya MOP', price:'₹30–40 / kg', qty:'20g / tree',
+     bottle:'20g in 800ml pani — easy ghulta hai.',
+     method:'1L Bottle Drip', when:'1 October subah', btl:true},
+    {name:'Vermicompost (closing dose)', chg:'',
+     brand:'Biofit / local', price:'₹8–12 / kg', qty:'2 kg / tree',
+     bottle:'N/A — Ring mein solid.', method:'Ring mein dalo', when:'1 October', btl:false},
+    {name:'Bordeaux Mixture 1% (Hand Spray)', chg:'',
+     brand:'CuSO4 = Mangala/GSFC Copper Sulphate (Blue Stone) + Bujha Chuna (Hydrated Lime)',
+     price:'₹40–60/kg CuSO4 | Chuna ₹3–5/kg', qty:'5L spray per tree (50g CuSO4 + 50g Chuna in 5L)',
+     bottle:'N/A — Hand spray only. FRESH banao — stored nahi chalega.',
+     method:'PREPARATION: CuSO4 ko 2.5L mein gholo (alag). Chuna ko 2.5L mein gholo (alag). Phir Chuna solution mein CuSO4 dalo (ulta nahi!). Iron nail test karo.',
+     when:'15 October subah 9–11am', btl:false}
+  ],
+  npk:{n:0, p:0, k:20},
+  why:[
+    {icon:'🚫', label:'N ZERO kyun October se', text:'N = growth stimulant. Sardi mein nayi growth = frost mein damage. <strong>October se N band karo</strong> — sirf K (cell hardening) aur organic (soil warmth) allowed.'},
+    {icon:'🔵', label:'Bordeaux kyun zaroori', text:'Bordeaux Mixture (Copper Sulphate + Lime) <strong>copper ions release karta hai</strong> jo fungal spores ko kill karte hain. Winter closing spray se agle 4–5 mahine tree fungal free rehti hai. ICAR standard practice.'},
+    {icon:'🌡️', label:'Mulch 20cm kyun', text:'20cm thick mulch = <strong>soil temperature 3–5°C warm</strong> rahti hai. Roots freeze nahi hote. Moisture retain hoti hai. Frost ke against best non-chemical protection.'}
+  ],
+  profit:[
+    {icon:'🌡️', label:'Frost protection = survival', text:'Parwanoo mein Nov–Jan mein <5°C nights aate hain. Mulch + Bordeaux se <strong>tree survive karti hai 100%</strong> vs unprotected tree mein 20–30% branch death.'},
+    {icon:'🧪', label:'Bordeaux cost vs benefit', text:'5L Bordeaux ka cost ≈ ₹15–25 per tree. Prevention karne se agar ek fungal outbreak rokein (Anthracnose kills 30–40% fruit) to <strong>₹15 invest → ₹1500–3000 fruit bachate hain</strong>.'},
+    {icon:'📋', label:'Season closing important kyun', text:'Sahi season close karna = tree nxt year ke liye ready. Skip karo to Winter mein disease, Spring mein weak flowering, Summer mein kum fruit.'}
+  ],
+  healthCheck:[
+    {icon:'🍃', title:'Leaf hardening', ok:'Leaves firm, dark green, thick. Not shiny/soft.', bad:'Shiny soft leaves October mein = N zyada tha. High frost damage risk.'},
+    {icon:'🌡️', title:'Temperature transition', ok:'Days 20–24°C, nights 12–16°C. Tree settling into dormancy.', bad:'Sudden <10°C night = emergency mulch karo ASAP.'},
+    {icon:'✅', title:'Bordeaux quality test', ok:'Iron nail Bordeaux solution mein dalo — 1 min mein copper-colored coating aaye to SAHI concentration.', bad:'No coating = zyada Chuna. Brown coating = kam Chuna. Adjust karo.'}
+  ],
+  bottle:{
+    warning:'STRICTLY NO Nitrogen — Urea/DAP bilkul NAHI October se. K (MOP) allowed. Organic allowed. Bordeaux: Metal container mein mat banao (CuSO4 react karta hai). Same day banao aur spray karo — store nahi hota.',
+    steps:[
+      {n:'1', t:'MOP 20g ko 800ml pani mein gholo (easily dissolves, garam pani bhi ok).'},
+      {n:'2', t:'Bottle 25cm door, 45°, 8cm. Agle din 15–18L watering.'},
+      {n:'3', t:'15 Oct Bordeaux: CuSO4 50g ko 2.5L plastic bucket mein gholo. Alag: Chuna 50g ko 2.5L plastic bucket mein gholo.'},
+      {n:'4', t:'Chuna solution mein CuSO4 solution dheere dheere dalo (ulta NAHI — CuSO4 mein Chuna nahi dalna). Mix karo.'},
+      {n:'5', t:'Iron nail test: 30 sec mein copper coat aaye = perfect. Spray subah 9–11am.'}
+    ]
+  },
+  dos:['Bordeaux same day banao aur spray karo','Mulch 20cm thick karo — har jagah roots ke upar','Frost protection material (gunny bags) abhi se ready karo','NO N fertilizer — strict October se'],
+  donts:['Zero Nitrogen — October se strict rule','Bordeaux metal container mein mat banao — CuSO4 react karta hai','Bordeaux raat ke liye store mat karo — kharab ho jaata hai'],
+  pests:[
+    {name:'Leaf Spot / Fungal pre-winter', when:'Humidity falling, cooling temps', symptom:'Brown-black spots on older leaves.',
+     treat:'Bordeaux 1% hi kaafi hai October mein closing spray ke roop mein.', brand:'CuSO4 + Lime = Bordeaux', mix:'1% as above — 5L per tree', timing:'15 Oct closing season spray'}
+  ],
+  water:{l:'15–18L', f:'Har 6–7 din', t:'Subah 8–10am', note:'Sardi aa rahi — less watering. Roots slow down ho rahe hain.', btlNote:'Sirf MOP bottle. No N. Easy dissolve.'}
+},
+
+{
+  id:'m09', yr:3, label:'November 2026', sh:'Nov\'26',
+  title:'Pre-Dormancy — Mulch + Observe Only',
+  temp:'12–20°C', rain:'10–25 mm', season:'😴 Pre-Dormancy',
+  sznBg:'rgba(80,40,120,.15)', sznC:'#9060b8',
+  dot:'#9060b8',
+  tasks:[
+    {id:'t09a', label:'1 Nov — FYM 4kg top mulch + Dry leaves 8–10kg (20–25cm)', sub:'Koi chemical NAHI. Roots ko frost insulation dena hai.'},
+    {id:'t09b', label:'15 Nov — Tree inspection + bud count + Frost watch shuru', sub:'Zero chemical. Sirf observe. <5°C forecast pe gunny bags ready.'}
+  ],
+  ferts:[
+    {name:'FYM (top mulch — NOT ring)', chg:'TOP DRESS only, no ring',
+     brand:'Local gaushala', price:'₹1–3 / kg', qty:'4 kg / tree',
+     bottle:'N/A — Bilkul nahi. Top dress hi karo (ring mat khodo Nov mein).',
+     method:'Sirf upar se bichha do — bark ke upar jaisi blanket', when:'1 November', btl:false},
+    {name:'Dry leaves / Straw mulch', chg:'',
+     brand:'Apni kheti se ya dhaan ki parali / local khet', price:'Free', qty:'8–10 kg (20–25cm thick)',
+     bottle:'N/A — Top layer FYM ke upar', method:'FYM ke upar 20–25cm thick layer', when:'1 November FYM ke baad', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'😴', label:'Dormancy kyun important hai', text:'Tree iss waqt <strong>apni energy store kar rahi hai</strong> roots aur trunk mein. Agar is time koi disturbance doge (fertilizer, spray) to tree energy waste karegi aur spring mein weak hogi. <strong>Rest = strength</strong>.'},
+    {icon:'🌡️', label:'Mulch kyun 20–25cm thick', text:'Parwanoo mein Nov–Jan mein nights <5°C ho sakti hain. 20–25cm mulch = <strong>soil temp 5–8°C warm</strong> rehti hai. Roots freeze nahi hote. Ek baar roots freeze hone pe recovery bahut slow hoti hai.'},
+    {icon:'🌸', label:'Bud count kyun', text:'November mein axillary buds visible hone lagte hain (microscope nahi chahiye — nayi growth points dikh jaate hain). <strong>Zyada buds = zyada flowers February mein</strong>. Count karna prediction deta hai.'}
+  ],
+  profit:[
+    {icon:'🌡️', label:'Frost protection = 100% survival', text:'Parwanoo ki frosts Nov–Jan mein 2-year grafted trees ke liye dangerous hain. Mulch + cover se <strong>100% survival guaranteed</strong>. Without protection: 20–30% chance of branch dieback.'},
+    {icon:'📊', label:'Energy conservation', text:'Dormancy mein kuch na karo = tree maximum energy store karti hai = Spring mein <strong>vigorous flush aur flowering</strong>.'},
+    {icon:'💰', label:'Planning time', text:'November = best time to plan Year 4. Calculate last year\'s costs, plan next year\'s purchases, <strong>buy fertilizers in bulk off-season</strong> (cheaper).'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Bud swell check', ok:'Axillary buds visible, slightly swollen, healthy cream/green color. Count per branch.', bad:'No visible buds = poor performance this year. Check if N was stopped on time.'},
+    {icon:'🍃', title:'Leaf condition', ok:'Leaves starting to look dull, mature, thick. Some older leaf drop — normal.', bad:'Mass leaf drop in November = stress. Check roots, check watering.'},
+    {icon:'❄️', title:'Frost check (daily!)', ok:'Nights > 8°C = safe. Mulch adequate.', bad:'<5°C night forecast = emergency cover karo raat mein with gunny bags.'}
+  ],
+  bottle:{
+    warning:'NOVEMBER MEIN BOTTLE BILKUL NAHI. Koi liquid ya solid chemical fertilizer NAHI. Dormancy mein excess nutrient = energy waste + early flush = frost damage. Bottle gadi rahe — sirf empty rakho ya plain paani dalo.',
+    steps:[
+      {n:'1', t:'Bottle permanent gadi rahe — sirf empty karo (solution mat daalo).'},
+      {n:'2', t:'FYM 4kg top pe bichha do — ring mat khodo (roots disturb hoti hain).'},
+      {n:'3', t:'Dry leaves / parali upar se — 20–25cm thick layer karo.'},
+      {n:'4', t:'15 Nov: Bud count karo per branch. Record: X buds per branch on Y branches.'},
+      {n:'5', t:'IMD weather app download karo. Har raat forecast check karo.'}
+    ]
+  },
+  dos:['Mulch 20–25cm ZAROOR karo','<5°C forecast pe gunny bags se cover karo raat mein','Bud count karo 15 Nov pe — record karo','IMD weather app pe frost forecast check daily'],
+  donts:['Zero chemical fertilizer — bilkul NAHI','Koi spray nahi November mein','Ring mat khodo — roots disturb hoti hain sardi mein','Pruning mat karo — wound healing slow in winter'],
+  pests:[
+    {name:'Frost Damage (Abiotic)', when:'<5°C nights', symptom:'Tips brown ho rahe hain. New growth wilted. Frost burn visible.',
+     treat:'Prevention only — gunny bags / frost cloth cover. Chemical kuch nahi karta.', brand:'Gunny bags / old jute sacks / frost protection cloth', mix:'N/A', timing:'Raat 8pm se subah 8am tak cover karo jab <5°C forecast ho'}
+  ],
+  water:{l:'12–15L', f:'Har 10–12 din', t:'Din mein koi waqt', note:'Pre-dormancy — minimum watering. Just prevent desiccation.', btlNote:'Bottle NIKAAL LO — koi liquid fertilizer nahi.'}
+},
+
+{
+  id:'m10', yr:3, label:'December 2026', sh:'Dec\'26',
+  title:'Full Dormancy — Soil Test + Year 4 Planning',
+  temp:'8–15°C', rain:'10–25 mm', season:'😴 Full Dormancy',
+  sznBg:'rgba(40,60,120,.15)', sznC:'#5070b8',
+  dot:'#5070b8',
+  tasks:[
+    {id:'t10a', label:'1 Dec — Full dormancy observe karo. Zero fertilizer.', sub:'Bud swell = healthy. Yellow-green buds = 2027 flowering aa rahi hai!'},
+    {id:'t10b', label:'15 Dec — Soil Test bhejo + Year 3 HEIGHT FINAL RECORD 🎯', sub:'pH + N + P + K + Zn + B test. Result se Year 4 doses fine-tune karo.'}
+  ],
+  ferts:[
+    {name:'Soil Test (Not fertilizer — Test kit)', chg:'ICAR recommended annual test',
+     brand:'State Horticulture Dept / ICAR local lab / Amazon pe Kisan Soil Test Kit',
+     price:'₹100–500 test', qty:'1 sample per tree zone',
+     bottle:'N/A — Mitti ka sample collect karo, lab bhejo.',
+     method:'4–6 inch deep se mitti lo, mix karo, lab bhejo', when:'15 December', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'🔬', label:'Soil test kyun December mein', text:'December mein no fertilizer added — <strong>baseline soil status</strong> check karna best time hai. Results se pata chalega kaunsa nutrient deficient hai. Year 4 ke liye <strong>customized dose</strong> plan kar sakte hain.'},
+    {icon:'😴', label:'Full dormancy ka matlab', text:'Tree ne sari leaves ki energy wapas le li hai. Buds dormant hain. Roots minimal activity. Is waqt koi bhi fertilizer = <strong>waste aur potential harm</strong>.'},
+    {icon:'📊', label:'Year 3 review karna kyun', text:'Height, fruit count, quality record karna future mein kaam aayega. Kya kaam kiya, kya nahi — <strong>Year 4 mein improve</strong> kar sakte hain.'}
+  ],
+  profit:[
+    {icon:'📋', label:'Soil test ROI', text:'₹200–500 ka soil test → exact deficiency pata chalti hai → sahi fertilizer doge → <strong>yield 20–40% improve</strong>. Without test: guess karte rehte hain, nutrients waste hote hain.'},
+    {icon:'📈', label:'Year 4 planning impact', text:'Sahi planning se fertilizer cost 15–20% kam hoti hai (sirf jo chahiye woh dena). Target setting se <strong>discipline aati hai</strong>. Track karne se mistakes repeat nahi hoti.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Bud swell quality', ok:'Buds plump, slightly green-yellow. Multiple buds per node visible. Bark clean.', bad:'Shriveled buds = dehydration. Brown buds = frost damage. Act in January.'},
+    {icon:'📏', title:'Final Year 3 height', ok:'TARGET: 9–10 feet by December 31. Wild rootstock pe realistic target.', bad:'<7 feet = major issue. Review what went wrong. Was drainage ok? NPK on time?'},
+    {icon:'🌡️', title:'Winter frost monitoring', ok:'Mulch thick. Gunny bags ready. IMD checked daily.', bad:'Frost burn on branches = damage. Cover ASAP. Prune damaged parts in March.'}
+  ],
+  bottle:{
+    warning:'DECEMBER: ZERO fertilizer. Bottle band. Complete rest. Soil test 15 Dec ko karo — yeh zaroori hai.',
+    steps:[
+      {n:'1', t:'Soil sample: Tree ke ring ke andar 4 jagah se 6 inch deep mitti lo.'},
+      {n:'2', t:'Mix karo sab mitti ek saath. 500g sample ek bag mein.'},
+      {n:'3', t:'Horticulture dept ya ICAR lab mein bhejo ya Amazon se kit se ghar pe test karo.'},
+      {n:'4', t:'pH 6.0–7.0 ideal. N/P/K deficiency note karo. Zinc aur Boron bhi test karo.'},
+      {n:'5', t:'Height final measure karo. Photos lo trunk, canopy, height. Year 3 complete!'}
+    ]
+  },
+  dos:['Soil test bhejo 15 Dec ko','HEIGHT FINAL RECORD — Year 3 done!','Year 4 fertilizer shopping list banao (off-season mein kharido — sasta)','Bud swell daily observe karo'],
+  donts:['ZERO fertilizer December mein','Pruning December mein NAHI','Koi bhi spray nahi'],
+  pests:[
+    {name:'Frost (severe nights)', when:'Dec–Jan coldest nights', symptom:'<5°C → tender tissue damage.',
+     treat:'Gunny bag cover raat mein.', brand:'Jute sacks / gunny bags', mix:'N/A', timing:'Raat se subah — forecast pe'}
+  ],
+  water:{l:'10–12L', f:'Har 12–14 din', t:'Noon mein', note:'Minimum water — just prevent root desiccation.', btlNote:'Bottle band. Zero feeding.'}
+},
+
+{
+  id:'m11', yr:3, label:'January 2027', sh:'Jan\'27',
+  title:'Bud Break + High-P Bottle Start',
+  temp:'8–16°C', rain:'25–45 mm', season:'🌸 Bud Break',
+  sznBg:'rgba(40,60,140,.15)', sznC:'#5080c8',
+  dot:'#5080c8',
+  tasks:[
+    {id:'t11a', label:'1 Jan — VC 1–2kg light ring broadcast', sub:'Dormancy se gently bahar — heavy dose nahi abhi.'},
+    {id:'t11b', label:'15 Jan — NPK 12:32:16 (25g) bottle drip shuru', sub:'High-P = 2027 flowering trigger. Frost se bottle bachao.'}
+  ],
+  ferts:[
+    {name:'Vermicompost (light dose only)', chg:'Very light — just activate soil',
+     brand:'Biofit / local', price:'₹8–12 / kg', qty:'1–2 kg / tree',
+     bottle:'N/A — Ring broadcast light.', method:'Ring pe halka broadcast karo', when:'1 Jan', btl:false},
+    {name:'NPK 12:32:16 High Phosphorus', chg:'Year 3→4 bridge dose',
+     brand:'Haifa Multi-K / SQM NKP 12:32:16 / Coromandel Gromor', price:'₹180–240 / kg', qty:'25g / tree',
+     bottle:'25g in 800ml warm pani. Frost ke waqt bottle nikaal lo.',
+     method:'1L Bottle Drip — subah 9–10am ke baad lagao (frost time nahi)', when:'15 January', btl:true}
+  ],
+  npk:{n:0, p:25, k:0},
+  why:[
+    {icon:'🌸', label:'High-P January mein kyun', text:'Bud initiation ke liye <strong>Phosphorus sabse important</strong> hai. Jan 15 pe bottle lagaane se P roots tak pahunchta hai aur <strong>bud swelling accelerate hoti hai</strong>. February mein full flowering trigger ke liye abhi se dena zaroori.'},
+    {icon:'🌡️', label:'Frost precaution kyun', text:'January mein Parwanoo pe <5°C nights possible. Bottle mein liquid <strong>freeze nahi hona chahiye</strong> — frozen solution = slow/no release aur bottle crack bhi ho sakti hai.'}
+  ],
+  profit:[
+    {icon:'🌸', label:'Flowering quality setup', text:'High-P January dose se February mein <strong>30–40% zyada panicles</strong> nikalti hain — directly zyada fruit. ₹100 invest → potential ₹2000–4000 extra fruit next season.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Bud swell progress', ok:'Jan 15 ke baad buds visible swell ho rahe hain. Slightly green-yellow. Panicle initiation starting.', bad:'No change in buds = cold damage ya very poor nutrition last year.'},
+    {icon:'❄️', title:'Frost check daily', ok:'Nights > 8°C = safe. Mulch intact.', bad:'<5°C forecast = cover trees raat mein'}
+  ],
+  bottle:{
+    warning:'January frost risk! Bottle subah 9am ke baad lagao — early morning frost time pe nahi. Raat mein <5°C forecast pe bottle nikaal lo ya empty bottle rakho.',
+    steps:[
+      {n:'1', t:'NPK 12:32:16 (25g) ko 800ml warm pani (40°C) mein gholo.'},
+      {n:'2', t:'Subah 9–10am ke baad bottle lagao — frost time nahi.'},
+      {n:'3', t:'Raat mein <5°C forecast pe bottle temporarily remove karo.'},
+      {n:'4', t:'Agle din 15L watering (sirf agar no frost risk).'}
+    ]
+  },
+  dos:['15 Jan bottle shuru karo','Year 4 fertilizer stock arrange karo','Frost protection continue karo','Bud swell daily note karo'],
+  donts:['Zyada N Jan mein mat do — premature flush risk','Bottle ko freeze mat hone do'],
+  pests:[{name:'Frost on buds', when:'<5°C nights', symptom:'Bud tips brown ho rahi hain', treat:'Cover', brand:'Gunny bags', mix:'N/A', timing:'Raat mein cover'}],
+  water:{l:'12–15L', f:'Har 7–8 din', t:'Subah 9–10am', note:'Frost risk — subah 9am ke baad hi karo kuch.', btlNote:'Frost se bottle bachao. Subah 9am ke baad lagao.'}
+},
+
+{
+  id:'m12', yr:3, label:'February 2027', sh:'Feb\'27',
+  title:'Year 4 Start — Pre-Flower Organic + Bordeaux',
+  temp:'10–18°C', rain:'45–80 mm', season:'🌸 Pre-Flowering',
+  sznBg:'rgba(180,80,140,.15)', sznC:'#d870a8',
+  dot:'#d870a8',
+  tasks:[
+    {id:'t12a', label:'1 Feb — FYM 10–12kg + VC 4kg + NC 150g ring (Year 4 ⬆️ BIG)', sub:'Year 4 organic DOUBLED — 15–20kg se 25–30kg annual. Feb 1st half organic base.'},
+    {id:'t12b', label:'15 Feb — Bordeaux 1% spray + Sticky band refresh', sub:'Powdery Mildew prevention. Same preparation as October.'}
+  ],
+  ferts:[
+    {name:'FYM Year 4 (DOUBLED!)', chg:'⬆️ 6kg→10–12kg Year 4',
+     brand:'Local gaushala / livestock', price:'₹1–3 / kg', qty:'10–12 kg (1st half of 25–30kg annual)',
+     bottle:'N/A — Ring mein solid. Tree ab bigger = zyada ring area.',
+     method:'Trunk se 2ft door ring khodo (deeper + wider). FYM+VC+NC sab mix karo.', when:'1 February', btl:false},
+    {name:'Vermicompost Year 4', chg:'⬆️ 2kg→4kg Year 4',
+     brand:'Biofit / local', price:'₹8–12 / kg', qty:'4 kg',
+     bottle:'N/A — FYM ke saath ring.', method:'FYM ke saath mix', when:'1 Feb', btl:false},
+    {name:'Neem Cake Year 4', chg:'⬆️ 100g→150g Year 4',
+     brand:'GAIL / Bharat Agri', price:'₹20–35 / kg', qty:'150g',
+     bottle:'N/A — Ring mein FYM ke saath.', method:'FYM ring mein mix', when:'1 Feb', btl:false},
+    {name:'Bordeaux Mixture 1%', chg:'Same as October',
+     brand:'CuSO4 Mangala/GSFC + Bujha Chuna', price:'₹40–60/kg', qty:'5L spray',
+     bottle:'N/A — Hand spray. Fresh banao. Plastic container use karo.',
+     method:'15 Feb subah spray', when:'15 February subah 9–11am', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'⬆️', label:'Year 4 organic kyun DOUBLED', text:'Tree Year 4 mein 3 saal ki ho jaati hai — <strong>root system 3–4 guna bada</strong> ho gaya hai. Zyada roots = zyada nutrient demand. Year 3 se Year 4 mein FYM 12kg se 20–24kg (split in 4 doses) ho jaata hai.'},
+    {icon:'🌸', label:'Feb mein organic kyun', text:'FYM+VC ko settle hone mein 3–4 hafte lagte hain. February mein doge to <strong>March flowering ke waqt nutrients available</strong> hongey roots ke paas.'}
+  ],
+  profit:[
+    {icon:'🌸', label:'Year 4 = FIRST PROPER CROP', text:'Year 4 mein Malika mango first time proper fruiting karta hai. 20 trees × 8–15kg average × ₹50/kg = <strong>₹8,000–15,000 first Year 4 income</strong>.'},
+    {icon:'📈', label:'Doubled organic = better soil', text:'Year 4 se soil organic matter significantly improves. Better water retention, less chemical needed, more microbiome activity = <strong>5+ year compounding benefit</strong>.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Flowering start check', ok:'Feb 15–20 ke beech pehle panicles visible hone chahiye. Yellow-green emerging flower spikes.', bad:'Feb end pe koi panicle nahi = delayed flowering. Check if Jan High-P dose diya tha.'},
+    {icon:'🍃', title:'Leaf condition', ok:'Old leaves dark green firm. Some leaf drop as new growth starts — normal.', bad:'Mass leaf drop before flowering = water stress ya root issue.'}
+  ],
+  bottle:{
+    warning:'February mein bottle chemical se nahi — March 16 se shuru hogi. Organic ring mein dalo aur fresh banao same din spray karo Bordeaux.',
+    steps:[
+      {n:'1', t:'Ring khodo — wider + deeper for Year 4 (2.5ft door, 6 inch deep).'},
+      {n:'2', t:'FYM 10–12kg + VC 4kg + NC 150g mix karke ring mein dalo. Mitti se dhako. Mulch upar.'},
+      {n:'3', t:'15 Feb Bordeaux: Plastic bucket mein CuSO4 50g in 2.5L. Alag bucket mein Chuna 50g in 2.5L. Phir Chuna mein CuSO4 dalo. Iron nail test. Subah spray karo.'}
+    ]
+  },
+  dos:['Year 4 organic 2x badha hai — sahi ring banao','Bordeaux fresh banao same din — store nahi hoga','Sticky band trunk pe refresh karo mealybug ke liye','Feb 15 se flowering monitoring shuru karo'],
+  donts:['Chemical fertilizer Feb mein nahi — March 16 se','Bordeaux metal container mein mat banao'],
+  pests:[
+    {name:'Powdery Mildew (pre-season)', when:'Feb humidity risk', symptom:'Emerging buds pe safed dust coating.',
+     treat:'Bordeaux 1% preventive spray', brand:'CuSO4 + Chuna', mix:'1% as above', timing:'15 Feb — subah'},
+    {name:'Mealybug (from soil up trunk)', when:'Warm soil activates in Feb', symptom:'White cottony mass on trunk/branch joints.',
+     treat:'Sticky grease band + Imidacloprid trunk drench', brand:'Confidor 200 SL (3ml/L trunk drench)', mix:'Grease band on trunk + Confidor drench', timing:'Feb 1 pe band laga do'}
+  ],
+  water:{l:'15–20L', f:'Har 5–6 din', t:'Subah 8–9am', note:'Flowering shuru ho rahi — consistent moisture zaroori.', btlNote:'Feb mein bottle warm-up karo — plain paani se test karo holes saaf hain ya nahi. March 16 se NPK shuru.'}
+}
+
+
+,
+// ════════════════════════════════════════════
+// YEAR 4 — March 2027 to February 2028
+// ICAR Annual: Urea 217g | DAP 200g | MOP 167g | FYM 25-30kg
+// Tree Age: 3→4 years | FIRST PROPER CROP YEAR
+// ════════════════════════════════════════════
+{
+  id:'m13', yr:4, label:'March 2027', sh:'Mar\'27',
+  title:'Year 4 — PEHLA PROPER CROP Flowering!',
+  temp:'15–24°C', rain:'30–60 mm', season:'🌸 First Proper Crop!',
+  sznBg:'rgba(200,80,140,.18)', sznC:'#e870b0',
+  dot:'#e870b0',
+  tasks:[
+    {id:'t13a', label:'1 Mar — Multiplex 2g/L + Borax 0.5g/L foliar spray', sub:'Borax Year 4 mein ADD kiya — fruit setting 20-30% improve. 1-15 Mar zero chemical.'},
+    {id:'t13b', label:'16 Mar — NPK 12:32:16 (30g ⬆️) bottle drip', sub:'Year 4 dose 5g higher than Year 3 (25g→30g). Bigger crop = more P needed.'}
+  ],
+  ferts:[
+    {name:'NPK 12:32:16 (Year 4 — Increased)', chg:'⬆️ 25g→30g Year 4',
+     brand:'Haifa Multi-K Mag / SQM NKP 12:32:16 / Coromandel Gromor / Multiplex Combo',
+     price:'₹180–240 / kg', qty:'30g / tree (5g zyada than Y3)',
+     bottle:'30g ko 800ml warm pani (40°C) mein gholo — 2 min stir. Bottle 16 Mar se.',
+     method:'1L Bottle Drip — 45° angle, 25cm trunk se door',
+     when:'16 March se — subah 7-9am', btl:true},
+    {name:'Multiplex + Borax Foliar (Year 4 NEW addition)', chg:'🆕 Borax naya add Year 4',
+     brand:'Multiplex Combi-M + Fertibor / GSFC Borax / Solubor (liquid borax)',
+     price:'₹800-1200/kg Multiplex + ₹80-120/kg Borax', qty:'10g Multiplex + 2.5g Borax in 5L spray',
+     bottle:'N/A — Hand spray only. 10g Multiplex + 2.5g Borax in 5L pani.',
+     method:'Hand pump spray — poore tree pe, patti ke neeche bhi',
+     when:'1 March subah 9-11am (flowers band hon tab)', btl:false}
+  ],
+  npk:{n:0, p:30, k:0},
+  why:[
+    {icon:'🌸', label:'Borax kyun add kiya Year 4 mein', text:'Boron fruit setting mein direct role karta hai — <strong>pollen tube growth facilitate</strong> karta hai. Boron spray se fruit set 20-30% improve hoti hai. Year 3 mein nahi tha — Year 4 se ICAR recommendation ke hisab se add kiya.'},
+    {icon:'⬆️', label:'30g kyun (25g se zyada)', text:'Year 4 mein tree badi hai — <strong>zyada roots, zyada absorption capacity</strong>. 5g extra P = zyada energy for fruit set. ICAR ke hisab se mature tree pe dose gradually badhta hai.'},
+    {icon:'🐝', label:'1-15 Mar zero chemical — still important', text:'Year 4 mein zyada fruit set honi chahiye = <strong>pollinators zyada important hain</strong>. Chemical spray = bee kill = kum fruit. Isliye 1-15 Mar band rule Year 4 mein bhi same.'}
+  ],
+  profit:[
+    {icon:'🥭', label:'Year 4 = First Real Money!', text:'Malika mango Year 4 mein seriously fruit deta hai — 20 trees × 10-15kg average × ₹50-70/kg = <strong>₹10,000–21,000 pehli baar ki income</strong>. Ye sab proper care ka result hai.'},
+    {icon:'🌸', label:'Borax ROI = Extraordinary', text:'2.5g Borax ka cost ≈ ₹1-2 per tree. 20% better fruit set se 2kg extra fruit per tree × 20 trees × ₹55 = <strong>₹2,200 extra sirf ₹25 invest karke</strong>. Best ROI of the year.'},
+    {icon:'📈', label:'Year 4 compound effect', text:'Sahi flowering = sahi fruit set = good harvest = market reputation build = <strong>next year buyers ready milte hain</strong>. Pehle saal ka crop = future ka foundation.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Year 4 Panicle count (more expected!)', ok:'Har branch pe 3-6 panicles hone chahiye Year 4 mein. Year 3 se clearly zyada visible. Dense, 20-30cm long panicles.', bad:'Year 3 se kum panicles = problem. Check if January High-P bottle diya tha.'},
+    {icon:'🌡️', title:'Weather check for flowering', ok:'15-22°C daytime, 10-15°C nights — ideal. Low humidity. Clear skies.', bad:'>28°C daytime during flowering = early flower drop. >85% humidity = Powdery Mildew explosion.'},
+    {icon:'🐝', title:'Pollinator activity (CRITICAL)', ok:'Subah 8-11am mein clearly bees aur insects visible. Flowers humming sound.', bad:'No insects = chemical se mare, ya bahut cold. Emergency: stop all sprays, wait 3-4 days.'}
+  ],
+  bottle:{
+    warning:'1-15 Mar: BOTTLE MEIN ZERO chemical. Year 4 mein bhi same strict rule. Pollinators protect karo — Year 4 ka PEHLA PROPER CROP depend karta hai is par. 16 Mar se NPK bottle daily fill karo.',
+    steps:[
+      {n:'1', t:'1 Mar: Multiplex 10g + Borax 2.5g ko 5L pani mein gholo → hand spray subah 9-11am. Flowers band hon tab spray karo.'},
+      {n:'2', t:'1-15 Mar: Sirf plain watering. Bottle mein kuch nahi.'},
+      {n:'3', t:'16 Mar se: NPK 12:32:16 (30g) ko 800ml warm pani (40°C) mein gholo — 2 min stir.'},
+      {n:'4', t:'Bottle 25-30cm trunk se door, 45° angle, 8cm zameen mein gado.'},
+      {n:'5', t:'24-36 hr mein khali hogi. Agle din 20-25L plain watering.'},
+      {n:'6', t:'16-31 Mar tak har 5-7 din mein refill karo (total 2-3 fills).'}
+    ]
+  },
+  dos:['Borax spray 1 Mar ZAROOR — Year 4 ka sabse important new addition','16 Mar se NPK 30g bottle daily fill karo','Flower panicle count karo — Year 4 vs Year 3 compare karo','Pollinators STRICTLY protect karo 1-15 Mar'],
+  donts:['1-15 Mar: ZERO chemical spray — same rule Year 4 mein bhi','Hopper spray subah 8am se pehle NAHI — bees neend mein','Dopahar mein koi spray ya kaam NAHI'],
+  pests:[
+    {name:'Mango Hopper (Peak during flowering)', when:'March = highest risk', symptom:'Peele-haare insects flowers pe. Flowers girte ja rahe hain. Honey dew sticky substance.',
+     treat:'Confidor 200 SL (Imidacloprid)', brand:'Confidor 200 SL (Bayer) / Tatamida / Gauge / Admire', mix:'0.3ml / 1L pani — 5L per tree', timing:'Subah 8am ke baad — flowers band hon tab spray karo'},
+    {name:'Powdery Mildew (Oidium)', when:'Humidity > 75% anytime Mar', symptom:'Panicles pe safed powder. Flowers brown ho rahe hain.',
+     treat:'Sulfex 80 WG (Sulfur) ya Contaf 5 SC', brand:'Sulfex 80 WG / Thiovit Jet / Contaf 5 SC (Bayer)', mix:'2g Sulfex ya 1ml Contaf / 1L pani', timing:'Dry day subah spray'}
+  ],
+  water:{l:'18-22L', f:'Har 4-5 din', t:'Subah 7-9am', note:'Consistent moisture = better fruit set. Dry mat hone do. Over-watering bhi nahi.', btlNote:'1-15 Mar plain watering only. 16 Mar se NPK 30g bottle start.'}
+},
+
+{
+  id:'m14', yr:4, label:'April 2027', sh:'Apr\'27',
+  title:'Year 4 Fruit Set — Dose 1/3 ALMOST DOUBLED!',
+  temp:'20–30°C', rain:'15–40 mm', season:'🍈 Year 4 Fruit Set',
+  sznBg:'rgba(200,130,20,.18)', sznC:'#e8a030',
+  dot:'#e8a030',
+  tasks:[
+    {id:'t14a', label:'1 Apr — VC 4kg + Urea 72g + DAP 65g bottle (⬆️ DOUBLED)', sub:'Year 4 Dose 1/3 — Urea 35g→72g, DAP 50g→65g. Use 60°C garam pani.'},
+    {id:'t14b', label:'15 Apr — CaNO3 2.5g/L foliar + Fruit thinning karo', sub:'Bigger crop = more Ca needed. 12.5g in 5L spray.'}
+  ],
+  ferts:[
+    {name:'Vermicompost Year 4', chg:'⬆️ 2kg→4kg Year 4',
+     brand:'Biofit / Krishak / Local unit', price:'₹8-12 / kg', qty:'4 kg / tree',
+     bottle:'N/A — Ring mein solid. Deeper ring khodo Year 4 mein (tree badi hai).',
+     method:'Trunk se 2ft door ring khodo (deeper for Y4). VC dalo, mitti dhako.', when:'1 April subah', btl:false},
+    {name:'Urea — Year 4 Dose 1/3 (DOUBLED!)', chg:'⬆️⬆️ 35g→72g (ICAR 217g÷3)',
+     brand:'IFFCO Urea / Kisan Urea / NFL Urea', price:'₹5-6 / kg', qty:'72g / tree (almost 2× Year 3!)',
+     bottle:'72g Urea + 65g DAP = 137g total. 60°C garam pani 1.5L mein gholo — 5-6 min stir.',
+     method:'2L bottle recommended (137g zyada hai). Ya 2 alag 1L bottles.', when:'1 April — subah', btl:true},
+    {name:'DAP — Year 4 Dose 1/3', chg:'⬆️ 50g→65g Year 4',
+     brand:'IFFCO DAP / NFL DAP / RCF Suphala', price:'₹27 / kg', qty:'65g / tree (ICAR 200g÷3)',
+     bottle:'Urea ke saath same bottle: 72g+65g=137g in 1.5L 60°C pani.',
+     method:'Same 2L bottle as Urea', when:'1 April same time', btl:true},
+    {name:'Calcium Nitrate (Year 4 increased)', chg:'⬆️ 2g→2.5g per liter Year 4',
+     brand:'IFFCO CaN / Haifa Calcinit / Coromandel Ca(NO3)2', price:'₹80-120 / kg',
+     qty:'12.5g (2.5g/L × 5L spray)', bottle:'N/A — Hand spray. 12.5g in 5L pani.',
+     method:'Hand pump spray — especially small fruits pe focus karo', when:'15 April subah 7-9am', btl:false}
+  ],
+  npk:{n:72, p:65, k:0},
+  why:[
+    {icon:'⬆️', label:'Kyun 137g — almost double?', text:'ICAR research: Year 2 se Year 3-5 mein <strong>tree ka demand 2× ho jaata hai</strong>. Root system bada, leaf area bada, fruit count zyada — sab ke liye zyada N+P chahiye. 72g+65g = ICAR prescribed Year 3-5 dose.'},
+    {icon:'🧪', label:'137g dissolve kaise karo', text:'60°C garam pani ZAROORI hai itna dissolve karne ke liye. <strong>Thanda pani mein crystals bottom mein reh jaate hain</strong> — dose waste hoti hai. 5-6 min stir karo — patience rakho.'},
+    {icon:'🍈', label:'Calcium kyun zyada Year 4 mein', text:'Year 4 mein zyada fruit = <strong>zyada calcium demand</strong>. 2g/L se 2.5g/L kiya — fruit firmness, shelf life, aur Blossom End Rot prevention ke liye. Export quality ke liye Ca critical.'}
+  ],
+  profit:[
+    {icon:'📦', label:'Yield jump Year 4', text:'Year 3 mein maybe 3-5kg per tree. Year 4 mein <strong>10-15kg per tree expected</strong> with proper care. 20 trees × 12kg × ₹55 = ₹13,200 potential harvest income.'},
+    {icon:'💰', label:'137g ka investment ROI', text:'137g fertilizer cost ≈ ₹10-12 per tree. Isse fruit size 20-25% bada hota hai. <strong>₹12 invest → ₹500-800 extra per tree</strong>. 20 trees = ₹10,000+ extra.'},
+    {icon:'🏆', label:'Market premium for big fruit', text:'200g+ mango = premium market. 150g mango ₹30-40/kg. <strong>250g+ mango ₹70-100/kg</strong>. Sahi NPK = bigger fruit = zyada price per kg.'}
+  ],
+  healthCheck:[
+    {icon:'🍈', title:'Fruit set quality check', ok:'1 cluster mein 4-8 fruits set hue hain. Green, firm, hazelnut to marble size. Multiple clusters per branch.', bad:'1 se kum fruits per cluster = poor pollination ya P deficiency.'},
+    {icon:'🌡️', title:'Heat stress (April starts)', ok:'Mulch 20cm thick, moist. Leaves turgid. No wilting.', bad:'Wilting even in morning = severe stress. Emergency 30L deep watering subah.'},
+    {icon:'📏', title:'Height Year 4 check', ok:'April 1 pe 9-10 feet honi chahiye (Year 3 target achieve kiya tha).', bad:'<8 feet = growth lag. Review Year 3 performance.'}
+  ],
+  bottle:{
+    warning:'137g ek bottle mein dissolve karna mushkil hai — 60°C pani ZAROOR use karo. Better option: 2L bottle use karo aur 137g ko 1.5L 60°C pani mein gholo. Ya split karo — 2 × 1L bottles (ek east side, ek west side of tree).',
+    steps:[
+      {n:'1', t:'Option 1 (best): 2L bottle lao. 1.5L pani 60°C garam karo.'},
+      {n:'2', t:'DAP 65g pehle dalo, 3 min stir. Phir Urea 72g dalo, 3 min stir. 137g total dissolved.'},
+      {n:'3', t:'2L bottle mein bharo. 500ml plain pani upar. Cap.'},
+      {n:'4', t:'25-30cm trunk se door, 45°, 10cm deep (bigger tree = deeper).'},
+      {n:'5', t:'Agle din 30L deep watering ZAROOR — zyada dose = zyada paani chahiye.'},
+      {n:'6', t:'CaNO3 spray 15 Apr: 12.5g in 5L pani, subah 7-9am.'}
+    ]
+  },
+  dos:['137g ko 60°C garam pani mein gholo — 5-6 min patience rakho','2L bottle use karo Year 4 se — zyada dose ke liye','Fruit thinning zaroor — 1 cluster = 2-3 fruits max','30L watering agle din — zyada dose ke baad zyada paani'],
+  donts:['137g thande pani mein NAHI — crystals undissolved reh jaate hain','1L bottle mein 137g mat thosna — properly dissolve nahi hoga','Same din CaNO3 + Bordeaux spray NAHI — react karte hain'],
+  pests:[
+    {name:'Anthracnose (Year 4 bigger risk — more fruit)', when:'April humidity+heat combo', symptom:'Fruit tip pe kale gol daag. Manchhe fruit drop ho rahe hain.',
+     treat:'Saaf (Carbendazim+Mancozeb combo)', brand:'Saaf Fungicide (Bayer) / Indofil M-45 + Bavistin combo', mix:'Saaf: 2g/L — 5L per tree. Ya M-45 2g + Bavistin 1g/L.', timing:'15 Apr spray. 10 din repeat agar daag continue.'},
+    {name:'Fruit Fly — Early monitoring', when:'April se traps shuru karo', symptom:'Chhote holes in fruit + premature drop.',
+     treat:'Malathion bait traps preventive', brand:'Malathion 50 EC + Gur bait trap', mix:'10ml Malathion + 10g jaggery / 1L pani', timing:'April se hi traps lagao — reactive nahi preventive approach'}
+  ],
+  water:{l:'28-32L', f:'Har 2-3 din', t:'Subah 6-8am', note:'Garmi badh rahi — bigger tree + bigger crop = zyada paani. 30 min slow watering = deep root moisture.', btlNote:'2L bottle use karo 137g ke liye. Agle din 30L watering zaroor.'}
+},
+
+{
+  id:'m15', yr:4, label:'May 2027', sh:'May\'27',
+  title:'Year 4 HARVEST — Pehla Proper Crop! + Peak Heat',
+  temp:'26–40°C', rain:'20–50 mm', season:'🥭 First Proper Harvest!',
+  sznBg:'rgba(180,80,10,.2)', sznC:'#f09040',
+  dot:'#f09040',
+  tasks:[
+    {id:'t15a', label:'1 May — NPK 40g + Humic 10ml bottle (Year 4 peak dose)', sub:'2-3 bottle refills this month. 40°C heat mein jaldi khali hogi.'},
+    {id:'t15b', label:'15 May — SOP 10g/L + ZnSO4 0.5g/L spray + HARVEST!', sub:'Zinc Year 4 mein NEW addition. Sweetness + fruit size improve. Harvest subah karo!'}
+  ],
+  ferts:[
+    {name:'NPK 19:19:19 (Year 4 double dose)', chg:'⬆️ 30g→40g Year 4',
+     brand:'Multiplex Pramukh / Katyayani NPK / IFFCO WS', price:'₹120-180 / kg', qty:'40g / tree per fill',
+     bottle:'40g NPK + 10ml Humic = 1 bottle. 800ml 45°C pani, 3 min stir.',
+     method:'1L Bottle Drip — 3 baar refill: 1, 10, 20 May', when:'1 May, 10 May, 20 May', btl:true},
+    {name:'Humic Acid Liquid', chg:'⬆️ 8ml→10ml Year 4',
+     brand:'Humirich / Multiplex Humic Gold / Dr. Bactos', price:'₹300-500 / L', qty:'10ml per fill',
+     bottle:'NPK 40g ke saath same bottle. 40g+10ml in 800ml warm pani.', method:'Bottle ke saath', when:'Har NPK fill ke saath', btl:true},
+    {name:'SOP — Potassium Sulphate (Year 4 more)', chg:'⬆️ 8g→10g per liter Y4',
+     brand:'SQM SOP / Haifa SOP / Multifeed SOP', price:'₹60-90 / kg', qty:'50g (10g/L × 5L)',
+     bottle:'N/A — Hand spray. 50g in 5L spray pump.', method:'Hand pump spray (15 May)', when:'15 May subah 6-7am ONLY', btl:false},
+    {name:'ZnSO4 — Zinc Sulphate 21% (Year 4 NEW!)', chg:'🆕 New ICAR addition Year 4',
+     brand:'Zinc Sulphate 21% / Multiplex Zinc / GSFC Zinc Sulphate', price:'₹30-50 / kg',
+     qty:'2.5g (0.5g/L × 5L spray)', bottle:'SOP ke saath same spray mein — 50g SOP + 2.5g ZnSO4 in 5L.',
+     method:'SOP + ZnSO4 same 5L spray', when:'15 May subah — SOP ke saath', btl:false}
+  ],
+  npk:{n:12, p:12, k:18},
+  why:[
+    {icon:'🌸', label:'Zinc kyun add kiya Year 4 mein', text:'Zinc fruit size, sweetness aur color directly improve karta hai. <strong>ICAR recommendation for fruiting trees</strong>: Year 4 onwards ZnSO4 foliar spray start karo. Zinc se fruit 15-20% bada aur color brighter hota hai.'},
+    {icon:'⬆️', label:'40g NPK kyun (30g se zyada)', text:'Year 4 mein pehla proper crop lag raha hai — <strong>fruit development ke liye zyada energy chahiye</strong>. 40g = ICAR prescribed peak dose for bearing trees. 40°C mein leakage bhi hota hai — isliye zyada.'},
+    {icon:'🍯', label:'SOP 10g kyun (8g se zyada)', text:'Bigger crop = more potassium demand for sweetness. <strong>Brix 16-18+ achieve karna hai</strong> Year 4 mein. SOP 10g/L se Brix guaranteed 2-3 points upar jaata hai.'}
+  ],
+  profit:[
+    {icon:'🥭', label:'Pehla Real Harvest Income!', text:'20 trees × 12kg × ₹55/kg = <strong>₹13,200 pehli baar</strong>. Agar export quality achieve ho (Brix 18+, 250g+) to ₹80-100/kg = ₹19,200-24,000. Ye sab 2 saal ki mehnat ka fal.'},
+    {icon:'🌟', label:'Zinc ROI extraordinary', text:'2.5g ZnSO4 per tree ≈ ₹0.15. Fruit 15% bada aur brighter color = ₹5-8/kg premium. 20 trees × 12kg × ₹6 = <strong>₹1,440 extra sirf ₹3 invest karke</strong>.'},
+    {icon:'📦', label:'Market reputation builds', text:'Pehle saal ka achha fruit = regular buyers milte hain. <strong>Advance bookings next year</strong>. Word of mouth se zyada price milta hai.'}
+  ],
+  healthCheck:[
+    {icon:'🥭', title:'HARVEST READINESS TEST', ok:'1) Peel ka color: green se yellow tinge aane laga. 2) Gentle squeeze: thoda soft feel (not rock hard). 3) Sweet khushboo subah. 4) 1-2 fruit naturally gir rahe hain = signal.', bad:'All green + rock hard = 2+ weeks. Kale patches on tip = Anthracnose, jaldi harvest karo.'},
+    {icon:'☀️', title:'Sunburn check', ok:'Fruit smooth, no flat discolored patches. Paper bags on most fruits.', bad:'Brown/black flat patches = sunburn. Remaining fruits pe bag lagao ASAP.'},
+    {icon:'💧', title:'Water adequacy check', ok:'Ring area moist 10cm deep. Leaves turgid even 2pm.', bad:'Wilting at 10am + fruit drop = emergency. 35L immediate deep watering.'}
+  ],
+  bottle:{
+    warning:'May mein 40°C heat — bottle 18-24 hr mein khali hogi (faster than normal). Teen refills zaroori: 1, 10, 20 May. Bottle ko mitti se cover karo ya chhayein mein rakho — sunlight mein algae + chemical degradation hoti hai.',
+    steps:[
+      {n:'1', t:'800ml pani 45°C garam karo. NPK 40g dalo, 2 min stir. Humic 10ml dalo, 30 sec mix.'},
+      {n:'2', t:'Bottle mein bharo. 200ml plain pani upar. Cap.'},
+      {n:'3', t:'Trunk se 25-30cm door, 45°, 8cm deep. Mitti se bottle ka lower half cover karo.'},
+      {n:'4', t:'1, 10, 20 May ko 3 refills. Har refill ke agle din 30-35L watering.'},
+      {n:'5', t:'15 May SOP+Zinc spray: 50g SOP + 2.5g ZnSO4 ko 5L pani mein gholo → subah 6-7am spray.'},
+      {n:'6', t:'HARVEST: Subah 6-7am. Scissors use karo. Yellow tinge + sweet smell = ready.'}
+    ]
+  },
+  dos:['HARVEST subah 6-7am — dopahar heat mein quality giregi','Paper bags se remaining fruits cover karo','ZnSO4 spray 15 May zaroor — Year 4 new addition','3 bottle refills karo: 1, 10, 20 May','35L deep watering har 2 din'],
+  donts:['Harvest ke 7 din pehle koi chemical spray NAHI','Dopahar mein fruit ko touch mat karo','Bottle seedha dhoop mein mat rakho'],
+  pests:[
+    {name:'Fruit Fly (Bactrocera) — PEAK HARVEST TIME', when:'May = critical pest month', symptom:'Fruit mein small holes. Premature drop. Brown inside.',
+     treat:'Spinosad spray + Malathion bait. Harvest se 7 din pehle band karo.', brand:'Tracer 45 SC / Success 2.5 SC (Spinosad) + Malathion 50 EC bait', mix:'Spinosad: 0.3ml/L. Bait: 10ml Malathion+10g jaggery/1L.', timing:'Harvest se 7 din pehle BAND karo spray'},
+    {name:'Mango Stone Weevil (Sternochetus mangiferae)', when:'Harvest time specific', symptom:'Fruit deceptively healthy outside — stone/seed ke paas grub.',
+     treat:'Prevention: Hot water treatment post-harvest (48°C, 1 hour)', brand:'No chemical works — hot water treatment', mix:'48°C water mein 60 min dip — kills eggs/larvae', timing:'Post-harvest — before storage/market'}
+  ],
+  water:{l:'32-38L', f:'Har 2 din PAKKA', t:'Subah 6-7am ONLY', note:'Peak heat + biggest crop = maximum water demand. Ek din miss = fruit drop. Critical month for watering.', btlNote:'3 refills: 1, 10, 20 May. 40°C mein bottle 18-24 hr mein khali.'}
+},
+
+{
+  id:'m16', yr:4, label:'June 2027', sh:'Jun\'27',
+  title:'Post-Harvest Recovery — Year 4 Dose 2 BIG!',
+  temp:'26–34°C', rain:'100–180 mm', season:'🌿 Post-Harvest Y4',
+  sznBg:'rgba(30,120,60,.18)', sznC:'#40b060',
+  dot:'#40b060',
+  tasks:[
+    {id:'t16a', label:'1 Jun — FYM 10-12kg + VC 4kg + NC 150g ring (Year 4 2×)', sub:'Year 4 FYM almost doubled — 6-8kg se 10-12kg. Post-harvest recovery critical.'},
+    {id:'t16b', label:'15 Jun — Urea 72g + MOP 55g bottle (DRY DAY SIRF!)', sub:'127g total — 2L bottle use karo. Year 4 Dose 2 — almost double Year 3.'}
+  ],
+  ferts:[
+    {name:'FYM (Year 4 — Almost Doubled!)', chg:'⬆️ 6-8kg→10-12kg Year 4',
+     brand:'Gaushala / local livestock (6 month cured only)', price:'₹1-3 / kg', qty:'10-12 kg / tree',
+     bottle:'N/A — Ring mein solid. Bigger ring khodo Year 4 ke liye.',
+     method:'2.5ft door ring, 8 inch deep. FYM+VC+NC sab mix karke dalo.', when:'1 June subah', btl:false},
+    {name:'Vermicompost Year 4', chg:'⬆️ 3kg→4kg Year 4',
+     brand:'Biofit / Krishak / local', price:'₹8-12 / kg', qty:'4 kg',
+     bottle:'N/A — FYM ke saath ring.', method:'FYM ke saath mix', when:'1 June', btl:false},
+    {name:'Neem Cake Year 4', chg:'⬆️ 100g→150g Year 4',
+     brand:'GAIL Neem Cake / Bharat Agri', price:'₹20-35 / kg', qty:'150g',
+     bottle:'N/A — Ring mein FYM ke saath.', method:'Mix in ring', when:'1 June', btl:false},
+    {name:'Urea — Year 4 Dose 2/3', chg:'⬆️ 37g→72g Year 4 (ICAR 217g÷3)',
+     brand:'IFFCO Urea', price:'₹5-6 / kg', qty:'72g / tree',
+     bottle:'72g+55g=127g total. 2L bottle recommended. 60°C pani 1.5L, 5 min stir.',
+     method:'2L Bottle Drip — DRY DAY ONLY (5+ din baarish nahi)', when:'15 June dry day pe sirf', btl:true},
+    {name:'MOP — Year 4 Dose 2/3', chg:'⬆️ 42g→55g Year 4 (ICAR 167g÷3)',
+     brand:'IPL Potash / Kali Duniya MOP', price:'₹30-40 / kg', qty:'55g (ICAR 167g÷3)',
+     bottle:'Urea ke saath same 2L bottle: 127g total in 1.5L.', method:'Same 2L bottle as Urea', when:'15 June dry day', btl:true}
+  ],
+  npk:{n:72, p:0, k:55},
+  why:[
+    {icon:'🌱', label:'Post-harvest recovery kyun itna important', text:'Bada crop dene ke baad tree <strong>completely exhausted</strong> hoti hai — stored nutrients 80-90% use ho gaye. Agar is waqt feeding nahi ki to tree <strong>permanently stunted</strong> ho sakti hai. Year 5 mein kum flowers.'},
+    {icon:'⬆️', label:'127g kyun — Year 3 se almost 2× zyada', text:'Year 4 mein tree bigger hai, crop zyada tha — <strong>recovery demand proportionally zyada hai</strong>. ICAR proven: Year 4-5 mein double dose se recovery 40-50% faster hoti hai vs under-dosed trees.'},
+    {icon:'🌧️', label:'2L bottle kyun zaroori', text:'127g ek chhoti 1L bottle mein properly dissolve karna mushkil hai even with hot water. <strong>2L bottle = better dissolving, proper slow release</strong>. Alternative: 2 × 1L bottles ek tree ke aaspaas.'}
+  ],
+  profit:[
+    {icon:'🌳', label:'Post-harvest investment = next year crop', text:'June mein sahi feeding se July-August mein strong flush = September mein mature buds = February 2028 mein <strong>bumper crop (Year 5)</strong>. Skip karo to Year 5 bhi weak.'},
+    {icon:'💪', label:'Tree vigor maintenance', text:'Properly fed post-harvest tree <strong>trunk diameter 20-25% zyada badhta hai</strong> per year. Bigger trunk = more structural support for bigger crop loads.'}
+  ],
+  healthCheck:[
+    {icon:'🌱', title:'New flush timing', ok:'June 10-25 ke beech new flush nikalna chahiye. Copper-red tender shoots. Multiple per branch.', bad:'No flush by June 30 = severely exhausted tree. Emergency: immediate Urea dry day pe.'},
+    {icon:'🔵', title:'Waterlogging (CRITICAL Year 4)', ok:'Rain ke 36 hr baad ring area drain ho gaya. Roots firm.', bad:'Standing water 48+ hr = ROOT ROT emergency. Drainage channel banao ASAP.'},
+    {icon:'🌳', title:'Trunk health check', ok:'Trunk bark tight, uniform color. Lime paste fresh.', bad:'Cracks or oozing sap = bacterial canker. Cut + Bordeaux paste apply.'}
+  ],
+  bottle:{
+    warning:'MONSOON RULE SAME Year 4 mein: 5+ dry days ke baad hi 2L bottle lagao. 127g dissolve karne ke liye: Bowl mein 1.5L 60°C pani → MOP 55g dalo 3 min mix → Urea 72g dalo 3 min mix → 2L bottle mein daalo → 500ml plain upar.',
+    steps:[
+      {n:'1', t:'Weather check: 5+ consecutive dry days required.'},
+      {n:'2', t:'Bowl mein 1.5L pani 60°C garam karo.'},
+      {n:'3', t:'MOP 55g pehle dalo (3 min stir). Phir Urea 72g dalo (3 min stir). 127g dissolved.'},
+      {n:'4', t:'2L bottle mein daalo. 500ml plain pani upar. Cap. 25-30cm door, 45°, 10cm deep.'},
+      {n:'5', t:'Agle din 25-30L watering (sirf agar baarish nahi).'},
+      {n:'6', t:'FYM+VC+NC ring mein 1 June ko alag se dalo.'}
+    ]
+  },
+  dos:['2L bottle use karo Year 4 Dose 2 ke liye','FYM 10-12kg ring — Year 4 mein 2× zyada organic','Drainage nali saaf karo — June mein monsoon shuru','Stem Borer monthly check shuru karo'],
+  donts:['Monsoon mein bottle = root rot — sirf dry day pe','127g thande pani mein mat gholo','Waterlogged soil mein ring mat khodo'],
+  pests:[
+    {name:'Stem Borer — Season Starting', when:'June se start — August peak', symptom:'Trunk pe sawdust powder. Bark discoloration.',
+     treat:'Chlorpyrifos 20 EC syringe + Imidacloprid monthly preventive', brand:'Durmet/Dursban 20 EC + Confidor 200 SL', mix:'Emergency: 2ml Chlorpyrifos+3ml water inject. Monthly: 3ml Confidor/1L trunk drench.', timing:'Sawdust dikh jaaye = SAME DAY action'}
+  ],
+  water:{l:'Baarish natural (dry pe 25-30L)', f:'Sirf 5-7 dry days pe', t:'Dry day subah', note:'Monsoon shuru — extra pani nahi. Baarish = natural irrigation.', btlNote:'Monsoon mein 2L bottle sirf dry day pe. 127g ke liye 60°C pani 1.5L mein dissolve karo.'}
+},
+
+{
+  id:'m17', yr:4, label:'July 2027', sh:'Jul\'27',
+  title:'Year 4 Golden Month — Bigger Tree, Bigger Growth!',
+  temp:'24–30°C', rain:'280–380 mm', season:'🌿 Y4 Peak Growth!',
+  sznBg:'rgba(30,150,70,.18)', sznC:'#30c060',
+  dot:'#30c060',
+  tasks:[
+    {id:'t17a', label:'1 Jul — Drainage + Stem Borer check + Trichoderma 75g drench', sub:'Year 4 Tricho dose 50g→75g. Seaweed extract bhi karo (naya addition).'},
+    {id:'t17b', label:'15 Jul — NPK 45g + Humic 10ml bottle drip (DRY DAY ONLY)', sub:'Year 4 peak dose 45g (Y3 35g se zyada). Dry day pe sirf.'}
+  ],
+  ferts:[
+    {name:'NPK 19:19:19 — Year 4 Peak (Highest!)', chg:'⬆️ 35g→45g Year 4 peak',
+     brand:'Multiplex Pramukh / Katyayani / IFFCO WS', price:'₹120-180 / kg', qty:'45g / tree',
+     bottle:'45g NPK + 10ml Humic = 1 bottle. 800ml 45°C pani, 3 min stir.',
+     method:'1L Bottle Drip — DRY DAY ONLY', when:'15 July dry day', btl:true},
+    {name:'Humic Acid', chg:'',
+     brand:'Humirich / Multiplex Humic Gold', price:'₹300-500/L', qty:'10ml',
+     bottle:'NPK 45g ke saath same bottle.', method:'NPK bottle ke saath', when:'15 July', btl:true},
+    {name:'Trichoderma harzianum (Year 4 more)', chg:'⬆️ 50g→75g Year 4',
+     brand:'T-Vigil 1.15% WP / BioJodi / Ecostar / Multiplex Biocure F', price:'₹200-300/kg', qty:'75g / tree',
+     bottle:'N/A — Root zone drench alag. 75g in 5L pani slowly pour karo.',
+     method:'Root zone drench (not bottle)', when:'1 July subah', btl:false},
+    {name:'Seaweed Extract (Year 4 NEW!)', chg:'🆕 New ICAR addition Year 4',
+     brand:'AgriSea Seaweed / Multiplex Anand / BioStimulant Seaweed', price:'₹300-600 / L',
+     qty:'15ml (3ml/L × 5L spray)', bottle:'N/A — Foliar spray. 15ml in 5L pani.',
+     method:'Hand spray — mid July dry day', when:'Mid-July dry day subah', btl:false}
+  ],
+  npk:{n:15, p:15, k:15},
+  why:[
+    {icon:'🌿', label:'Seaweed extract kyun add kiya Year 4', text:'Seaweed mein natural <strong>auxins + cytokinins</strong> hote hain — root growth hormones. Isse root system 20-30% faster develop hota hai, nutrient uptake improve hota hai. ICAR ne Year 4+ fruiting trees ke liye recommend kiya hai.'},
+    {icon:'⬆️', label:'45g NPK kyun (35g se zyada)', text:'Year 4 tree ka root zone almost double ho gaya hai Year 3 se. <strong>Zyada roots = zyada absorption capacity</strong>. 45g = same concentration per root area as 35g was in Year 3.'},
+    {icon:'🦠', label:'Trichoderma 75g kyun (50g se zyada)', text:'Bigger root zone = zyada area cover karna hai. <strong>75g ensures proper colonization</strong> of larger root system. Post-harvest weakened tree ke liye root health protection critical hai Year 4 mein.'}
+  ],
+  profit:[
+    {icon:'📏', label:'Year 4 growth height target', text:'July mein growth fast hoti hai — target <strong>12-14 feet by August end Year 4</strong>. Bigger tree = zyada leaf area = zyada photosynthesis = zyada stored carbs = zyada fruit Year 5 mein.'},
+    {icon:'🌿', label:'Seaweed long-term investment', text:'Seaweed se root system develop hone ke baad <strong>2-3 saal tak benefit milta hai</strong>. Year 5-6 mein kum irrigation chahiye, drought tolerance badhti hai, overall kum maintenance cost.'}
+  ],
+  healthCheck:[
+    {icon:'📏', title:'Height weekly track Year 4', ok:'Week 1: 45cm growth. Week 2-4: 4-6cm/week. Canopy spread bhi measure karo — kitna wide ho raha hai.', bad:'<3cm/week July mein = problem. Check drainage, Trichoderma do, NPK dry day pe do.'},
+    {icon:'🌊', title:'Canopy spread check', ok:'Year 4 tree canopy 6-8 feet wide honi chahiye. Branches well distributed.', bad:'Narrow/tall only = tip pruning zaroor. Wide canopy = zyada sun exposure = zyada fruit.'},
+    {icon:'🦟', title:'Stem Borer WEEKLY', ok:'Zero sawdust. Zero holes. Lime paste fresh on trunk.', bad:'Sawdust = EMERGENCY same day action.'}
+  ],
+  bottle:{
+    warning:'July = 330mm baarish + 4 actions ek dry day mein karo: (1) NPK 45g bottle, (2) Trichoderma 75g drench, (3) Seaweed spray, (4) Next day watering. Sab dry day pe hi effective hain.',
+    steps:[
+      {n:'1', t:'5+ dry days ke baad: 800ml 45°C pani. NPK 45g + Humic 10ml gholo → bottle.'},
+      {n:'2', t:'Alag: Trichoderma 75g ko 5L normal pani → root zone mein dhire dhire pour karo.'},
+      {n:'3', t:'Seaweed 15ml ko 5L pani → tree pe foliar spray karo (leaves + branches).'},
+      {n:'4', t:'Agle din (agar baarish nahi): 20-25L watering.'},
+      {n:'5', t:'Tip pruning bhi is mahine karo: top 3-4 inches cut karo (branching ke liye).'}
+    ]
+  },
+  dos:['4 kaam ek dry day mein karo: bottle + Trichoderma + Seaweed + watering','Height WEEKLY measure karo — July record month','Seaweed Year 4 new hai — miss mat karo','Tip pruning karo — branching ke liye'],
+  donts:['Sab kaam baarish mein nahi — dry day wait karo','Seaweed + Bordeaux same time NAHI — react karte hain','NPK + Trichoderma same hole mein mat dalo'],
+  pests:[
+    {name:'Stem Borer — Peak Approaching', when:'July bhi risky', symptom:'Sawdust + holes + branch wilting.',
+     treat:'Imidacloprid monthly trunk drench (preventive)', brand:'Confidor 200 SL / Tatamida (monthly preventive)', mix:'3ml Confidor / 1L pani → trunk base drench monthly', timing:'1st of every month Aug-Sep preventive drench'}
+  ],
+  water:{l:'Baarish natural only', f:'7+ dry days pe 20-25L', t:'Dry day subah', note:'Peak monsoon same as Year 3. Extra nahi dena.', btlNote:'4 actions ek dry day mein. Seaweed + Trichoderma Year 4 new additions.'}
+},
+
+{
+  id:'m18', yr:4, label:'August 2027', sh:'Aug\'27',
+  title:'Year 4 Annual NPK Complete — LAST N + Bigger Boron',
+  temp:'23–29°C', rain:'260–350 mm', season:'🌿 Y4 Annual Complete',
+  sznBg:'rgba(30,140,60,.15)', sznC:'#38b058',
+  dot:'#38b058',
+  tasks:[
+    {id:'t18a', label:'1 Aug — FYM 10-12kg ring + Urea 73g + DAP 70g 2L bottle', sub:'Year 4 Annual NPK 3/3 COMPLETE! N=217g, P=200g done. 2L bottle for 143g total.'},
+    {id:'t18b', label:'15 Aug — Multiplex 2g + Borax 1.5g + CuSO4 0.5g/L spray', sub:'Year 4 = Borax 1g→1.5g + CuSO4 naya addition. Fruit quality ICAR recommendation.'}
+  ],
+  ferts:[
+    {name:'FYM (completing Year 4 annual)', chg:'⬆️ 6kg→10-12kg Year 4',
+     brand:'Gaushala / local livestock', price:'₹1-3 / kg', qty:'10-12 kg (completing 25-30kg annual)',
+     bottle:'N/A — Ring mein solid. Annual FYM Year 4 = 10-12 (Feb) + 10-12 (Aug) = 20-24kg total.',
+     method:'Ring mein. Year 4 annual FYM nearing 25-30kg target.', when:'1 Aug dry day', btl:false},
+    {name:'Urea — Year 4 Dose 3/3 LAST N!', chg:'⬆️ 36g→73g (ICAR 217g÷3)',
+     brand:'IFFCO Urea', price:'₹5-6/kg', qty:'73g (completing 217g annual N)',
+     bottle:'73g+70g=143g total. 2L bottle, 1.5L 60°C pani, 6-7 min stir.',
+     method:'2L Bottle Drip — Dry day ONLY', when:'1 Aug dry day', btl:true},
+    {name:'DAP — Year 4 completing 200g annual P', chg:'⬆️ 50g→70g Year 4',
+     brand:'IFFCO DAP / NFL DAP', price:'₹27/kg', qty:'70g (completing 200g annual P)',
+     bottle:'Urea ke saath: 73g+70g=143g in 1.5L 60°C pani — 2L bottle.',
+     method:'Same 2L bottle as Urea', when:'1 Aug same bottle', btl:true},
+    {name:'Multiplex + Borax (increased) + CuSO4 (NEW Year 4)', chg:'⬆️ Borax 1g→1.5g + 🆕 CuSO4 new',
+     brand:'Multiplex Combi-M + Fertibor + Mangala CuSO4 (Blue Stone)',
+     price:'Mix: ₹50-100 total per tree spray', qty:'10g Multiplex + 7.5g Borax + 2.5g CuSO4 in 5L',
+     bottle:'N/A — Hand spray only. Teen cheezein ek spray mein gholo.',
+     method:'Hand pump spray on new flush + fruits', when:'15 Aug dry day subah', btl:false}
+  ],
+  npk:{n:73, p:70, k:0},
+  why:[
+    {icon:'🔵', label:'CuSO4 spray kyun add kiya Year 4', text:'Copper (Cu) <strong>fruit quality improve karta hai</strong> — color better, shelf life zyada, post-harvest rot kam hoti hai. ICAR ne fruiting trees ke liye CuSO4 foliar spray Year 4+ mein recommend kiya. 0.5g/L = safe dose.'},
+    {icon:'🌸', label:'Borax 1.5g kyun (1g se zyada)', text:'Year 4 mein zyada flowers + zyada fruit = <strong>zyada Boron demand</strong>. 2028 ka bumper crop set hona shuru ho raha hai August mein. 1.5g/L = proper dose for bearing trees.'},
+    {icon:'✅', label:'Annual NPK complete karna', text:'August mein Annual N=217g, P=200g complete ho jaata hai. <strong>Year 4 full nutrition cycle done</strong>. Oct se sirf K + organic. Perfect schedule.'}
+  ],
+  profit:[
+    {icon:'🌸', label:'2028 Bumper Crop setup', text:'August Boron + CuSO4 spray → 2028 bud formation → <strong>Year 5 bumper crop</strong>. 20 trees × 20kg × ₹55 = ₹22,000 potential. August investment = future gold.'},
+    {icon:'📊', label:'Annual NPK complete = max yield', text:'Trees jo ICAR prescribed full NPK receive karti hain, un mein yield <strong>2.5-3× zyada</strong> hoti hai unfertilized trees vs. 2 saal sahi kaam kiya — full benefit Year 5 se milega.'}
+  ],
+  healthCheck:[
+    {icon:'📏', title:'Year 4 final height check (Aug target)', ok:'August 1 pe target: 12-14 feet. Canopy 7-9 feet wide.', bad:'<10 feet = growth lag over 2 years. Review water + nutrition history.'},
+    {icon:'🌿', title:'Flush quality', ok:'New flush dark green, dense, multiple shoots. Leaves mature quickly.', bad:'Yellow-green new flush = Fe or Mn deficiency. Chelated micro spray do.'},
+    {icon:'🦟', title:'Stem Borer ABSOLUTE PEAK', ok:'Zero sawdust. Monthly preventive Confidor drench done.', bad:'Sawdust = EMERGENCY. Year 4 badi tree = bada damage risk.'}
+  ],
+  bottle:{
+    warning:'143g dissolve karna = patience + hot water. 6-7 min continuously stir karo. Agar kuch crystals bottom mein reh jaate hain to paani thoda aur garam karo. 2L bottle = essential. Annual NPK completing — ye last N hai!',
+    steps:[
+      {n:'1', t:'2L bottle lao. Bowl mein 1.5L pani 60°C garam karo.'},
+      {n:'2', t:'DAP 70g pehle dalo, 3 min stir. Phir Urea 73g dalo, 3-4 min stir. 143g dissolved.'},
+      {n:'3', t:'2L bottle mein daalo. 500ml plain pani upar. Dry day pe 25-30cm door, 45°, 10cm deep.'},
+      {n:'4', t:'Agle din 20-25L watering.'},
+      {n:'5', t:'15 Aug: 5L spray pani mein Multiplex 10g + Borax 7.5g + CuSO4 2.5g mix karo → subah 9-11am spray.'},
+      {n:'6', t:'Annual NPK Year 4 COMPLETE! Record karo: Urea 72+72+73=217g, DAP 65+65+70=200g ✓'}
+    ]
+  },
+  dos:['2L bottle ZAROOR — 143g ke liye','Annual NPK Y4 complete karo August mein — RECORD karo','Borax + CuSO4 combo spray 15 Aug — new Year 4 addition','Stem Borer WEEKLY + monthly preventive Confidor drench'],
+  donts:['143g thande pani mein NAHI — crystals undissolved = dose waste','October se N BILKUL NAHI — Year 4 mein bhi SAME RULE','2 different sprays same din mat karo'],
+  pests:[
+    {name:'Stem Borer — ABSOLUTE PEAK (Aug-Sep)', when:'Worst 2 months', symptom:'Sawdust powder + 5-8mm holes on trunk + branch wilting.',
+     treat:'Emergency: Chlorpyrifos syringe. Monthly preventive: Imidacloprid drench', brand:'Durmet/Dursban 20 EC + Confidor 200 SL', mix:'Emergency: 2ml+3ml water inject. Monthly: 3ml Confidor/1L trunk drench.', timing:'Weekly visual check. Sawdust = same hour action.'}
+  ],
+  water:{l:'Baarish (dry pe 20-25L)', f:'7+ dry days', t:'Dry day subah', note:'Aug bhi heavy monsoon. Dry days pe supplement. Annual NPK completing this month!', btlNote:'2L bottle for 143g. 60°C pani + 6-7 min stirring. Last N dose of Year 4.'}
+},
+
+{
+  id:'m19', yr:4, label:'September 2027', sh:'Sep\'27',
+  title:'Year 4 K-Hardening — MOP + Zinc Soil + Gypsum More',
+  temp:'22–28°C', rain:'150–220 mm', season:'🌱 Y4 K-Hardening',
+  sznBg:'rgba(60,140,80,.15)', sznC:'#50b070',
+  dot:'#50b070',
+  tasks:[
+    {id:'t19a', label:'1 Sep — MOP 57g + Humic 10ml bottle + ZnSO4 25g ring (NEW!)', sub:'Annual K completing: 55+55+57=167g ✓ Zinc soil app = Year 4 ICAR new addition.'},
+    {id:'t19b', label:'15 Sep — HEIGHT + CANOPY SPREAD FINAL record', sub:'12ft+ target Year 4. Canopy wide measure. 2-year journey check.'}
+  ],
+  ferts:[
+    {name:'MOP (completing 167g annual K)', chg:'⬆️ 45g→57g Year 4 (ICAR 167g÷3)',
+     brand:'IPL MOP / Kali Duniya / SQM KCl', price:'₹30-40/kg', qty:'57g (completing annual K)',
+     bottle:'57g MOP + 10ml Humic = 1 bottle. 800ml warm pani, 3 min stir.',
+     method:'1L Bottle Drip', when:'1 September', btl:true},
+    {name:'Humic Acid', chg:'',
+     brand:'Humirich / Multiplex Humic Gold', price:'₹300-500/L', qty:'10ml',
+     bottle:'MOP ke saath same bottle.', method:'Bottle ke saath', when:'1 Sep', btl:true},
+    {name:'ZnSO4 — Zinc Sulphate 21% (Soil application Year 4)', chg:'🆕 Year 4 ICAR soil Zinc',
+     brand:'Zinc Sulphate 21% / Multiplex Zinc / GSFC Zinc', price:'₹30-50/kg', qty:'25g soil application',
+     bottle:'25g ko 300ml pani mein gholo → ring mein daalo (alag action).',
+     method:'Ring soil application (bottle nahi)', when:'1 Sep — ring mein alag', btl:false},
+    {name:'Gypsum — Increased Year 4', chg:'⬆️ 100g→150g Year 4',
+     brand:'Agricultural Gypsum — Shaktiman / Rajasthan local', price:'₹5-8/kg', qty:'150g',
+     bottle:'N/A — Solid ring mein.', method:'Ring mein dalo', when:'15 Sep', btl:false}
+  ],
+  npk:{n:0, p:0, k:57},
+  why:[
+    {icon:'🔩', label:'Zinc soil application Year 4 kyun', text:'Zinc ek micronutrient hai jo <strong>enzyme activation, hormone production, photosynthesis</strong> mein role karta hai. Fruiting trees mein Zn deficiency se "little leaf" aur "rosette" symptoms aate hain. Soil Zn annual apply karna = stable supply roots tak.'},
+    {icon:'⬆️', label:'Gypsum 150g kyun (100g se zyada)', text:'Bigger tree = bigger root zone = <strong>zyada area mein Ca+S supply chahiye</strong>. Gypsum se soil structure bhi improve hoti hai — harder soil loose hoti hai = roots zyada freely grow kar paate hain.'},
+    {icon:'📊', label:'Annual K 167g complete', text:'55+55+57 = 167g = ICAR Year 4 annual K target COMPLETE. <strong>Annual nutrition plan perfectly executed</strong>. October se hardening phase — K stored in cells = frost protection guaranteed.'}
+  ],
+  profit:[
+    {icon:'📏', label:'2-year height achievement', text:'Target: September 2027 pe 12-14 feet. Wild rootstock ne growth deliver ki. <strong>Mar 2026 seedling to 12ft in 18 months</strong> — with proper care ye achievable hai.'},
+    {icon:'🌸', label:'2028 setup investment', text:'Sep Zinc soil app → better nutrient absorption Oct-Feb → <strong>bumper 2028 flowering</strong>. Year 5 = 20kg+ per tree potential.'}
+  ],
+  healthCheck:[
+    {icon:'📏', title:'HEIGHT + CANOPY SPREAD — Year 4 FINAL', ok:'Height target: 12-14 feet. Canopy spread: 8-10 feet wide. Trunk girth: 6-8 inch diameter.', bad:'<10 feet = growth deficit. Review 2 years of data — what went wrong.'},
+    {icon:'🌿', title:'Leaf hardening', ok:'Leaves turning firm, darker green, less shiny. New growth slowing.', bad:'Still soft new growth September end = N stopped too late.'},
+    {icon:'🦟', title:'Final Stem Borer check', ok:'Zero sawdust. Lime paste fresh. Clean trunk.', bad:'Late detection = winter mein larvae survive. EMERGENCY action.'}
+  ],
+  bottle:{
+    warning:'Annual K Year 4 completing this month. October se ZERO N rule Year 4 mein bhi same. Zinc soil application: 25g ko 300ml pani mein gholo → ring mein slowly daalo (bottle ke paas nahi — alag jagah).',
+    steps:[
+      {n:'1', t:'MOP 57g + Humic 10ml ko 800ml pani mein gholo → bottle (1L, normal method).'},
+      {n:'2', t:'Alag: ZnSO4 25g ko 300ml pani mein gholo → ring soil mein pour karo.'},
+      {n:'3', t:'Agle din 20-25L watering.'},
+      {n:'4', t:'15 Sep: Gypsum 150g ring mein dalo.'},
+      {n:'5', t:'15 Sep: HEIGHT measure karo (meter se exact). CANOPY SPREAD measure karo. Record karo.'}
+    ]
+  },
+  dos:['Annual K Y4 completing — record karo (55+55+57=167g)','Zinc soil app — Year 4 new addition zaroor karo','HEIGHT + CANOPY SPREAD Sep 15 pe measure karo','Oct se N ZERO — Year 4 mein bhi same rule'],
+  donts:['October se koi Urea ya DAP NAHI — strict','Zinc aur Gypsum same ring area mein ek saath nahi — 2 hafte gap'],
+  pests:[
+    {name:'Stem Borer Sep Final Check', when:'Sep = last peak month', symptom:'Sawdust / holes',
+     treat:'Final monthly Confidor drench + Lime paste fresh coat', brand:'Confidor 200 SL + Chuna paste (thick)', mix:'3ml Confidor/1L trunk drench + thick lime paste on trunk', timing:'Sep 1 pe final preventive treatment'}
+  ],
+  water:{l:'20-25L', f:'Har 3-4 din', t:'Subah 7-9am', note:'Baarish thodi kam — normal watering resume karo.', btlNote:'MOP 57g + ZnSO4 ring me alag. Annual K completing this month.'}
+},
+
+{
+  id:'m20', yr:4, label:'October 2027', sh:'Oct\'27',
+  title:'Year 4 Season Closing — Bigger Mulch Required',
+  temp:'18–26°C', rain:'50–80 mm', season:'🍂 Y4 Season Closing',
+  sznBg:'rgba(150,100,20,.18)', sznC:'#c8a030',
+  dot:'#c8a030',
+  tasks:[
+    {id:'t20a', label:'1 Oct — MOP 25g bottle + FYM 5kg + VC 3kg ring (ZERO N!)', sub:'K only + organic. Year 4 mein bhi October se N BILKUL NAHI.'},
+    {id:'t20b', label:'15 Oct — Bordeaux 1% spray (6L — bigger tree Y4) + Mulch 25cm', sub:'Year 4 bigger canopy = 6L spray (Y3 mein 5L tha). Mulch 25cm thick.'}
+  ],
+  ferts:[
+    {name:'MOP (K only — No N Year 4 also)', chg:'Same as Year 3',
+     brand:'IPL Potash / Kali Duniya', price:'₹30-40/kg', qty:'25g K only — NO Urea/DAP',
+     bottle:'25g in 800ml pani.', method:'1L Bottle Drip', when:'1 October', btl:true},
+    {name:'FYM + VC (closing organic)', chg:'',
+     brand:'Gaushala + Biofit', price:'₹1-3 + ₹8-12/kg', qty:'FYM 5kg + VC 3kg',
+     bottle:'N/A — Ring mein solid.', method:'Ring mein dalo', when:'1 Oct', btl:false},
+    {name:'Bordeaux 1% — Year 4 (More spray)', chg:'⬆️ 5L→6L Year 4 bigger canopy',
+     brand:'CuSO4 Mangala/GSFC + Bujha Chuna', price:'₹40-60/kg CuSO4',
+     qty:'6L spray (60g CuSO4 + 60g Chuna in 6L)', bottle:'N/A — Fresh banao same day. Plastic bucket.',
+     method:'SAME prep as before. Nail test. Bigger tree = thorough spray.', when:'15 Oct subah', btl:false}
+  ],
+  npk:{n:0, p:0, k:25},
+  why:[
+    {icon:'⬆️', label:'6L spray kyun (5L se zyada)', text:'Year 4 mein tree badi hai — <strong>surface area zyada hai</strong>. 5L se poori tree cover nahi hogi. 6L = thorough coverage = better winter fungal protection.'},
+    {icon:'🌿', label:'25cm mulch (20cm se zyada Year 4)', text:'Bigger tree = bigger root system spread. <strong>25cm mulch = wider + thicker coverage</strong> needed for full root zone protection.'},
+    {icon:'🚫', label:'N ZERO rule — Year 4 bhi same', text:'Ye rule change nahi hota with age. N = growth stimulant. Sardi mein growth = frost death. <strong>K + organic only from October</strong> — always and forever.'}
+  ],
+  profit:[
+    {icon:'🌡️', label:'Season closing = 2028 setup', text:'Proper Bordeaux + thick mulch = <strong>tree healthy enters dormancy</strong> = strong bud initiation = 2028 bumper crop.'},
+    {icon:'💰', label:'Prevention vs cure cost', text:'Bordeaux 6L ≈ ₹30 per tree. Fungal disease treatment ≈ ₹300-500. <strong>10× prevention saves 10× treatment cost</strong>.'}
+  ],
+  healthCheck:[
+    {icon:'✅', title:'Bordeaux quality test', ok:'Iron nail in solution: copper coat in 30 sec = perfect 1%.', bad:'No coat = weak solution. Add more CuSO4. Brown coat = too much lime. Add more CuSO4.'},
+    {icon:'🍃', title:'Leaf condition Oct', ok:'Leaves firm, dark green, thick. Hardened look.', bad:'Soft shiny leaves Oct = N diya tha too late. Frost damage risk high.'},
+    {icon:'🌡️', title:'Temperature watch', ok:'Days 20-24°C, nights 12-16°C — ideal hardening weather.', bad:'Sudden <10°C nights = emergency mulch + cover karo.'}
+  ],
+  bottle:{
+    warning:'YEAR 4 MEIN BHI: October se N = ZERO. Koi exception nahi. Bordeaux banate waqt: Safety glasses + gloves + mask ZAROOR — CuSO4 eyes ke liye dangerous hai. Same day banao + spray karo.',
+    steps:[
+      {n:'1', t:'MOP 25g ko 800ml pani → bottle (easy dissolves).'},
+      {n:'2', t:'15 Oct Bordeaux 6L: Plastic bucket 1 mein CuSO4 60g + 3L pani gholo. Plastic bucket 2 mein Chuna 60g + 3L pani gholo.'},
+      {n:'3', t:'Bucket 2 (Chuna) mein slowly Bucket 1 (CuSO4) daalo — ek hi direction mein stir karo.'},
+      {n:'4', t:'Iron nail test: 30 sec mein copper coat = ready. Spray subah 9-11am.'},
+      {n:'5', t:'25cm mulch: FYM layer pehle, phir dry leaves/straw 25cm thick cover karo.'}
+    ]
+  },
+  dos:['Bordeaux 6L thorough spray karo — bigger tree Year 4','25cm mulch — zyada coverage chahiye Year 4','Frost protection material — Year 4 tree ke liye zyada chahiye','NO N October se — Year 4 mein bhi strict'],
+  donts:['Zero N — no exceptions Year 4 mein','CuSO4 se safety gear ke bina kaam NAHI','Bordeaux store mat karo — same day use karo'],
+  pests:[
+    {name:'Fungal closing season', when:'Oct cooling weather', symptom:'Older leaves pe brown spots',
+     treat:'Bordeaux 1% closing spray hi enough', brand:'CuSO4 + Chuna', mix:'1% = 60g each in 6L for Year 4', timing:'15 Oct closing spray'}
+  ],
+  water:{l:'15-18L', f:'Har 6-7 din', t:'Subah 8-10am', note:'Sardi aa rahi — less watering. Roots slowing.', btlNote:'Sirf K bottle. No N. 25cm mulch karo.'}
+},
+
+{
+  id:'m21', yr:4, label:'November 2027', sh:'Nov\'27',
+  title:'Year 4 Pre-Dormancy — Bigger Mulch, 2028 Planning',
+  temp:'12–20°C', rain:'10–25 mm', season:'😴 Y4 Pre-Dormancy',
+  sznBg:'rgba(80,40,120,.15)', sznC:'#9060b8',
+  dot:'#9060b8',
+  tasks:[
+    {id:'t21a', label:'1 Nov — FYM 5-6kg + Dry leaves 10-12kg (25-30cm thick)', sub:'Year 4 bigger tree = zyada mulch coverage. 25-30cm thick vs Y3 20-25cm.'},
+    {id:'t21b', label:'15 Nov — Tree inspection + 2028 Bud count + Crop planning', sub:'Zero chemical. 2028 bumper crop planning seriously shuru karo.'}
+  ],
+  ferts:[
+    {name:'FYM (winter top-dress)', chg:'⬆️ 4-5kg→5-6kg Year 4',
+     brand:'Gaushala / local', price:'₹1-3/kg', qty:'5-6 kg top dress',
+     bottle:'N/A — Top dress only. No ring.', method:'Top pe bichha do — ring mat khodo Nov mein', when:'1 Nov', btl:false},
+    {name:'Dry leaves / Straw mulch Year 4', chg:'⬆️ 8-10kg→10-12kg Y4',
+     brand:'Khet ki parali / sukhi pattiyan', price:'Free', qty:'10-12 kg (25-30cm thick)',
+     bottle:'N/A — Top layer.', method:'FYM ke upar 25-30cm', when:'1 Nov', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'🌳', label:'Bigger tree = bigger frost risk', text:'Year 4 mein tree 12-14 feet tall hai — <strong>zyada exposed surface area</strong>. More branches = more frost contact points. Zyada mulch + zyada gunny bags = zyada protection.'},
+    {icon:'📋', label:'November = Best planning time', text:'Dormancy mein nature quiet hai — <strong>aap plan kar sakte ho</strong>. 2028 crop ke liye: fertilizer stock order karo, market contacts banao, drip irrigation consider karo.'}
+  ],
+  profit:[
+    {icon:'📈', label:'2028 Bumper Crop potential', text:'Year 5 = Malika mango fully mature. 20-25kg per tree potential. 20 trees × 22kg × ₹55 = <strong>₹24,200 annual income target</strong>. Proper 2 saal ki care ka return.'},
+    {icon:'💰', label:'Off-season planning saves money', text:'November mein fertilizer kharido (off-season) = <strong>15-20% sasta milta hai</strong> vs April-May peak season.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'2028 Bud count', ok:'Multiple buds per branch visible. Plump, healthy cream-green color. Promising sign for 2028 bumper crop.', bad:'Very few buds = nutrition deficit this year. Review 2027 records.'},
+    {icon:'📏', title:'2-Year height achievement review', ok:'12-14 feet achieved = 2-year tracker SUCCESS! Wild rootstock ne target deliver kiya.', bad:'<10 feet = below target. Identify which months nutrition was missed.'},
+    {icon:'❄️', title:'Frost readiness', ok:'25-30cm mulch complete. Gunny bags ready for all trees. IMD app checked.', bad:'Not ready = EMERGENCY prep karo before first cold night.'}
+  ],
+  bottle:{
+    warning:'NOVEMBER Y4: Bottle completely BAND. Same as Year 3. Bigger tree = zyada gunny bags chahiye <5°C pe. Multiple bags per tree.',
+    steps:[
+      {n:'1', t:'Bottle already removed hai to complete rest mode.'},
+      {n:'2', t:'FYM 5-6kg top dress, dry leaves 25-30cm cover.'},
+      {n:'3', t:'15 Nov: Bud count record karo per branch. Note karo.'},
+      {n:'4', t:'2028 planning list banao: fertilizer amounts Year 5, market contacts, drip irrigation plan.'},
+      {n:'5', t:'Gunny bags — at least 3-4 bags per big tree ready rakho.'}
+    ]
+  },
+  dos:['25-30cm mulch — Year 4 badi tree ke liye zyada coverage','2028 crop plan seriously banao','<5°C pe multiple gunny bags use karo','Nov mein ZERO chemical'],
+  donts:['Koi fertilizer November mein','Pruning mat karo sardi mein','Bottle band rakhna'],
+  pests:[
+    {name:'Frost (Year 4 = bigger exposure)', when:'<5°C nights', symptom:'Branch tips brown + wilting',
+     treat:'Multiple covers. Bigger tree needs more coverage.', brand:'Jute bags + frost cloth', mix:'N/A', timing:'Raat 8pm se subah cover. Forecast ke hisab se.'}
+  ],
+  water:{l:'12-15L', f:'Har 10-12 din', t:'Din mein', note:'Pre-dormancy minimum water.', btlNote:'Bottle BAND. 2028 planning shuru karo!'}
+},
+
+{
+  id:'m22', yr:4, label:'December 2027', sh:'Dec\'27',
+  title:'🎉 2-Year Tracker COMPLETE! Final Month.',
+  temp:'8–15°C', rain:'10–25 mm', season:'😴 2-Year Journey Done!',
+  sznBg:'rgba(40,60,140,.15)', sznC:'#5070c8',
+  dot:'#5070c8',
+  tasks:[
+    {id:'t22a', label:'1 Dec — Full dormancy observe. Zero chemical.', sub:'Bud swell = 2028 bumper crop aa rahi hai! Note karo daily.'},
+    {id:'t22b', label:'15 Dec — Soil Test (comprehensive) + 2-YEAR FINAL HEIGHT! 🎯', sub:'2-YEAR TRACKER COMPLETE! March 2026 se December 2027. Total growth kitni?'}
+  ],
+  ferts:[
+    {name:'Comprehensive Soil Test (Year 4 = More thorough)', chg:'⬆️ More comprehensive Year 4',
+     brand:'State Horticulture Dept / ICAR local lab / Amazon Kisan Soil Kit (pH+NPK+Zn+B)',
+     price:'₹200-800 comprehensive test', qty:'1 sample per tree zone',
+     bottle:'N/A — Mitti ka sample. 4 jagah se 6 inch deep lo. Mix karo. Lab bhejo.',
+     method:'15 Dec ko sample lo aur bhejo', when:'15 December', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'📊', label:'Comprehensive test kyun', text:'Year 5 onwards tree actively fruiting hogi. <strong>Micronutrients (Zn, B, Fe, Mn) ki demand badhti hai</strong>. Ye Year 3 ke test mein nahi tha. Ab proper test karo — Zinc, Boron, Iron, Manganese bhi check karo.'},
+    {icon:'🎉', label:'2-Year completion review', text:'March 2026 se December 2027 = 22 months of systematic care. <strong>Wild rootstock Malika mango 12-14 feet</strong>, first proper crop harvested, soil improved, disease management system in place.'}
+  ],
+  profit:[
+    {icon:'🥭', label:'2-Year ROI calculation', text:'Total 2-year cost (fertilizer, sprays, misc): ≈ ₹3,000-5,000 for 20 trees. Year 4 income: ₹13,000-20,000. <strong>ROI = 300-500% in Year 4 alone</strong>. Year 5+ = pure profit.'},
+    {icon:'📈', label:'Year 5 income projection', text:'Year 5 = 20-25kg per tree × 20 trees × ₹55/kg = <strong>₹22,000-27,500 annual</strong>. With premium (export quality): ₹40,000+.'},
+    {icon:'🌳', label:'Tree value after 4 years', text:'4-year old Malika mango tree on wild rootstock = 20-30 more productive years ahead. <strong>Total lifetime value per tree: ₹20,000-50,000</strong>. 20 trees = lifetime asset.'}
+  ],
+  healthCheck:[
+    {icon:'🎯', title:'2-YEAR FINAL HEIGHT CHECK', ok:'12-14 feet = TARGET ACHIEVED! Wild rootstock + proper care ne deliver kiya. Canopy 8-10 feet wide.', bad:'<10 feet = missed opportunities. Identify exact months where nutrition/water was compromised.'},
+    {icon:'🌸', title:'2028 Bud quality prediction', ok:'Healthy plump buds = 2028 bumper crop (20+kg per tree possible).', bad:'Sparse buds = extra High-P in Jan 2028 zaroor dena.'},
+    {icon:'💰', title:'Financial review', ok:'Year 4 crop = ₹10,000+ = 2+ years of fertilizer investment recovered.', bad:'Low crop = review quality issues — proper variety grafting? Pest management?'}
+  ],
+  bottle:{
+    warning:'2-YEAR JOURNEY COMPLETE! Bottle BAND December mein. Comprehensive soil test 15 Dec ko zaroor karo — Zinc + Boron bhi test karwao. Year 5 plan banao.',
+    steps:[
+      {n:'1', t:'Bottle gadi rahe — sirf empty ya plain paani. Chemical nahi..'},
+      {n:'2', t:'15 Dec soil sample: 4 spots se 6 inch deep mitti lo. Mix karo. Lab bhejo.'},
+      {n:'3', t:'Comprehensive test: pH + N + P + K + Zn + B + Fe + Mn — sab.'},
+      {n:'4', t:'HEIGHT FINAL measure karo. Canopy spread bhi. Photos lo.'},
+      {n:'5', t:'2-Year tracker COMPLETE! Record: Start height (2 yr old grafted ~3ft?) → Final: 12-14 feet.'},
+      {n:'6', t:'Year 5 plan: Same N217:P200:K167 bracket. FYM 30-35kg annual. Add Boron + Zinc regular.'}
+    ]
+  },
+  dos:['2-YEAR HEIGHT FINAL RECORD karo + photos lo','Comprehensive soil test bhejo (Zn+B bhi)','2028 market plan finalize karo','Year 5 fertilizer off-season kharido (December mein sasta)'],
+  donts:['Zero fertilizer December mein','Pruning mat karo abhi'],
+  pests:[
+    {name:'Frost severe nights Dec-Jan', when:'Peak cold', symptom:'<5°C → tissue damage',
+     treat:'Gunny bags + frost cloth at night', brand:'Jute bags / frost protection cloth', mix:'N/A', timing:'Raat 8pm-subah 8am cover'}
+  ],
+  water:{l:'10-12L', f:'Har 12-14 din', t:'Noon mein', note:'Minimum water — just prevent desiccation.', btlNote:'Bottle BAND. 2-YEAR COMPLETE! 🎉'}
+},
+
+{
+  id:'m23', yr:4, label:'January 2028', sh:'Jan\'28',
+  title:'Year 5 Start — 2028 Bumper Crop Prepare!',
+  temp:'8–16°C', rain:'25–45 mm', season:'🌸 Y5 Bud Break',
+  sznBg:'rgba(40,70,150,.15)', sznC:'#5080d0',
+  dot:'#5080d0',
+  tasks:[
+    {id:'t23a', label:'1 Jan — VC 2kg light ring + Year 5 prep shuru', sub:'Mild organic. Tree dormancy se bahar aa rahi hai gently.'},
+    {id:'t23b', label:'15 Jan — NPK 12:32:16 (35g ⬆️ Y5) bottle drip', sub:'Year 5 dose trend: Y3=25g → Y4=30g → Y5=35g. 2028 bumper crop trigger!'}
+  ],
+  ferts:[
+    {name:'Vermicompost (light bridge dose)', chg:'',
+     brand:'Biofit / local', price:'₹8-12/kg', qty:'2 kg / tree',
+     bottle:'N/A — Light ring broadcast.', method:'Ring pe halka broadcast', when:'1 Jan', btl:false},
+    {name:'NPK 12:32:16 (Year 5 — Increased)', chg:'⬆️ 30g→35g Year 5 trend',
+     brand:'Haifa Multi-K / SQM NKP 12:32:16 / Coromandel Gromor', price:'₹180-240/kg', qty:'35g / tree',
+     bottle:'35g in 800ml warm pani. Frost se bachao — subah 9-10am ke baad lagao.',
+     method:'1L Bottle Drip — frost se bachao', when:'15 January subah 9-10am ke baad', btl:true}
+  ],
+  npk:{n:0, p:35, k:0},
+  why:[
+    {icon:'📈', label:'35g kyun (30g se zyada)', text:'Year 5 trend: har saal High-P dose thoda badhta hai jab tak tree mature stage hit kare. <strong>35g = growing demand of increasingly mature tree</strong>. 2028 mein bahut zyada flowering expected — zyada P needed.'},
+    {icon:'🌸', label:'2028 Bumper crop setup', text:'January High-P → February flowering trigger → <strong>March 2028 huge crop start</strong>. Tree ab 4 saal ki ho gayi, root system fully established, support system ready hai.'}
+  ],
+  profit:[
+    {icon:'🥭', label:'2028 Income Projection', text:'20 trees × 20-25kg × ₹55/kg = <strong>₹22,000-27,500 Year 5 target</strong>. Export quality (Brix 18+, 250g+) = ₹80-100/kg = ₹32,000-50,000. 2-year investment fully recovered.'},
+    {icon:'🌳', label:'Tree maturity = less input', text:'Year 5+ mein tree self-sustaining hoti jaati hai. <strong>Kum supervision chahiye, kum intervention</strong>. Roots deep hain, soil microbiology established, disease resistance built up.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Bud development Jan 15-31', ok:'Buds clearly swelling. By Jan 31 panicle tips just visible. Exciting!', bad:'No change in buds Jan 31 = severe cold damage ya nutrition issue. Extra Borax spray karo.'},
+    {icon:'❄️', title:'Frost risk Jan 2028', ok:'Mulch intact. Gunny bags ready. IMD checked daily.', bad:'Frost damage on bud tips = lost 2028 crop. Protect karo aggressively.'},
+    {icon:'💰', title:'Year 5 preparation readiness', ok:'Fertilizer stock ordered. Market contacts ready. Drip irrigation plan made.', bad:'Not prepared = scrambling in March = suboptimal care = kum income.'}
+  ],
+  bottle:{
+    warning:'January 2028 frost risk abhi bhi. Bottle subah 9-10am ke baad hi lagao. Raat <5°C mein nikaal lo ya empty karo.',
+    steps:[
+      {n:'1', t:'NPK 12:32:16 (35g) ko 800ml 40°C pani mein gholo.'},
+      {n:'2', t:'Subah 9-10am ke baad bottle lagao — frost risk se bachao.'},
+      {n:'3', t:'Raat mein <5°C forecast: bottle remove karo.'},
+      {n:'4', t:'Agle din 15L watering (frost risk nahi ho tab).'}
+    ]
+  },
+  dos:['15 Jan NPK 35g bottle shuru karo','Year 5 fertilizer stock arrange karo','2028 market contacts finalize karo','Frost protection Jan 2028 bhi continue'],
+  donts:['Bottle freeze mat hone do','Zyada N Jan mein nahi'],
+  pests:[{name:'Frost on emerging buds', when:'<5°C nights Jan', symptom:'Bud tips brown', treat:'Gunny bag cover', brand:'Jute bags', mix:'N/A', timing:'<5°C forecast pe raat mein cover'}],
+  water:{l:'12-15L', f:'Har 7-8 din', t:'Subah 9-10am', note:'Frost risk — subah 9am ke baad hi karo.', btlNote:'35g = Year 5 start. Frost se bottle bachao.'}
+},
+
+{
+  id:'m24', yr:4, label:'February 2028', sh:'Feb\'28',
+  title:'🎉 2-Year Complete! Year 5 Organic Base Biggest Ever',
+  temp:'10–18°C', rain:'45–80 mm', season:'🌸 2028 Flowering!',
+  sznBg:'rgba(180,80,150,.18)', sznC:'#d860b0',
+  dot:'#d860b0',
+  tasks:[
+    {id:'t24a', label:'1 Feb — FYM 12-15kg + VC 5kg + NC 200g ring (Year 5 BIGGEST!)', sub:'Year 5 organic biggest yet — FYM 30-35kg annual target. NC 150g→200g Year 5.'},
+    {id:'t24b', label:'15 Feb — Bordeaux 1% spray + 2-YEAR SUCCESS CELEBRATE! 🎉', sub:'Mar 2026 → Feb 2028 COMPLETE! 2 saal ka safar — ab bumper crop time!'}
+  ],
+  ferts:[
+    {name:'FYM Year 5 (BIGGEST dose!)', chg:'⬆️ 10-12kg→12-15kg Year 5',
+     brand:'Gaushala / local livestock', price:'₹1-3/kg', qty:'12-15 kg (1st half of 30-35kg annual)',
+     bottle:'N/A — Ring mein solid. Year 5 = deepest + widest ring.',
+     method:'Trunk se 2.5ft door ring (deepest yet for mature tree). FYM+VC+NC mix karo.', when:'1 February', btl:false},
+    {name:'Vermicompost Year 5', chg:'⬆️ 4kg→5kg Year 5',
+     brand:'Biofit / local', price:'₹8-12/kg', qty:'5 kg',
+     bottle:'N/A — Ring mein FYM ke saath.', method:'FYM ke saath ring', when:'1 Feb', btl:false},
+    {name:'Neem Cake Year 5', chg:'⬆️ 150g→200g Year 5',
+     brand:'GAIL / Bharat Agri Neem Cake', price:'₹20-35/kg', qty:'200g',
+     bottle:'N/A — Ring mein.', method:'FYM+VC+NC ring mein mix', when:'1 Feb', btl:false},
+    {name:'Bordeaux 1% (Year 5 — 7L spray)', chg:'⬆️ 6L→7L Year 5 biggest canopy',
+     brand:'CuSO4 Mangala/GSFC + Bujha Chuna', price:'₹40-60/kg', qty:'7L spray (70g CuSO4 + 70g Chuna in 7L)',
+     bottle:'N/A — Fresh banao. Safety gear ZAROOR. Plastic containers.',
+     method:'Same 1% preparation. Bigger canopy = 7L needed.', when:'15 Feb subah', btl:false}
+  ],
+  npk:{n:0, p:0, k:0},
+  why:[
+    {icon:'🌳', label:'Year 5 FYM 30-35kg kyun', text:'Year 3: 12kg → Year 4: 20-24kg → Year 5: 30-35kg. <strong>Tree har saal badi hoti hai = proportionally zyada organic demand</strong>. FYM = soil microbiome ka food = roots ka long-term health.'},
+    {icon:'🎉', label:'2 Saal ka safar complete', text:'March 2026 se February 2028 = systematic care. Wild rootstock se 12-14 feet, pehla proper crop Year 4. <strong>Ye journey ek horticulturist ki journey hai</strong>.'},
+    {icon:'🌸', label:'Feb mein organic kyun (chemical nahi)', text:'FYM+VC 3-4 hafte mein release hota hai. February mein doge to <strong>March 2028 flowering ke liye nutrients ready</strong> hongey. Chemical March 16 se shuru hoga.'}
+  ],
+  profit:[
+    {icon:'💰', label:'Lifetime ROI calculation', text:'2 saal total input cost: ≈ ₹4,000-6,000 for 20 trees. Year 4 harvest: ₹13,000-20,000. <strong>Net profit Year 4 alone: ₹7,000-16,000</strong>. Year 5+ = ₹22,000+ annually. 20+ years ahead.'},
+    {icon:'🌳', label:'Asset value', text:'4-year old Malika mango tree on wild rootstock (productive + healthy) = ₹2,000-5,000 per tree market value. 20 trees = <strong>₹40,000-1,00,000 asset</strong> created in 2 years.'},
+    {icon:'🏆', label:'Compounding benefit', text:'Year 5: +10% yield. Year 6: +15%. Year 7-10: steady 20-25kg per tree. <strong>Compounding growth in productive orchard</strong> = exponential returns over 20 years.'}
+  ],
+  healthCheck:[
+    {icon:'🌸', title:'Flowering start Feb 15-28', ok:'First panicles emerging by Feb 20. Dense, green-yellow 20-30cm spikes. Multiple per branch.', bad:'No panicles by Feb 28 = delayed flowering. Check if Jan High-P bottle diya tha.'},
+    {icon:'🌿', title:'Tree overall health Year 5 entry', ok:'Trunk girth 7-9 inches. Canopy 8-10ft wide. Multiple scaffold branches. Clean bark.', bad:'Narrow canopy/single trunk = pruning needed for Year 5 (after flowering ends in May).'},
+    {icon:'🎯', title:'2-YEAR TRACKER SUCCESS CHECK', ok:'Height 12-14ft ✓, Year 4 crop harvested ✓, Disease management established ✓, Soil health improved ✓.', bad:'Any major miss = learn and adapt for Year 5-6. No failure — only data.'}
+  ],
+  bottle:{
+    warning:'2-YEAR TRACKER OFFICIALLY COMPLETE! February mein bottle chemical se nahi — March 16 se shuru hogi Year 5 ka. FYM+VC+NC ring mein. Bordeaux fresh banao. Safety gear pehno.',
+    steps:[
+      {n:'1', t:'Ring khodo — 2.5ft door, 8 inch deep (Year 5 biggest ring yet for mature tree).'},
+      {n:'2', t:'FYM 12-15kg + VC 5kg + NC 200g mix karke ring mein dalo. Mitti se dhako. Mulch upar.'},
+      {n:'3', t:'15 Feb Bordeaux 7L: CuSO4 70g in 3.5L + Chuna 70g in 3.5L. Mix (Chuna mein CuSO4). Nail test. Subah spray.'},
+      {n:'4', t:'CELEBRATE: 2 saal ki mehnat ka fal! Photos lo. Record complete karo.'},
+      {n:'5', t:'Year 5 plan: Same ICAR N217:P200:K167. FYM 30-35kg annual. Continue Zn, B, Seaweed. March 16 se High-P bottle.'}
+    ]
+  },
+  dos:['FYM 12-15kg ring mein — Year 5 biggest organic dose','2-Year complete review aur photos','2028 harvest plan finalize karo','Year 5 same ICAR bracket continue — March 16 se High-P bottle'],
+  donts:['Feb mein chemical nahi — March 16 se','Year 5 mein bhi 1-15 Mar zero chemical rule SAME'],
+  pests:[
+    {name:'Powdery Mildew (pre-season)', when:'Feb humidity rising', symptom:'Emerging buds pe safed dust',
+     treat:'Bordeaux 1% preventive spray', brand:'CuSO4 + Chuna 1%', mix:'70g each in 7L for Year 5', timing:'15 Feb spray'},
+    {name:'Mealybug (soil to trunk)', when:'Feb warm soil activation', symptom:'White cottony trunk junction',
+     treat:'Sticky grease band + Confidor trunk drench', brand:'Grease band + Confidor 200 SL', mix:'3ml Confidor/1L trunk drench', timing:'1 Feb sticky band lagao'}
+  ],
+  water:{l:'15-20L', f:'Har 5-6 din', t:'Subah 8-9am', note:'Flowering shuru ho rahi — consistent moisture.', btlNote:'Feb mein bottle chemical nahi — March 16 se Year 5 High-P bottle. 2-YEAR JOURNEY COMPLETE! 🥭🎉'}
+}
+
+]; // End MONTHS array
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+const TK='mg-ticks-v4', CK='mg-comments-v4', KK='mg-kaam-v4';
+let ticks={}, cmts={}, kaam={};
+
+function load(){
+  try{const s=localStorage.getItem(TK);if(s)ticks=JSON.parse(s)}catch(e){}
+  try{const s=localStorage.getItem(CK);if(s)cmts=JSON.parse(s)}catch(e){}
+  try{const s=localStorage.getItem(KK);if(s)kaam=JSON.parse(s)}catch(e){}
+}
+function saveTicks(){try{localStorage.setItem(TK,JSON.stringify(ticks))}catch(e){}}
+function saveCmts(){try{localStorage.setItem(CK,JSON.stringify(cmts))}catch(e){}}
+function saveKaam(){try{localStorage.setItem(KK,JSON.stringify(kaam))}catch(e){}}
+
+function getName(){return document.getElementById('uname').value.trim()}
+function fts(ts){
+  const d=new Date(ts);
+  return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})
+}
+function toast(msg,err=false){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className='toast show'+(err?' err':'');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.className='toast',3000)
+}
+function warnName(){
+  const el=document.getElementById('warnf');
+  el.className='warn-f show';
+  document.getElementById('uname').focus();
+  setTimeout(()=>el.className='warn-f',3500)
+}
+
+// ════════════════════════════════════════════
+// SIDEBAR RENDER
+// ════════════════════════════════════════════
+function renderSidebar(){
+  const cur=new Date(), curM=cur.getMonth()+1, curY=cur.getFullYear();
+  const y3=[],y4=[];
+  MONTHS.forEach(m=>{
+    const doneCount=m.tasks.filter(t=>ticks[t.id]).length;
+    const allDone=doneCount===m.tasks.length;
+    const isCur=(m.label.includes(String(curY))&&m.label.includes(cur.toLocaleString('en',{month:'long'})));
+    const item=`<div class="month-nav-item${isCur?' active':''}${allDone?' done-item':''}" onclick="showMonth('${m.id}',this)">
+      <div class="mni-dot" style="background:${m.dot}"></div>
+      <div class="mni-info">
+        <div class="mni-name">${m.sh} — ${m.title.substring(0,22)}…</div>
+        <div class="mni-sub">${m.temp} · ${m.rain}</div>
+      </div>
+      <div class="mni-chk">${allDone?'✓':doneCount>0?`${doneCount}/${m.tasks.length}`:''}</div>
+    </div>`;
+    if(m.yr===3)y3.push(item);else y4.push(item);
+  });
+  document.getElementById('nav-y3').innerHTML=y3.join('');
+  document.getElementById('nav-y4').innerHTML=y4.join('');
+}
+
+// ════════════════════════════════════════════
+// MONTH PAGE RENDER
+// ════════════════════════════════════════════
+let currentMonthId=null;
+
+function showMonth(id, navEl){
+  currentMonthId=id;
+  const m=MONTHS.find(x=>x.id===id);
+  if(!m)return;
+  // Update nav
+  document.querySelectorAll('.month-nav-item').forEach(el=>el.classList.remove('active'));
+  if(navEl)navEl.classList.add('active');
+  // Build page
+  renderMonthPage(m);
+  // Show on mobile: close sidebar
+  if(window.innerWidth<680){
+    document.getElementById('sidebar').classList.remove('open');
+  }
+}
+
+function renderMonthPage(m){
+  const container=document.getElementById('month-pages');
+  const doneCount=m.tasks.filter(t=>ticks[t.id]).length;
+  const totalT=m.tasks.length;
+  // task pills html
+  const taskPills=m.tasks.map(t=>{
+    const done=!!ticks[t.id];
+    return `<div class="task-pill${done?' done-pill':''}" onclick="toggleTask('${t.id}','${m.id}')">
+      <div class="tp-cb">${done?'<svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1.5 5L5 8.5L11.5 1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>':''}</div>
+      <div class="tp-info">
+        <div class="tp-label">${t.label}</div>
+        <div class="tp-sub">${t.sub}</div>
+        ${done?`<div class="tp-done-info">✓ ${ticks[t.id].by} — ${fts(ticks[t.id].ts)}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // NPK bar heights
+  const maxNPK=Math.max(m.npk.n,m.npk.p,m.npk.k,1);
+  const nh=Math.round((m.npk.n/maxNPK)*46)+4;
+  const ph=Math.round((m.npk.p/maxNPK)*46)+4;
+  const kh=Math.round((m.npk.k/maxNPK)*46)+4;
+
+  // Water bar (visual based on rain mm)
+  const rainNum=parseInt(m.rain.split('–')[1]||m.rain)||50;
+  const rainH=Math.min(Math.round(rainNum/4),60);
+  const waterH=Math.round(parseInt(m.water.l.split('–')[0]||'20')/40*60);
+
+  // Ferts HTML
+  const fertsHtml=m.ferts.map(f=>`
+    <div class="fert-row">
+      <div class="fr-top">
+        <div class="fr-name">${f.name}</div>
+        ${f.chg?`<div class="fr-chg ${f.chg.startsWith('⬆️')||f.chg.startsWith('Annual')||f.chg.toLowerCase().includes('complete')||f.chg.toLowerCase().includes('double')||f.chg.toLowerCase().includes('new')? (f.chg.toLowerCase().includes('new')?'chg-new':'chg-up') : 'chg-up'}">${f.chg}</div>`:''}
+      </div>
+      <div class="fr-grid">
+        <div class="fr-cell"><div class="frc-label">Indian Brand</div><div class="frc-val">${f.brand}</div></div>
+        <div class="fr-cell"><div class="frc-label">Market Price</div><div class="frc-val"><strong>${f.price}</strong></div></div>
+        <div class="fr-cell"><div class="frc-label">Qty / Tree</div><div class="frc-val"><strong>${f.qty}</strong></div></div>
+        <div class="fr-cell"><div class="frc-label">1L Bottle mein?</div><div class="frc-val">${f.bottle}</div></div>
+        <div class="fr-cell"><div class="frc-label">Method</div><div class="frc-val">${f.method}</div></div>
+        <div class="fr-cell"><div class="frc-label">Kab Dena</div><div class="frc-val"><strong>${f.when}</strong></div></div>
+      </div>
+      ${f.btl?'<div class="btl-badge">🍶 Bottle Drip Method</div>':''}
+    </div>`).join('');
+
+  // Reasons html
+  const whyHtml=m.why.map(r=>`
+    <div class="reason-row">
+      <div class="rr-icon">${r.icon}</div>
+      <div class="rr-body"><div class="rr-label">${r.label}</div><div class="rr-text">${r.text}</div></div>
+    </div>`).join('');
+
+  // Profit html
+  const profitHtml=m.profit.map(r=>`
+    <div class="reason-row">
+      <div class="rr-icon">${r.icon}</div>
+      <div class="rr-body"><div class="rr-label">${r.label}</div><div class="rr-text">${r.text}</div></div>
+    </div>`).join('');
+
+  // Health check html
+  const healthHtml=m.healthCheck.map(h=>`
+    <div class="check-item">
+      <div class="ci-icon">${h.icon}</div>
+      <div class="ci-body">
+        <div class="ci-title">${h.title}</div>
+        <div class="ci-ok">✅ Healthy: ${h.ok}</div>
+        <div class="ci-bad">⚠️ Problem: ${h.bad}</div>
+      </div>
+    </div>`).join('');
+
+  // Bottle steps
+  const bottleStepsHtml=m.bottle.steps.map(s=>`
+    <div class="btl-step">
+      <div class="bs-num">${s.n}</div>
+      <div class="bs-txt">${s.t}</div>
+    </div>`).join('');
+
+  // Do/Dont
+  const dosHtml=m.dos.map(d=>`<div class="dli"><span class="dli-dot-ok">✓</span>${d}</div>`).join('');
+  const dontsHtml=m.donts.map(d=>`<div class="dli"><span class="dli-dot-no">✗</span>${d}</div>`).join('');
+
+  // Pests
+  const pestsHtml=m.pests.map(p=>`
+    <div class="pest-item">
+      <div class="pi-top">
+        <div class="pi-name">🐛 ${p.name}</div>
+        <div class="pi-when">${p.when}</div>
+      </div>
+      <div class="pi-grid">
+        <div class="pi-cell"><div class="pi-cl">Symptom</div><div class="pi-cv">${p.symptom}</div></div>
+        <div class="pi-cell"><div class="pi-cl">Treatment</div><div class="pi-cv">${p.treat}<br><em>${p.brand}</em></div></div>
+        <div class="pi-cell"><div class="pi-cl">Mix / Dose</div><div class="pi-cv">${p.mix}</div></div>
+        <div class="pi-cell"><div class="pi-cl">Kab spray</div><div class="pi-cv">${p.timing}</div></div>
+      </div>
+    </div>`).join('');
+
+  // Comments
+  const monthCmts=(cmts[m.id]||[]);
+  const cmtsHtml=monthCmts.map((c,i)=>`
+    <div class="cmt-item">
+      <div class="ci-hdr">
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-time">${c.time}</div>
+        <button class="ci-del" onclick="deleteComment('${m.id}',${i})">🗑</button>
+      </div>
+      <div class="ci-msg">${c.msg.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
+
+  // Year banner
+  const yearBanner=m.yr===3
+    ?`<div style="background:rgba(39,114,63,.12);border:1px solid rgba(51,144,79,.2);border-radius:7px;padding:7px 12px;font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--g4);margin-bottom:12px">📊 Year 3 · ICAR Annual: Urea 109g · DAP 150g · MOP 125g · FYM 15–20kg per tree</div>`
+    :`<div style="background:rgba(168,112,20,.12);border:1px solid rgba(200,136,32,.2);border-radius:7px;padding:7px 12px;font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--mn3);margin-bottom:12px">📊 Year 4 ⬆️ ICAR Annual: Urea 217g · DAP 200g · MOP 167g · FYM 25–30kg per tree — BIG JUMP!</div>`;
+
+  container.innerHTML=`
+  <div class="month-page visible" id="pg-${m.id}">
+    ${yearBanner}
+
+    <!-- HEADER -->
+    <div class="mhdr">
+      <div class="mhdr-top">
+        <div class="mhdr-date">
+          <div class="mhdr-mon" style="color:${m.dot}">${m.sh.split('\'')[0]}</div>
+          <div class="mhdr-yr">${m.sh.split('\'')[1]?'20'+m.sh.split('\'')[1]:''}</div>
+          <div style="width:36px;height:3px;background:${m.dot};border-radius:2px;margin:6px auto"></div>
+        </div>
+        <div class="mhdr-info">
+          <div class="mhdr-title">${m.title}</div>
+          <div class="mhdr-szn" style="background:${m.sznBg};color:${m.sznC}">${m.season}</div>
+          <div class="mhdr-climate">
+            <div class="climate-pill">🌡️ ${m.temp}</div>
+            <div class="climate-pill">🌧️ ${m.rain}</div>
+            <div class="climate-pill">📍 Parwanoo</div>
+          </div>
+          <div style="margin-top:10px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--txt3);margin-bottom:8px;letter-spacing:1.5px;text-transform:uppercase">${doneCount}/${totalT} Tasks Done — Tick Karo ✓</div>
+            ${taskPills}
+          </div>
+        </div>
+
+        <!-- NPK visual -->
+        <div>
+          <div class="npk-vis">
+            <div class="npk-item">
+              <div class="npk-bar-wrap"><div class="npk-bar npk-n" style="height:${nh}px"></div></div>
+              <div class="npk-val">${m.npk.n}g</div><div class="npk-lbl">N·Urea</div>
+            </div>
+            <div class="npk-item">
+              <div class="npk-bar-wrap"><div class="npk-bar npk-p" style="height:${ph}px"></div></div>
+              <div class="npk-val">${m.npk.p}g</div><div class="npk-lbl">P·DAP</div>
+            </div>
+            <div class="npk-item">
+              <div class="npk-bar-wrap"><div class="npk-bar npk-k" style="height:${kh}px"></div></div>
+              <div class="npk-val">${m.npk.k}g</div><div class="npk-lbl">K·MOP</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:5px">
+            <div class="water-bars">
+              <div class="wb-item">
+                <div class="wb-bar-wrap"><div class="wb-bar" style="height:${rainH}px;background:linear-gradient(to top,#2060c8,#60a0f8)"></div></div>
+                <div class="wb-lbl">Rain</div>
+              </div>
+              <div class="wb-item">
+                <div class="wb-bar-wrap"><div class="wb-bar" style="height:${waterH}px;background:linear-gradient(to top,var(--cy),#80d8f8)"></div></div>
+                <div class="wb-lbl">Water</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FERTILIZER DETAILS -->
+    <div class="block" style="margin-bottom:12px">
+      <div class="block-title bt-green">🧪 Fertilizer — Indian Market Names · Quantity · 1L Bottle Method</div>
+      ${fertsHtml}
+    </div>
+
+    <!-- PERMANENT BOTTLE METHOD -->
+    <div class="perm-btl-box">
+      <div class="pbtl-title">🍶 Permanent Bottle Drip System — Har Mahine Sirf Refill Karo</div>
+      <div class="pbtl-diagram">
+        <div class="pbtl-visual">
+          <div class="pbtl-above">
+            <div class="pbtl-cap"></div>
+            <div class="pbtl-neck"></div>
+            <div class="pbtl-body">Solution<br>fill karo</div>
+          </div>
+          <div class="pbtl-soil-line"></div>
+          <div class="pbtl-below">Zameen<br>mein gadi</div>
+        </div>
+        <div class="pbtl-rules">
+          <div class="pbtl-rule"><div class="pbtl-ricon">📍</div><div><strong>PERMANENT INSTALL:</strong> Bottle ek baar gado — hamesha wahi rahegi. Trunk se 25–30cm door, 45° angle, 8–10cm neeche gadi. Nikalna NAHI.</div></div>
+          <div class="pbtl-rule"><div class="pbtl-ricon">🔄</div><div><strong>MONTHLY REFILL:</strong> Bottle khali ho jaaye to cap kholke monthly dose solution daalo. Alag se nikalna nahi.</div></div>
+          <div class="pbtl-rule"><div class="pbtl-ricon">🌧️</div><div><strong>MONSOON (June–Sep):</strong> Bottle permanent gadi rahegi — sirf DRY DAY pe refill karo. Baarish mein solution mat daalo (root zone already wet hai).</div></div>
+          <div class="pbtl-rule"><div class="pbtl-ricon">❄️</div><div><strong>SARDI (Nov–Feb):</strong> Bottle gadi rahe — sirf empty rakho ya plain paani. Chemical solution sardi mein nahi dena.</div></div>
+          <div class="pbtl-rule"><div class="pbtl-ricon">🧹</div><div><strong>CLEANING:</strong> Har 3 mahine: cap kholke sadi safai karo — holes check karo. Block ho gaye hon to pin se saaf karo.</div></div>
+          <div class="pbtl-rule"><div class="pbtl-ricon">⚠️</div><div><strong>Is Mahine:</strong> ${m.bottle.warning}</div></div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border-radius:7px;padding:10px 12px;margin-top:8px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--g4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px">Is Mahine Bottle Mein Kya Daalo:</div>
+        <div class="btl-steps">${bottleStepsHtml}</div>
+      </div>
+    </div>
+
+    <!-- WHY + PROFIT in 2-col -->
+    <div class="grid2">
+      <div class="block">
+        <div class="block-title bt-blue">🔬 Kyun Karna Hai — Scientific Reasons</div>
+        ${whyHtml}
+      </div>
+      <div class="block">
+        <div class="block-title bt-orange">💰 Kya Fayda Hoga — Profit & Benefits</div>
+        ${profitHtml}
+      </div>
+    </div>
+
+    <!-- HEALTH CHECK -->
+    <div class="block" style="margin-bottom:12px">
+      <div class="block-title bt-green">🩺 Health Check — Kaise Pata Chalega Sab Thik Hai</div>
+      ${healthHtml}
+    </div>
+
+    <!-- DO/DONT + PESTS in 2-col -->
+    <div class="grid2">
+      <div class="block">
+        <div class="block-title bt-purple">⚠️ Karna Hai vs Nahi Karna</div>
+        <div class="doblock">
+          <div class="dolist"><div class="dl-title">✅ KARNA HAI</div>${dosHtml}</div>
+          <div class="dontlist"><div class="dl-title">🚫 NAHI KARNA</div>${dontsHtml}</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title bt-red">🐛 Pest & Disease — Indian Treatment</div>
+        ${pestsHtml||'<div style="font-size:.72rem;color:var(--txt3);padding:8px 0">Is mahine koi major pest expected nahi. Monitor karte raho.</div>'}
+      </div>
+    </div>
+
+    <!-- WATERING -->
+    <div class="block" style="margin-bottom:12px;border-color:rgba(30,100,180,.3)">
+      <div class="block-title bt-blue">💧 Watering Schedule — Parwanoo ${m.label}</div>
+      <div class="grid3">
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);margin-bottom:3px">KITNA</div><div style="font-size:.84rem;font-weight:700;color:var(--txt)">${m.water.l}</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);margin-bottom:3px">KAB KAB</div><div style="font-size:.76rem;color:var(--txt2)">${m.water.f}</div></div>
+        <div><div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--txt3);margin-bottom:3px">KIS WAQT</div><div style="font-size:.76rem;color:var(--txt2)">${m.water.t}</div></div>
+      </div>
+      <div style="margin-top:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;font-size:.7rem;color:var(--txt3)">📌 ${m.water.note}</div>
+      <div style="margin-top:6px;padding:7px 10px;background:rgba(51,144,79,.1);border:1px solid rgba(51,144,79,.2);border-radius:6px;font-size:.7rem;color:var(--g4)">🍶 Bottle Note: ${m.water.btlNote}</div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="comments-wrap">
+      <div class="cmt-title"> Comments — ${m.label} ke Notes</div>
+      <div class="cmt-list" id="cmt-list-${m.id}">${cmtsHtml}</div>
+      <div class="cmt-input-row">
+        <textarea class="cmt-textarea" id="cmt-inp-${m.id}" placeholder="Apna observation, height measurement, koi problem, ya kuch bhi note karo…" rows="3"></textarea>
+        <button class="cmt-submit" onclick="addComment('${m.id}')">💬 Add</button>
+      </div>
+    </div>
+
+  </div>`;
+}
+
+// ════════════════════════════════════════════
+// ACTIONS
+// ════════════════════════════════════════════
+function toggleTask(taskId, monthId){
+  if(ticks[taskId]){
+    delete ticks[taskId];saveTicks();
+    toast('↩ Undo kiya',true);
+  } else {
+    const n=getName();
+    if(!n){warnName();return}
+    ticks[taskId]={by:n,ts:Date.now()};saveTicks();
+    toast(`✅ Done — ${n}`);
+  }
+  const m=MONTHS.find(x=>x.id===monthId);
+  if(m)renderMonthPage(m);
+  updateStats();renderSidebar();
+}
+
+function addComment(mid){
+  const n=getName();
+  if(!n){warnName();return}
+  const inp=document.getElementById(`cmt-inp-${mid}`);
+  const msg=inp.value.trim();
+  if(!msg){toast('Kuch likho comment mein',true);return}
+  if(!cmts[mid])cmts[mid]=[];
+  cmts[mid].push({name:n,msg,time:fts(Date.now())});
+  saveCmts();inp.value='';
+  const m=MONTHS.find(x=>x.id===mid);
+  if(m)renderMonthPage(m);
+  toast('💬 Comment add hua!');
+}
+
+function deleteComment(mid,idx){
+  if(!cmts[mid])return;
+  cmts[mid].splice(idx,1);
+  saveCmts();
+  const m=MONTHS.find(x=>x.id===mid);
+  if(m)renderMonthPage(m);
+  toast('🗑 Deleted',true);
+}
+
+function updateStats(){
+  const done=Object.keys(ticks).length;
+  const total=MONTHS.reduce((s,m)=>s+m.tasks.length,0);
+  const pct=Math.round(done/total*100);
+  document.getElementById('s-done').textContent=done;
+  document.getElementById('s-left').textContent=total-done;
+  document.getElementById('mpct').textContent=pct+'%';
+  document.getElementById('mring').style.strokeDashoffset=110-(pct/100)*110;
+  document.getElementById('prog-bar').style.width=pct+'%';
+}
+
+function sw(view){
+  const tv=document.getElementById('tracker-view');
+  const hv=document.getElementById('history-view');
+  const bt=document.getElementById('bT');
+  const bh=document.getElementById('bH');
+  if(view==='tracker'){
+    tv.style.display='';hv.classList.remove('visible');
+    bt.className='tbtn on';bh.className='tbtn';
+  } else {
+    tv.style.display='none';hv.classList.add('visible');
+    bt.className='tbtn';bh.className='tbtn on2';
+    renderHistory();
+  }
+}
+
+function renderHistory(){
+  const c=document.getElementById('hist-content');
+  const keys=Object.keys(ticks).sort((a,b)=>ticks[b].ts-ticks[a].ts);
+  if(!keys.length){c.innerHTML='<div class="hempty">📭 Koi task tick nahi hua abhi tak.</div>';return}
+  function findTask(id){
+    for(const m of MONTHS){const t=m.tasks.find(x=>x.id===id);if(t)return{m,t}}return null
+  }
+  c.innerHTML=`<table class="htbl"><thead><tr><th>#</th><th>Month</th><th>Task</th><th>Kisne</th><th>Kab</th></tr></thead><tbody>`+
+  keys.map((id,i)=>{
+    const f=findTask(id);if(!f)return'';
+    return `<tr><td>${i+1}</td>
+    <td style="color:${f.m.dot};font-family:'JetBrains Mono',monospace;white-space:nowrap">${f.m.sh}</td>
+    <td><div style="font-weight:600">${f.t.label}</div><div style="font-size:.64rem;color:var(--txt3)">${f.t.sub}</div></td>
+    <td style="color:var(--mn3);font-family:'JetBrains Mono',monospace;font-weight:600">${ticks[id].by}</td>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;white-space:nowrap;color:var(--txt3)">${fts(ticks[id].ts)}</td></tr>`
+  }).join('')+'</tbody></table>';
+}
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+function init(){
+  load();
+  renderSidebar();
+  updateStats();
+  // Find current month
+  const cur=new Date();
+  const curM=MONTHS.find(m=>{
+    const yr=parseInt('20'+m.sh.split("'")[1]||'2026');
+    const mo=m.label.split(' ')[0];
+    return yr===cur.getFullYear()&&mo===cur.toLocaleString('en',{month:'long'});
+  });
+  const first=curM||MONTHS[0];
+  // Show first nav item active
+  const navEl=document.querySelector('.month-nav-item');
+  showMonth(first.id,null);
+  // Mark active in sidebar
+  setTimeout(()=>{
+    const els=document.querySelectorAll('.month-nav-item');
+    els.forEach(el=>{
+      if(el.textContent.includes(first.sh.split("'")[0]))el.classList.add('active');
+    });
+  },100);
+}
+init();
+</script>
+</body>
+</html>
